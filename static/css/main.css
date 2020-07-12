@@ -1,0 +1,22 @@
+@media (min-width: 1500px) {
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1260px;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+textarea::-webkit-scrollbar {
+    display: none;//去滚动条
+}
+
+.container {
+    padding: unset;
+}
+

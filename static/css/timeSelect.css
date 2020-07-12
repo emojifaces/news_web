@@ -1,0 +1,65 @@
+#timeSelect{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #9a9ca4;
+    border-bottom: 1px solid #eac863;
+}
+#timeSelect .timeSelect-last,#timeSelect .timeSelect-next{
+    display: flex;
+    align-items: center;
+    width: 4.5rem;
+    flex: none;
+    height: 1.5rem;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1rem;
+    text-align: center;
+    background-color: #2e3a4b;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+#timeSelect .timeSelect-last{
+    justify-content: flex-start;
+}
+#timeSelect .timeSelect-next{
+    justify-content: flex-end;
+}
+#timeSelect .timeSelect-last svg{
+    margin:0 .2rem 0 .3rem;
+}
+#timeSelect .timeSelect-next svg{
+    margin:0 .3rem 0 .2rem;
+}
+#timeSelect .timeSelect-date-box{
+    width: 100%;
+    height: 3.5rem;
+    overflow: hidden;
+    margin: 0 .5rem;
+    float: left;
+}
+#timeSelect .timeSelect-date{
+    white-space: nowrap;
+    padding: 0;
+    height: 100%;
+
+}
+#timeSelect .timeSelect-date >li{
+    display: inline-block;
+    list-style-type: none;
+    outline: none;
+    padding:1rem 0;
+    margin: 0 1rem;
+    white-space: nowrap;
+    width: 5rem;
+    cursor: pointer;
+    position: relative;
+
+}
+#timeSelect .timeSelect-active{
+    color: #2e3b54;
+    font-weight: bold;
+    border-bottom: 4px solid #eac863;
+}

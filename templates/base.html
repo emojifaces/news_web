@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+        title
+    {% endblock %}</title>
+    {% block link %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="top-tips">
+    <div class="tips">
+        <p>风险提示：保证金交易存在极高的风险，未必适合所有的投资者，请不要轻信任何高额投资收益的诱导而贸然投资。在您决定投资保证金交易时，需要提醒您：投资导致的损失可能超过您投入的资金，因此，请您考虑自身的
+投资经验及风险承担能力理性投资。投资风险不仅来自于杠杆交易本身，同时也有可能来自于券商平台的不确定性，请您仔细甄別、远离风险。所有投资者的交易帐户应仅限本人使用，不应交由第三方操作，对于任何接受第
+三方喊单、操盘、理财等操作的投资和交易，由此导致的风险和专损由投资者个人自行承担。
+        </p>
+        <div class="accept">
+            <div style="float: left">Accept</div>
+            <div style="float: right">&radic;</div>
+        </div>
+    </div>
+</div>
+<div class="top-ad">
+    <div id="top" class="row">
+        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
+        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
+        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
+        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
+    </div>
+</div>
+<div style="width: 100%;background-color: #213b54;" id="title">
+    <div class="container">
+
+        <div id="nav">
+            <nav class="navbar navbar-expand-lg ">
+                <a class="navbar-brand" href="/">
+                    <img src="/static/images/logo1.png" alt="LOGO">
+                </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav navibar-top mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link " href="/">7*24</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/calendar/">Calendar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog/">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/group/">Group</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about-us/">About us</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text">
+                        <button class="btn  my-2 my-sm-0" type="submit"><img src="/static/images/search.png" alt=""></button>
+                    </form>
+                </div>
+                <div class="user-data">
+                    <div class="user-header" id="user-header" {% if request.user.is_authenticated %}
+                    onclick="toUser()"{% else %}
+                         onclick = 'showModal()'
+                    {% endif %} >
+
+                    {% if request.user.is_authenticated %}
+                        <img src="/media/head/{{ request.session.user_img }}" alt="" width="40" height="40">
+                    {% else %}
+                        <img src="/static/images/head.png" alt="" width="40" height="40">
+                    {% endif %}
+                    </div>
+                    <div class="user-name" id="user-name" >
+                        <span>{% if request.user.is_authenticated %}
+                                {{ request.session.user_name }}
+                                {% else %}
+                                    Leon
+                                {% endif %}
+                        </span>
+                    </div>
+                    <div class="user-message cursor-pointer" id="user-message">
+                        <img src="/static/images/message.png" alt="">
+                    </div>
+                <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{% block body %}
+
+{% endblock %}
+
+<div style="width: 100%;background-color: #213b54;">
+    <div id="footer" class="container">
+        <div class="footer-left">
+            <img src="/static/images/logo2.png" alt="">
+        </div>
+        <div class="footer-right">
+            <div class="whatsApp">
+                <img src="/static/images/whatsapp.png" alt="">
+            </div>
+            <div class="facebook">
+                <img src="/static/images/facebook.png" alt="">
+            </div>
+            <div class="tiwtter">
+                <img src="/static/images/tiwtter.png" alt="">
+            </div>
+            <div class="zalo">
+                <img src="/static/images/zalo.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="footer-ad" class="container">
+        <div class="footer-ad-left">
+            <img src="/static/ad/pic1.png" alt="">
+            <img src="/static/ad/pic2.png" alt="">
+            <img src="/static/ad/pic3.png" alt="">
+            <img src="/static/ad/pic4.png" alt="">
+            <img src="/static/ad/pic5.png" alt="">
+            <img src="/static/ad/pic6.png" alt="">
+            <img src="/static/ad/pic7.png" alt="">
+            <img src="/static/ad/pic8.png" alt="">
+            <img src="/static/ad/pic7.png" alt="">
+            <img src="/static/ad/pic8.png" alt="">
+        </div>
+        <div class="footer-ad-right">
+            <h1>Title</h1>
+            <span>Word</span>
+        </div>
+    </div>
+
+    <div class="footer-ad-bottom container">
+        <div>
+            <h1>Title</h1>
+            <span>Word</span>
+        </div>
+        <div>
+            <h1>Title</h1>
+            <span>Word</span>
+        </div>
+    </div>
+</div>
+<div id="fixed-left">
+    <div>
+        <img src="/static/ad/ad_left.jpg" alt="">
+    </div>
+    <div><img src="/static/ad/ad_left.jpg" alt=""></div>
+    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>
+</div>
+<div id="fixed-right">
+    <div>
+        <img src="/static/ad/ad_right.jpg" alt="">
+    </div>
+    <div><img src="/static/ad/ad_right.jpg" alt=""></div>
+    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>
+</div>
+
+{#  弹窗登录  #}
+<div class="modal fade" id="myModal">
+{#        登录   #}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-light">login</button>
+                <button type="button" class="btn btn-light">register</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'login' %}" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <div style="display: none">
+                        <input type="text" name="current_url" value="{{ request.path }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary" >Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{#        注册    #}
+    <div>
+
+    </div>
+</div>
+
+{% block script %}
+
+{% endblock %}
+
+<script>
+
+</script>
+</body>
