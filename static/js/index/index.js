@@ -65,7 +65,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
                     let dynamic_info = $('<div class="dynamic-info"></div>')
                     parentDiv.append(dynamic_info)
                     let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="">\n' +
                         '        </div>')
                     dynamic_info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -81,16 +81,19 @@ $(document).on('click','#moreFastInfoBtn',function () {
                         '                    </div>\n' +
                         '                </div>\n' +
                         '            </div>')
-                    let content_data = $('<div class="content-data">\n' +
-                        '                <div class="content-text color-comment">\n' +
+                    let content_data = $('<div class="content-data"></div>')
+                    let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
-                        '                </div>\n' +
-                        '            </div>')
+                        '                </div>')
+                    if (data.bgcolor){
+                        content_text.addClass('bg-color')
+                    }
+                    content_data.append(content_text)
                     if (data.img) {
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -182,7 +185,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
                         for (let fbc of data.commentData.first_comment) {
                             let fbc_box = $('<div class="dynamic-comment-group" data="' + fbc.id + '">')
                             let fbc_header = $('<div class="user-header">\n' +
-                                '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                                '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                                 '               </div>')
                             let fbc_commentDate = $('<div class="comment-data color-comment">\n' +
                                 '                        <div class="comment-text">\n' +
@@ -198,7 +201,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
                                 for (let sbc of fbc.secondComment) {
                                     let sbc_box = $('<div class="dynamic-comment-group" data="'+sbc.id+'">\n' +
                                         '                        <div class="user-header">\n' +
-                                        '                            <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                        '                            <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                         '                        </div>\n' +
                                         '                        <div class="comment-data color-comment">\n' +
                                         '                            <div class="comment-text">\n' +
@@ -336,7 +339,7 @@ function getCalendarList() {
     })
 }
 
-// 加载blog模块数据
+// 加载blog模块数据’
 function getBlogList() {
     $.ajax({
         url: '/indexgrouplist/',
@@ -351,10 +354,10 @@ function getBlogList() {
                 let dom = $('.right-user-dynamic-scroll-box')
                 for (let data of groupList) {
                     let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '">')
-                    let info = $('<div class="dynamic-info"></div>')
+                    let info = $('<div class="dynamic-info" uid="'+data.userId+'"></div>')
                     parentDiv.append(info)
                     let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="">\n' +
                         '        </div>')
                     info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -382,16 +385,20 @@ function getBlogList() {
                         content_header.append(content_account_status)
                     }
 
-                    let content_data = $('<div class="content-data">\n' +
-                        '                <div class="content-text color-comment">\n' +
+                    let content_data = $('<div class="content-data"></div>')
+                    let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
-                        '                </div>\n' +
-                        '            </div>')
+                        '                </div>')
+                    if (data.bgcolor){
+                        content_text.addClass('bg-color')
+                        content_text.css('background-color',data.bgcolor)
+                    }
+                    content_data.append(content_text)
                     if (data.img) {
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -510,10 +517,10 @@ $(document).on('click','#indexMoreGroup',function () {
                 moreBtn.remove()
                 for (let data of groupList) {
                     let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '">')
-                    let info = $('<div class="dynamic-info"></div>')
+                    let info = $('<div class="dynamic-info" uid="'+data.userId+'"></div>')
                     parentDiv.append(info)
                     let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="">\n' +
                         '        </div>')
                     info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -540,16 +547,20 @@ $(document).on('click','#indexMoreGroup',function () {
                         '</div>\n')
                         content_header.append(content_account_status)
                     }
-                    let content_data = $('<div class="content-data">\n' +
-                        '                <div class="content-text color-comment">\n' +
+                    let content_data = $('<div class="content-data"></div>')
+                    let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
-                        '                </div>\n' +
-                        '            </div>')
+                        '                </div>')
+                    if (data.bgcolor){
+                        content_text.addClass('bg-color')
+                        content_text.css('background-color',data.bgcolor)
+                    }
+                    content_data.append(content_text)
                     if (data.img) {
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -662,9 +673,9 @@ $(document).on('click','#all-comments',function () {
             }else{
                 let parentDiv = $('<div class="dynamic-comment-box"></div>')
                 for (let fbc of res.data){
-                    let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '"></div>')
+                    let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="'+fbc.userId+'"></div>')
                     let fbc_header = $('<div class="user-header">\n' +
-                        '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                         '               </div>')
                     let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                     let fbc_comment_text = $('<div class="comment-text">\n' +
@@ -689,9 +700,9 @@ $(document).on('click','#all-comments',function () {
                     fbc_box.append(fbc_header, fbc_commentDate)
                     if (fbc.sbc) {
                         for (let sbc of fbc.sbc.sbc_list) {
-                            let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'">\n' +
+                            let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'" uid="'+sbc.userId+'">\n' +
                                     '                  <div class="user-header">\n' +
-                                    '                       <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                     '                  </div>\n' +
                                     '            </div>')
                             let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -750,9 +761,9 @@ $(document).on('click','div[class="dynamic-comment-footer"]',function () {
             console.log('加载更多一级评论',result)
             if (result.success){
                 for (let fbc of result.data) {
-                    let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '"></div>')
+                    let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="'+fbc.userId+'"></div>')
                     let fbc_header = $('<div class="user-header">\n' +
-                        '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                         '               </div>')
                     let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                     let fbc_comment_text = $('<div class="comment-text">\n' +
@@ -777,9 +788,9 @@ $(document).on('click','div[class="dynamic-comment-footer"]',function () {
                     fbc_box.append(fbc_header, fbc_commentDate)
                     if (fbc.sbc) {
                             for (let sbc of fbc.sbc.sbc_list) {
-                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'">\n' +
+                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'" uid="'+sbc.userId+'">\n' +
                                     '                  <div class="user-header">\n' +
-                                    '                       <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                     '                  </div>\n' +
                                     '            </div>')
                                 let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -842,9 +853,9 @@ $(document).on('click','.more-sbc',function () {
                 layer.msg('<div style="color: black;text-align: center;">' +res.msg+ '</div>')
             }else{
                 for (let sbc of res.data){
-                    let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'">\n' +
+                    let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'" uid="'+sbc.userId+'">\n' +
                                     '     <div class="user-header">\n' +
-                                    '         <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '         <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                     '     </div>\n' +
                                     '</div>')
                     let sbc_comment_data = $('<div class="comment-data color-comment"></div>')

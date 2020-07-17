@@ -47,7 +47,7 @@ class BaseUser(AbstractModel):
     img = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'头像')
     birthday = models.DateTimeField(null=True, blank=True, verbose_name='生日')
     slogan = models.CharField(max_length=255, null=True, blank=True, verbose_name='个人签名')
-
+    facebook = models.CharField(max_length=255, null=True, blank=True, verbose_name='Facebook账号')
     auth_user = models.OneToOneField(settings.AUTH_USER_MODEL, models.CASCADE, verbose_name=u'登录用户', blank=True, null=True)
 
     class Meta:

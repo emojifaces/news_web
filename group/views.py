@@ -37,7 +37,8 @@ class GroupView(View):
                 'comment_num': comment_num,
                 'fbc_list': fbc_list,
                 'comment_list': comment_list,
-                'fbc_num': fbc_num
+                'fbc_num': fbc_num,
+                'bgcolor': blog.bgcolor
             }
             if request.user.is_authenticated:
                 baseuser = BaseUser.objects.get(auth_user=request.user)     # 已登录的用户

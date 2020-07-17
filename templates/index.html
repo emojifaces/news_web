@@ -240,7 +240,7 @@ index
                     let dynamic_info = $('<div class="dynamic-info"></div>')
                     parentDiv.append(dynamic_info)
                     let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="">\n' +
                         '        </div>')
                     dynamic_info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -265,7 +265,7 @@ index
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -357,7 +357,7 @@ index
                         for (let fbc of data.commentData.first_comment) {
                             let fbc_box = $('<div class="dynamic-comment-group" data="' + fbc.id + '">')
                             let fbc_header = $('<div class="user-header">\n' +
-                                '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                                '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                                 '               </div>')
                             let fbc_commentDate = $('<div class="comment-data color-comment">\n' +
                                 '                        <div class="comment-text">\n' +
@@ -373,7 +373,7 @@ index
                                 for (let sbc of fbc.secondComment) {
                                     let sbc_box = $('<div class="dynamic-comment-group" data="'+sbc.id+'">\n' +
                                         '                        <div class="user-header">\n' +
-                                        '                            <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                        '                            <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                         '                        </div>\n' +
                                         '                        <div class="comment-data color-comment">\n' +
                                         '                            <div class="comment-text">\n' +

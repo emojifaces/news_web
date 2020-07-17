@@ -282,6 +282,7 @@ class IndexGroupList(APIView):
 
             data = {
                 'id': blog.id,
+                'userId':blog.user_id_id,
                 'type': blog.type,
                 'user_id':blog.user_id.id,
                 'user_name':blog.user_id.name,
@@ -298,7 +299,8 @@ class IndexGroupList(APIView):
                 'votetitle':blog.vote_title,
                 'isallvote':blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
                 'votedata':voteData,
-                'ismine': True if blog.user_id.id == user_id else False
+                'ismine': True if blog.user_id.id == user_id else False,
+                'bgcolor': blog.bgcolor
             }
             group_list.append(data)
         return Response({'success':True,'data':group_list})

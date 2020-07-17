@@ -49,7 +49,7 @@ group
 {#        <div class="user-dynamic-box" data="{{ item.blog.id }}">#}
 {#            <div class="dynamic-info">#}
 {#                <div class="user-header">#}
-{#                    <img src="/media/head/{{ item.img }}" width="40" height="40" alt="">#}
+{#                    <img src="/media/{{ item.img }}" width="40" height="40" alt="">#}
 {#                </div>#}
 {#                <div class="dynamic-content">#}
 {#                    <div class="content-header">#}
@@ -78,7 +78,7 @@ group
 {#                        {% if item.blog_imgs %}#}
 {#                            <div class="content-img">#}
 {#                                {% for img in item.blog_imgs %}#}
-{#                                    <img src="/media/images/{{ img }}" class="alert-img" alt="" style="width: 25%">#}
+{#                                    <img src="/media/{{ img }}" class="alert-img" alt="" style="width: 25%">#}
 {#                                {% endfor %}#}
 {##}
 {##}
@@ -151,7 +151,7 @@ group
 {#            <div class="VN-input-group-1">#}
 {#                <div class="VN-input-group-1-user">#}
 {#                    <div class="user-header">#}
-{#                        <img src="/media/head/{{ request.session.user_img }}" width="30" height="30" alt="">#}
+{#                        <img src="/media/{{ request.session.user_img }}" width="30" height="30" alt="">#}
 {#                    </div>#}
 {#                </div>#}
 {#                <div class="VN-input-item">#}
@@ -166,7 +166,7 @@ group
 {#                {% for comment in item.comment_list %}#}
 {#                    <div class="dynamic-comment-group" data="{{ comment.fbc.id }}">#}
 {#                    <div class="user-header">#}
-{#                        <img src="/media/head/{{ comment.fbc.user_id.img }}" width="40" height="40" alt="">#}
+{#                        <img src="/media/{{ comment.fbc.user_id.img }}" width="40" height="40" alt="">#}
 {#                    </div>#}
 {#                    <div class="comment-data color-comment">#}
 {#                        <div class="comment-text">#}
@@ -180,7 +180,7 @@ group
 {#                        {% for sbc in comment.sbc_list %}#}
 {#                        <div class="dynamic-comment-group" data="{{ sbc.id }}">#}
 {#                        <div class="user-header">#}
-{#                            <img src="/media/head/{{ sbc.user_id.img }}" width="30" height="30" alt="">#}
+{#                            <img src="/media/{{ sbc.user_id.img }}" width="30" height="30" alt="">#}
 {#                        </div>#}
 {#                        <div class="comment-data color-comment">#}
 {#                            <div class="comment-text">#}

@@ -42,6 +42,7 @@ $(document).on('click', '.reply', function () {
     if ($(this).parents('.comment-op').parent().find('.VN-input-group-1').length) {
         $(this).parents('.comment-op').parent().find('.VN-input-group-1').remove()
     } else {
+        console.log($(this).parents('.comment-op'))
         let img_url = $('div[id="user-header"]>img').attr("src");
         $(this).parents('.comment-op').after('<div class="VN-input-group-1">\n' +
             '                            <div class="VN-input-group-1-user">\n' +
@@ -488,6 +489,8 @@ $('#submitblog').on('click', function () {
                 }else{
                     location.href = '/group/'
                 }
+            }else{
+                layer.msg('<div style="color: black;text-align: center;">' + e.msg +'</div>');
             }
         }
     })
@@ -515,9 +518,9 @@ $(document).on('click','#discuss', function () {
         success: function (e) {
             if (e.success == true) {
 
-                let html = '<div class="dynamic-comment-group fbc-box" data="' + e.commentId + '">\n' +
+                let html = '<div class="dynamic-comment-group fbc-box" data="' + e.commentId + '" uid="'+e.userId+'">\n' +
                     '                    <div class="user-header">\n' +
-                    '                        <img src="/media/head/' + e.userImg + '" width="40" height="40" alt="">\n' +
+                    '                        <img src="/media/' + e.userImg + '" width="40" height="40" alt="">\n' +
                     '                    </div>\n' +
                     '                    <div class="comment-data color-comment">\n' +
                     '                        <div class="comment-text">\n' +
@@ -589,7 +592,7 @@ $(document).on('click', '#reply', function () {
             let user_name = $('div[id="user-name"]>span').text();       // 用户名称
             let reply_name = btn.parent('.VN-input-group-1').siblings('.comment-text').children('.content-user-name').text()     // 回复用户名称
             if (result.success) {
-                let html = '<div class="dynamic-comment-group sbc-box" data="'+result.id+'">\n' +
+                let html = '<div class="dynamic-comment-group sbc-box" data="'+result.id+'" uid="'+result.userId+'">\n' +
                     '           <div class="user-header">\n' +
                     '               <img src="' + img_url + '" width="30" height="30" alt="">\n' +
                     '           </div>\n' +
@@ -597,6 +600,9 @@ $(document).on('click', '#reply', function () {
                     '                <div class="comment-text">\n' +
                     '                     <span class="content-user-name">' + user_name + '</span>\n' +
                     '                     <span>to ' + reply_name + ':&nbsp;</span>\n' +
+                    '                     <div class="delete-comment" id="delete-sbc">\n' +
+                    '                           <span>Delete</span>\n'+
+                    '                     </div>\n'+
                     '                     <div>' + result.comment + '</div>\n' +
                     '                </div>\n' +
                     '                <div class="comment-op">\n' +
@@ -651,11 +657,11 @@ function initGroup() {
                 let groupList = res.data;    //  动态列表
                 let dom = $('#main-left')
                 for (let data of groupList) {
-                    let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '">')
-                    let info = $('<div class="dynamic-info"></div>')
+                    let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '" >')
+                    let info = $('<div class="dynamic-info" uid="'+data.userId+'"></div>')
                     parentDiv.append(info)
-                    let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                    let header = $('<div class="user-header" >\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="" >\n' +
                         '        </div>')
                     info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -683,16 +689,20 @@ function initGroup() {
                         content_header.append(content_account_status)
                     }
 
-                    let content_data = $('<div class="content-data">\n' +
-                        '                <div class="content-text color-comment">\n' +
+                    let content_data = $('<div class="content-data"></div>')
+                    let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
-                        '                </div>\n' +
-                        '            </div>')
+                        '                </div>')
+                    if (data.bgcolor){
+                        content_text.addClass('bg-color')
+                        content_text.css('background-color',data.bgcolor)
+                    }
+                    content_data.append(content_text)
                     if (data.img) {
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -783,9 +793,9 @@ function initGroup() {
                     let comment_box = $('<div class="dynamic-comment-box"></div>')
                     parentDiv.append(comment_box)
                     for (let fbc of data.commentData.first_comment){
-                        let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '"></div>')
+                        let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="'+fbc.userId+'"></div>')
                         let fbc_header = $('<div class="user-header">\n' +
-                            '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                            '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                             '               </div>')
                         let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                         let fbc_comment_text = $('<div class="comment-text">\n' +
@@ -810,9 +820,9 @@ function initGroup() {
                         fbc_box.append(fbc_header, fbc_commentDate)
                         if (fbc.secondComment.sbc_list) {
                             for (let sbc of fbc.secondComment.sbc_list) {
-                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'">\n' +
+                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'" uid="'+sbc.userId+'">\n' +
                                     '                  <div class="user-header">\n' +
-                                    '                       <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                     '                  </div>\n' +
                                     '            </div>')
                                 let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -878,11 +888,11 @@ $(document).on('click','#groupMoreGroup',function () {
                 let groupList = res.data;    //  动态列表
                 let dom = $('#main-left')
                 for (let data of groupList) {
-                    let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '">')
-                    let info = $('<div class="dynamic-info"></div>')
+                    let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '" >')
+                    let info = $('<div class="dynamic-info" uid="'+data.userId+'"></div>')
                     parentDiv.append(info)
                     let header = $('<div class="user-header">\n' +
-                        '            <img src="/media/head/' + data.header + '" width="40" height="40" alt="">\n' +
+                        '            <img src="/media/' + data.header + '" width="40" height="40" alt="">\n' +
                         '        </div>')
                     info.append(header)
                     let content = $('<div class="dynamic-content"></div>')
@@ -910,16 +920,20 @@ $(document).on('click','#groupMoreGroup',function () {
                         content_header.append(content_account_status)
                     }
 
-                    let content_data = $('<div class="content-data">\n' +
-                        '                <div class="content-text color-comment">\n' +
+                    let content_data = $('<div class="content-data"></div>')
+                    let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
-                        '                </div>\n' +
-                        '            </div>')
+                        '                </div>')
+                    if (data.bgcolor){
+                        content_text.addClass('bg-color')
+                        content_text.css('background-color',data.bgcolor)
+                    }
+                    content_data.append(content_text)
                     if (data.img) {
                         // blog有图片
                         let content_img = $('<div class="content-img"></div>')
                         for (let img of data.img) {
-                            let image = $('<img src="/media/images/' + img + '" class="alert-img" alt="">')
+                            let image = $('<img src="/media/' + img + '" class="alert-img" alt="">')
                             content_img.append(image)
                         }
                         content_data.append(content_img)
@@ -1010,9 +1024,9 @@ $(document).on('click','#groupMoreGroup',function () {
                     let comment_box = $('<div class="dynamic-comment-box"></div>')
                     parentDiv.append(comment_box)
                     for (let fbc of data.commentData.first_comment){
-                        let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '"></div>')
+                        let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="'+fbc.userId+'"></div>')
                         let fbc_header = $('<div class="user-header">\n' +
-                            '                  <img src="/media/head/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                            '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                             '               </div>')
                         let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                         let fbc_comment_text = $('<div class="comment-text">\n' +
@@ -1037,9 +1051,9 @@ $(document).on('click','#groupMoreGroup',function () {
                         fbc_box.append(fbc_header, fbc_commentDate)
                         if (fbc.secondComment.sbc_list) {
                             for (let sbc of fbc.secondComment.sbc_list) {
-                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'">\n' +
+                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="'+sbc.id+'" uid="'+sbc.userId+'">\n' +
                                     '                  <div class="user-header">\n' +
-                                    '                       <img src="/media/head/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                     '                  </div>\n' +
                                     '            </div>')
                                 let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -1189,3 +1203,44 @@ $(document).on('click','#delete-sbc',function () {
         }
     })
 })
+
+// 点击头像 跳转到用户详情页面
+$(document).on('click','.user-header',function () {
+    let _this = $(this)
+    let parentNode = _this.parent('div')
+    let uid = null
+    console.log(parentNode.attr('class'))
+    if (parentNode.hasClass('dynamic-info')){
+        console.log('跳转到博主页面')
+        uid = parentNode.attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }else if (parentNode.hasClass('fbc-box')){
+        console.log('跳转到1级评论页面')
+        uid = parentNode.attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }else if(parentNode.hasClass('sbc-box')){
+        console.log('跳转到2级评论页面')
+        uid = parentNode.attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }
+})
+
+// 点击用户名 跳转到用户详情页面
+$(document).on('click','.content-user-name',function () {
+    let _this = $(this)
+    let parentNode = _this.parent('div').parent('div').parent('div')
+    if (parentNode.hasClass('dynamic-content')){
+        console.log('跳转到博主页面')
+        uid = parentNode.parent('div').attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }else if (parentNode.hasClass('fbc-box')){
+        console.log('跳转到1级评论页面')
+        uid = parentNode.attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }else if(parentNode.hasClass('sbc-box')){
+        console.log('跳转到2级评论页面')
+        uid = parentNode.attr('uid')
+        location.href = '/user/userdetail/'+uid
+    }
+})
+

@@ -30,6 +30,7 @@ class Blogs(AbstractModel):
     goodfingers = models.IntegerField(null=True, blank=True, verbose_name='点赞数', default=0)
     is_pub = models.BooleanField(default=True, verbose_name='是否发布')
     state = models.PositiveIntegerField(choices=STATE_CHOICE, verbose_name=u'状态', default=0)
+    bgcolor = models.CharField(max_length=25, null=True, blank=True, verbose_name='背景颜色')
 
     class Meta:
         db_table = u'k_blogs'

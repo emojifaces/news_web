@@ -1,4 +1,5 @@
 import os
+import random
 
 import emoji
 from django.conf import settings
@@ -11,6 +12,15 @@ from user.models import *
 from group.models import *
 
 
+colors = ['#fcffac', '#d1f0b0', '#fdab75', '#fcc69b', '#ffabb6', '#81d4df']
+def getstrlen(string):
+    if string:
+        length = len(string)
+        utf8_length = len(string.encode('utf-8'))
+        length = (utf8_length - length) / 2 + length
+    else:
+        length = 0
+    return int(length)
 
 class UnsafeSessionAuthentication(SessionAuthentication):
     def authenticate(self, request):
@@ -121,6 +131,7 @@ class AddFirstComment(APIView):
 
             data = {
                 "success": True,
+                'userId':baseuser.id,
                 "commentId": fbc.id,
                 "createDate": fbc.create_date,
                 "userName": baseuser.name,
@@ -147,6 +158,7 @@ class AddSecondComment(APIView):
             sbc = SecondBlogComment.objects.create(blog_id_id=blog_id, first_comment_id=first_id,user_id_id=baseuser.id,content=content,reply_id_id=reply_id)
             data = {
                 'success':True,
+                'userId': baseuser.id,
                 'comment':emoji.emojize(content),
                 'create_date':sbc.create_date,
                 'id':sbc.id
@@ -164,7 +176,7 @@ class Publish(APIView):
         files = request.FILES.getlist('img', None)
         content = emoji.demojize(content)
         if not request.user.is_authenticated:
-            return Response({"success":False,"err":"未登录"})
+            return Response({"success":False,"msg":"未登录"})
         else:
             baseuser = BaseUser.objects.get(auth_user=request.user)
 
@@ -181,13 +193,17 @@ class Publish(APIView):
                 blog_id = blog.id
                 if files:
                     for img in files:
-                        path = os.path.join(settings.MEDIA_ROOT, f'images\\{img.name}')
+                        path = os.path.join(settings.MEDIA_ROOT, f'{img.name}')
                         print(path)
                         destination = open(path, 'wb')
                         for chunk in img.chunks():
                             destination.write(chunk)
                         destination.close()
                         BlogImages.objects.create(blog_id_id=blog_id, img=img)
+
+            if getstrlen(content) < 120:
+                blog.bgcolor = random.choice(colors)
+                blog.save()
 
             return Response({"success":True})
 
@@ -281,6 +297,7 @@ class GroupList(APIView):
 
             data = {
                 'id': blog.id,
+                'userId':blog.user_id_id,
                 'type': blog.type,
                 'user_id':blog.user_id.id,
                 'user_name':blog.user_id.name,
@@ -299,7 +316,8 @@ class GroupList(APIView):
                 'isallvote':blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
                 'votedata':voteData,
                 'ismine': True if blog.user_id.id == user_id else False,
-                'fbc_num': blog.first_blogComment_blog.filter(is_pub=True).count()
+                'fbc_num': blog.first_blogComment_blog.filter(is_pub=True).count(),
+                'bgcolor':blog.bgcolor
             }
             group_list.append(data)
         return Response({'success':True,'data':group_list})
