@@ -26,6 +26,20 @@ blog
 
             </div>
             {% for blog in data %}
+
+            {% if blog.ads %}
+            <div class="blog-box color-comment">
+                <div class="ad-container">
+                    {% for ad in blog.ads %}
+                    <div class="ad-div">
+                        <img src="/media/{{ ad.img }}" data-url="{{ ad.url }}" id="ad-img" >
+                        <div class="mask">Show Me More</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             <div class="blog-box color-comment" data="{{ blog.id }}">
                 <div class="footer-date">{{ blog.pub_date }}</div>
                 {% if blog.title %}
@@ -61,37 +75,37 @@ blog
             </div>
             {% endfor %}
 
-            <div class="blog-box color-comment">
-                <div class="ad-1">
-                        <div>
-                            <img src="/static/ad/ad1.jpg" alt="">
-                        </div>
-                    </div>
-            </div>
-
-            <div class="blog-box color-comment">
-                <div class="ad-2">
-                        <div><img src="/static/ad/ad2.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad2.jpg" alt=""></div>
-                    </div>
-            </div>
-
-            <div class="blog-box color-comment">
-                <div class="ad-3">
-                        <div><img src="/static/ad/ad3.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad3.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad3.jpg" alt=""></div>
-                    </div>
-            </div>
-
-            <div class="blog-box color-comment">
-                <div class="ad-4">
-                        <div><img src="/static/ad/ad4.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad4.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad4.jpg" alt=""></div>
-                        <div><img src="/static/ad/ad4.jpg" alt=""></div>
-                    </div>
-            </div>
+{#            <div class="blog-box color-comment">#}
+{#                <div class="ad-1">#}
+{#                        <div>#}
+{#                            <img src="/static/ad/ad1.jpg" alt="">#}
+{#                        </div>#}
+{#                    </div>#}
+{#            </div>#}
+{##}
+{#            <div class="blog-box color-comment">#}
+{#                <div class="ad-2">#}
+{#                        <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
+{#                    </div>#}
+{#            </div>#}
+{##}
+{#            <div class="blog-box color-comment">#}
+{#                <div class="ad-3">#}
+{#                        <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#                    </div>#}
+{#            </div>#}
+{##}
+{#            <div class="blog-box color-comment">#}
+{#                <div class="ad-4">#}
+{#                        <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#                        <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#                    </div>#}
+{#            </div>#}
 
 
 

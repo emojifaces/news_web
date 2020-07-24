@@ -23,10 +23,14 @@
 </div>
 <div class="top-ad">
     <div id="top" class="row">
-        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
-        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
-        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
-        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
     </div>
 </div>
 <div style="width: 100%;background-color: #213b54;" id="title">
@@ -146,24 +150,63 @@
     </div>
 </div>
 <div id="fixed-left">
-    <div>
-        <img src="/static/ad/ad_left.jpg" alt="">
-    </div>
-    <div><img src="/static/ad/ad_left.jpg" alt=""></div>
-    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>
+{#    <div>#}
+{#        <img src="/static/ad/ad_left.jpg" alt="">#}
+{#    </div>#}
+{#    <div><img src="/static/ad/ad_left.jpg" alt=""></div>#}
+{#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
 </div>
 <div id="fixed-right">
-    <div>
-        <img src="/static/ad/ad_right.jpg" alt="">
-    </div>
-    <div><img src="/static/ad/ad_right.jpg" alt=""></div>
-    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>
+{#    <div>#}
+{#        <img src="/static/ad/ad_right.jpg" alt="">#}
+{#    </div>#}
+{#    <div><img src="/static/ad/ad_right.jpg" alt=""></div>#}
+{#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
 </div>
+{#<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>#}
 
-
+<script src="/static/js/bin/jquery-2.1.4.js"></script>
+<script src="/static/js/bin/bootstrap.js"></script>
+<script src="/static/layer/layer.js"></script>
+<script src="/static/js/bin/autosize.js"></script>
+<script src="/static/js/bin/jquery.pagination.js"></script>
+<script src="/static/js/index/default.js"></script>
+<script src="/static/js/index/emoji.js"></script>
+<script src="/static/js/index/index.js"></script>
+<script src="/static/js/index/fastinfowebsocket.js"></script>
+<script src="/static/js/index/login.js"></script>
+<script src="/static/js/index/ad.js"></script>
 {% block script %}
 
 {% endblock %}
 
-<script src="/static/js/index/login.js"></script>
+
+{#<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>#}
+{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
+<script>
+    initGlobalAd()
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2867805326681192',
+      xfbml      : true,
+      version    : 'v7.0'
+    });
+    FB.AppEvents.logPageView();
+
+
+
+  };
+
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+
+
+</script>
 </body>

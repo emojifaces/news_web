@@ -19,9 +19,11 @@ if (pos < 0) {
     pos = 0
 }
 $('#fixed-left').css('left', pos);
-$('#fixed-left').css('top', titleHeight + 20);
+// $('#fixed-left').css('top', titleHeight + 20);
+$('#fixed-left').css('top', '25%');
 $('#fixed-right').css('right', pos);
-$('#fixed-right').css('top', titleHeight + 20);
+// $('#fixed-right').css('top', titleHeight + 20);
+$('#fixed-right').css('top', '25%')
 
 // 控制blog 小图的宽度
 function contentImgInit() {

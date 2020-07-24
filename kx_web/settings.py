@@ -31,7 +31,9 @@ INSTALLED_APPS = [
     'group',
     'blog',
     'cal',
+    'ad',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

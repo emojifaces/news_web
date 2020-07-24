@@ -213,15 +213,10 @@ group
 
 
         <div class="ad-1 group-content-ad">
-            <div>
-                <img src="/static/ad/ad_group2.jpg" alt="">
-                <a href="#">
-                    <div class="mask">
-                        <h3>Show Me More</h3>
-                    </div>
-                </a>
-            </div>
-
+{#            <div>#}
+{#                <img src="/static/ad/ad_group2.jpg" alt="">#}
+{#                <div class="mask">Show Me More</div>#}
+{#            </div>#}
         </div>
 
 {#        <div class="main-data-div">#}
@@ -231,53 +226,48 @@ group
 {#        </div>#}
     </div>
     <div id="main-right">
-        <div class="ad-1">
-            <div>
-                <img src="/static/ad/ad_group.jpg" alt="">
-            </div>
-        </div>
-        <div class="ad-1">
-            <div>
-                <img src="/static/ad/ad_group.jpg" alt="">
-            </div>
 
-        </div>
-        <div class="ad-1">
-            <div>
-                <img src="/static/ad/ad_group.jpg" alt="">
-            </div>
-
-        </div>
-        <div class="ad-2">
-            <div><img src="/static/ad/ad2.jpg" alt=""></div>
-            <div><img src="/static/ad/ad2.jpg" alt=""></div>
-        </div>
-        <div class="ad-3">
-            <div><img src="/static/ad/ad3.jpg" alt=""></div>
-            <div><img src="/static/ad/ad3.jpg" alt=""></div>
-            <div><img src="/static/ad/ad3.jpg" alt=""></div>
-        </div>
-        <div class="ad-4">
-            <div><img src="/static/ad/ad4.jpg" alt=""></div>
-            <div><img src="/static/ad/ad4.jpg" alt=""></div>
-            <div><img src="/static/ad/ad4.jpg" alt=""></div>
-            <div><img src="/static/ad/ad4.jpg" alt=""></div>
-        </div>
+{#        <div class="ad-1">#}
+{#            <div>#}
+{#                <img src="/static/ad/ad_group.jpg" alt="">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="ad-1">#}
+{#            <div>#}
+{#                <img src="/static/ad/ad_group.jpg" alt="">#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#        <div class="ad-1">#}
+{#            <div>#}
+{#                <img src="/static/ad/ad_group.jpg" alt="">#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#        <div class="ad-2">#}
+{#            <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
+{#        </div>#}
+{#        <div class="ad-3">#}
+{#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
+{#        </div>#}
+{#        <div class="ad-4">#}
+{#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
+{#        </div>#}
 
     </div>
 </div>
 {% endblock %}
 {% block script %}
 
-<script src="/static/js/bin/jquery-2.1.4.js"></script>
-<script src="/static/js/bin/bootstrap.js"></script>
-<script src="/static/layer/layer.js"></script>
-<script src="/static/js/bin/autosize.js"></script>
-<script src="/static/js/index/default.js"></script>
-<script src="/static/js/index/emoji.js"></script>
-<script src="/static/js/index/index.js"></script>
 
 <script>
+    initGroupad()
     autosize(document.querySelectorAll('.textarea_3'));
     initGroup()
 

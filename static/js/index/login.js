@@ -110,6 +110,7 @@ $(document).on('click','#user-login-btn',function () {
     let email = _this.siblings('input[name="email"]').val()
     let password = _this.siblings('input[name="password"]').val()
     let path = _this.siblings('input[name="current_url"]').val()
+    console.log($('.login-form').serialize())
     if (email==''){
         layer.msg('<div style="color: black;text-align: center;">' +'email不能为空</div>')
     }else if (password==''){

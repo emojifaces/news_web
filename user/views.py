@@ -61,37 +61,44 @@ class UserDetail(APIView):
         return render(request,'user-detail.html',{'data':data})
 
 
+# request.session['user_img'] = user_img
+# request.session['user_name'] = user_name
+# password=hashlib.md5(password.encode("utf-8")).hexdigest()
 # 用户登录
 class LoginView(APIView):
-
+    authentication_classes = (UnsafeSessionAuthentication,)
+    permission_classes = (AllowAny,)
 
     def post(self, request):
 
-        username = request.POST.get('email', None)
-        password = request.POST.get('password', None)
-        if User.objects.filter(username=username):
-            user = authenticate(username=username, password=hashlib.md5(password.encode("utf-8")).hexdigest())
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    try:
-                        base_user = BaseUser.objects.get(auth_user=user)
-                    except Exception as e:
-                        return Response({'success': False, 'msg': e})
-
-                    user_img = base_user.img
-                    user_name = base_user.name
-                    request.session['user_img'] = user_img
-                    request.session['user_name'] = user_name
-                    # request.session['username'] = username
-                    # request.session['user_id'] = base_user.id
-                    return Response({'success':True,'msg':'登录成功'})
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        email = str(email)
+        password = str(password)
+        if email and password:
+            if BaseUser.objects.filter(email=email).exists():
+                baseuser = BaseUser.objects.get(email=email)
+                if baseuser.status == 0:
+                    user = authenticate(username=baseuser.account,
+                                        password=hashlib.md5(password.encode("utf-8")).hexdigest())
+                    print(user)
+                    if user is not None:
+                        if user.is_active:
+                            login(request, user)
+                            request.session['user_img'] = baseuser.img
+                            request.session['user_name'] = baseuser.name
+                            return Response({'success': True,'msg':'success'})
+                        else:
+                            data = {'success': False, 'msg': u'User is cancel'}
+                    else:
+                        data = {'success': False, 'msg': u'Password Error'}
                 else:
-                    return Response({'success':False,'msg': '该用户未激活'})     # 2：用户未激活
+                    data = {'success': False, 'msg': u'User is cancel'}
             else:
-                return Response({'success':False,'msg':'密码错误'})        # 0: 密码错误
+                data = {'success': False, 'msg': u'No user'}
         else:
-            return Response({'success':False,'msg':'不存在该账号'})     # 3: 账号错误
+            data = {'success': False, 'msg': u'No user'}
+        return Response(data)
 
 # 退出登录
 class LogoutView(View):
@@ -154,6 +161,7 @@ class GetCode(APIView):
             if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email):
                 usertoken, created = UserToken.objects.get_or_create(email=email)
                 token = random.randint(100000, 999999)
+                print('token:',token)
                 usertoken.token = str(token)
                 usertoken.save()
                 data = {'success': True}
@@ -172,6 +180,10 @@ class ForgotPassword(APIView):
         email = request.POST.get('email',None)
         token = request.POST.get('code',None)
         password = request.POST.get('password',None)
+        print('修改邮箱:',email)
+        print('修改密码：',password)
+        print('加密后的修改密码：',hashlib.md5(password.encode("utf-8")).hexdigest())
+        print('修改token：',token)
         if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email):
             if UserToken.objects.filter(email=email,token=token).exists():
                 auth_user = User.objects.get(username=email)

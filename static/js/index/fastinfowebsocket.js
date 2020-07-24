@@ -1,204 +1,39 @@
-{% extends 'base.html' %}
-{% block title %}
-index
-{% endblock %}
-{% block link %}
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="/static/css/index.css">
-{% endblock %}
-{% block body %}
-<div id="main-index" class="container">
-    <div id="main-left">
-        <div id="main-left-top"></div>
-        <div id="main-left-title">
-            <div id="main-time">
-                <div class="days">
-                    <span></span>
-                </div>
-                <div class="month"></div>
-                <div class="time"></div>
-            </div>
-            <a id="main-setting" class="cursor-pointer">
-                <img src="/static/images/setting.png" alt="">
-                <span>Setting</span>
-                <img src="/static/images/gengduo.png" class="arrow1" alt="" style="margin-left: 5px">
-            </a>
-            <div class="check-div" style="display: none">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="Sound">
-                    <label class="custom-control-label" for="Sound">Sound</label>
 
-                </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="Night">
-                    <label class="custom-control-label" for="Night">Night</label>
+window.onload = function () {
+    var ws = null;
+// 心跳监测
+    var connected_count = 0;
 
-                </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="News">
-                    <label class="custom-control-label" for="News">News</label>
-
-                </div>
-            </div>
-        </div>
-        <div id="main-left-nav">
-            <nav class="navbar navbar-expand-lg ">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active" id="newsfeed">
-                            <a class="nav-link">Newsfeed</a>
-                        </li>
-                        <li class="nav-item" id="summary">
-                            <a class="nav-link">Summary</a>
-                        </li>
-                    </ul>
-                </div>
-
-            </nav>
-        </div>
-        <div id="main-left-data" style="background-color: white;">
-            <div class="timeLine"></div>
-{#            <div class="main-data-div color-comment">#}
-{#                <div class="main-data-icon">#}
-{#                    <div class="icon-div">#}
-{#                        <img src="/static/images/7_24.png" alt="">#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="main-data-time">13:20</div>#}
-{#                <div class="main-data-info">#}
-{#                    <div class="ad-container">#}
-{#                        <div class="ad-div">#}
-{#                            <img src="/media/roundsadimg1586320014.jpg" alt="">#}
-{#                            <div class="mask">Show Me More</div>#}
-{#                        </div>#}
-{#                        <div class="ad-div">#}
-{#                            <img src="/media/roundsadimg1586320014.jpg" alt="">#}
-{#                            <div class="mask">Show Me More</div>#}
-{#                        </div>#}
-{#                        <div class="ad-div">#}
-{#                            <img src="/media/roundsadimg1586320014.jpg" alt="">#}
-{#                            <div class="mask">Show Me More</div>#}
-{#                        </div>#}
-{#                        <div class="ad-div">#}
-{#                            <img src="/media/roundsadimg1586320014.jpg" alt="">#}
-{#                            <div class="mask">Show Me More</div>#}
-{#                        </div>#}
-{#                        <div class="ad-div">#}
-{#                            <img src="/media/roundsadimg1586320014.jpg" alt="">#}
-{#                            <div class="mask">Show Me More</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-        </div>
-    </div>
-    <div id="main-right">
-        <div class="card card-calendar">
-            <div class="card-header card-calendar-header">
-                <div style="display: flex;flex-direction: column;justify-content: center;">
-                    <div>
-                        <span class="font-20 line-height-1" style="color: #1179da">Calendar</span>
-                    </div>
-                    <div>
-                        <span class="font-14 line-height-1" id="calendar-head-fullyear"></span>
-                        &nbsp;
-                        &nbsp;
-                        <span class="font-14 line-height-1" id="calendar-head-week"></span>
-                        &nbsp;
-                        &nbsp;
-                        <span class="font-14 line-height-1" id="remaining-time"></span>
-                    </div>
-                </div>
-                <div>
-                    <span><img src="/static/images/arrow2.png" alt=""></span>
-                </div>
-
-            </div>
-            <div class="card-body card-calendar-body self-scrollbar" id="card-calendar-body"></div>
-        </div>
-        <div class="tofacebook" >
-            <img src="/static/images/tofacebook.jpg" style="width: 100%" alt="">
-        </div>
-        <div id="main-right-ad"></div>
-        <div><div class="VN-input-group">
-                <textarea name="" rows="4" class="textarea_1" id="content"></textarea>
-                <div class="VN-input-icon-box icon-box-1">
-                    <div class="VN-icon-group">
-                        <div class="emojiBtn">
-                            <svg t="1583835608479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2284" data-spm-anchor-id="a313x.7781069.0.i1" width="22" height="22">
-                                <path d="M324.8 440c34.4 0 62.4-28 62.4-62.4s-28-62.4-62.4-62.4-62.4 28-62.4 62.4 28 62.4 62.4 62.4z m374.4 0c34.4 0 62.4-28 62.4-62.4s-28-62.4-62.4-62.4-62.4 28-62.4 62.4 28 62.4 62.4 62.4zM340 709.6C384 744 440.8 764.8 512 764.8s128-20.8 172-55.2c26.4-21.6 42.4-42.4 50.4-58.4 6.4-12 0.8-27.2-11.2-33.6s-27.2-0.8-33.6 11.2c-0.8 1.6-3.2 6.4-8 12-7.2 10.4-17.6 20-28.8 29.6-34.4 28-80.8 44.8-140.8 44.8s-105.6-16.8-140.8-44.8c-12-9.6-21.6-20-28.8-29.6-4-5.6-7.2-9.6-8-12-6.4-12-20.8-17.6-33.6-11.2s-17.6 20.8-11.2 33.6c8 16 24 36.8 50.4 58.4z"
-                                      fill="#eaad40" p-id="2285" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path>
-                                <path d="M512 1010.4c-276.8 0-502.4-225.6-502.4-502.4S235.2 5.6 512 5.6s502.4 225.6 502.4 502.4-225.6 502.4-502.4 502.4zM512 53.6C261.6 53.6 57.6 257.6 57.6 508s204 454.4 454.4 454.4 454.4-204 454.4-454.4S762.4 53.6 512 53.6z" fill="#eaad40" p-id="2286"
-                                      data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
-                            </svg>
-                        </div>
-                        <div class="image">
-                            <svg t="1583836028975" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4184" width="22" height="22">
-                                <path d="M853.333333 955.733333H170.666667c-66.030933 0-102.4-36.369067-102.4-102.4V170.666667c0-66.030933 36.369067-102.4 102.4-102.4h682.666666c66.030933 0 102.4 36.369067 102.4 102.4v682.666666c0 66.030933-36.369067 102.4-102.4 102.4zM102.4 775.0656V853.333333c0 47.223467 21.0432 68.266667 68.266667 68.266667h682.666666c47.223467 0 68.266667-21.0432 68.266667-68.266667v-78.267733l-324.266667-324.266667L450.798933 597.333333l73.2672 73.2672a17.0496 17.0496 0 1 1-24.132266 24.132267L341.333333 536.132267l-238.933333 238.933333zM597.333333 409.6c4.369067 0 8.738133 1.672533 12.066134 5.000533L921.6 726.801067V170.666667c0-47.223467-21.0432-68.266667-68.266667-68.266667H170.666667c-47.223467 0-68.266667 21.0432-68.266667 68.266667v556.1344l226.8672-226.8672a17.0496 17.0496 0 0 1 24.132267 0L426.666667 573.201067l158.600533-158.600534A17.015467 17.015467 0 0 1 597.333333 409.6z m-256-51.2c-27.904 0-52.343467-10.2912-72.6528-30.600533C248.9344 308.0704 238.933333 283.921067 238.933333 256c0-27.8016 9.949867-52.1728 29.5424-72.448C289.160533 163.549867 313.531733 153.6 341.333333 153.6c27.921067 0 52.0704 10.001067 71.816534 29.7472C433.442133 203.656533 443.733333 228.096 443.733333 256c0 28.023467-10.359467 52.241067-30.805333 72.004267C393.5744 348.040533 369.3568 358.4 341.333333 358.4z m0-170.666667c-18.8928 0-34.850133 6.519467-48.708266 19.950934C279.586133 221.149867 273.066667 237.1072 273.066667 256c0 18.7904 6.4512 34.389333 19.746133 47.650133C306.688 317.525333 322.542933 324.266667 341.333333 324.266667c18.670933 0 34.184533-6.673067 47.4624-20.394667C402.926933 290.184533 409.6 274.670933 409.6 256c0-18.7904-6.741333-34.645333-20.599467-48.520533C375.722667 194.184533 360.123733 187.733333 341.333333 187.733333z"
-                                      p-id="4185" fill="#eaad40"></path>
-                            </svg>
-                        </div>
-                        <div class="vote">
-                            <svg t="1583836119960" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2150" data-spm-anchor-id="a313x.7781069.0.i1" width="22" height="22">
-                                <path d="M942.592 1011.2H86.528c-37.888 0-68.608-30.72-68.608-68.608v-297.984c0-37.888 30.72-68.608 68.608-68.608H317.44v51.2H86.528c-9.216 0-17.408 8.192-17.408 17.408v297.984c0 9.216 8.192 17.408 17.408 17.408h856.064c9.216 0 17.408-8.192 17.408-17.408v-297.984c0-9.216-8.192-17.408-17.408-17.408H645.12v-51.2h297.472c37.888 0 68.608 30.72 68.608 68.608v297.984c0 37.888-30.72 68.608-68.608 68.608z"
-                                      p-id="2151" data-spm-anchor-id="a313x.7781069.0.i0" class="" fill="#eaad40"></path>
-                                <path d="M480.256 788.48c-7.68 0-15.872-3.072-21.504-8.704L155.648 476.16c-11.776-11.776-11.776-31.232 0-43.52L547.328 40.96c5.632-5.632 13.312-9.216 21.504-9.216s15.872 3.072 21.504 9.216l303.104 303.104c11.776 11.776 11.776 31.232 0 43.52L501.76 779.264c-5.632 6.144-13.824 9.216-21.504 9.216zM206.336 454.656l273.92 273.92 362.496-362.496L568.832 92.16 206.336 454.656z"
-                                      p-id="2152" fill="#eaad40"></path>
-                                <path d="M494.08 536.576c-13.312 0-26.624-5.12-36.864-14.848l-0.512-0.512L373.76 437.248c-9.728-10.24-9.728-26.112 0-36.352 10.24-9.728 26.112-9.728 36.352 0l82.944 83.456c1.024 0.512 1.536 0.512 2.048 0.512l122.88-122.88c10.24-10.24 26.112-10.24 36.352 0s10.24 26.112 0 36.352l-122.88 122.88c-10.24 10.24-23.552 15.36-37.376 15.36z"
-                                      p-id="2153" fill="#eaad40"></path>
-                                <path d="M770.56 801.28h-512c-14.336 0-25.6-11.264-25.6-25.6s11.264-25.6 25.6-25.6h512c14.336 0 25.6 11.264 25.6 25.6s-11.264 25.6-25.6 25.6z" p-id="2154" fill="#eaad40"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <button class="VN-input-button-1" id="submitblog">Submit</button>
-                </div>
-            </div></div>
-        <div class="right-user-dynamic-scroll-box self-scrollbar"></div>
-    </div>
-</div>
-{% endblock %}
-{% block script %}
-
-<script>
-    initIndexAd()
-    autosize(document.querySelectorAll('.textarea_3'));
-    getCalendarList();
-    getBlogList();
-
-    $('#main-setting').click(function () {
-        $('.check-div').fadeToggle('fast')
-    });
-
-    $('#newsfeed').click(function () {
-        $(this).parents('ul').find('li').removeClass('active');
-        $(this).addClass('active');
-        location.href = '/'
-    })
-    $('#summary').click(function () {
-        $(this).parents('ul').find('li').removeClass('active');
-        $(this).addClass('active');
-        $.ajax({
-            url: '/summary/',
-            mothod: 'GET',
-            success: function (data) {
-                $('#main-left-data').empty();
-                $('#main-left-data').append(data);
-                // 图片位置初始化
-                contentImgInit()
+    function websocketConnect() {
+        if (window.WebSocket) {
+            if (!ws) {
+                var url = 'ws://121.40.211.134:8080/ws/fast/';
+                ws = new WebSocket(url)
             }
-        })
-    })
-
-// 初始化快讯
-    $.ajax({
-        type:'get',
-        url:'/fastinfo/',
-        success:function (result) {
-            console.log('初始化快讯数据：',result)
-            let container = $('#main-left-data')
-            for (let data of result.data){
+        } else {
+            layer.msg('浏览器不支持websocket')
+        }
+        ws.onopen = function (e) {
+            // websocket连接时
+            // var userName = $('input[name="userName"]').val();
+            // var userImg = $('input[name="userImg"]').val();
+            // ws.send(JSON.stringify({'type': 1, 'user_header': userImg, 'username': userName}))
+        };
+        // 连接发生错误，连接错误时会继续尝试发起连接（尝试5次）
+        ws.onerror = function () {
+            connected_count++;
+            if (connected_count <= 5) {
+                websocketConnect()
+            }
+        };
+        // 接受到消息的回调方法
+        ws.onmessage = function (e) {
+            heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
+            var message = e.data;
+            console.log(message)
+            // message = JSON.parse(message);
+            let container = $('.timeLine')
+            for (let data of message){
                 let div = $('<div class="main-data-div color-comment"></div>')
                 let icon = $('<div class="main-data-icon">\n' +
         '             <div class="icon-div">\n' +
@@ -413,28 +248,48 @@ index
                     }
 
                     info.append(parentDiv)
-                } else if (data.fast_type==3){
-                    let ad_container = $('<div class="ad-container"></div>')
-                    for (let ad of data.rounds_ad_group){
-                        let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                        ad_container.append(img)
-                    }
-                    info.append(ad_container)
                 }
-                container.append(div)
+                container.after(div)
 
             }
-            let btn = $('<div class="main-data-div">\n' +
-                '             <div class="main-data-info">\n' +
-                '                <div class="main-footer cursor-pointer" id="moreFastInfoBtn">MORE INFORMATION</div>\n' +
-                '             </div>\n' +
-                '        </div>')
-            container.append(btn)
-            initFastInfoAd()
+        };
+
+        // 接受到服务端关闭连接时的回调方法
+        ws.onclose = function () {
+        };
+        // 监听窗口事件，当窗口关闭时，主动断开websocket连接，防止连接没断开就关闭窗口，server端报错
+
+        ws.onbeforeunload = function () {
+            ws.close();
+        };
+
+        // 心跳检测, 每隔一段时间检测连接状态，如果处于连接中，就向server端主动发送消息，来重置server端与客户端的最大连接时间，如果已经断开了，发起重连。
+        var heartCheck = {
+            timeout: 50000,        // 50秒发一次心跳，比server端设置的连接时间稍微小一点，在接近断开的情况下以通信的方式去重置连接时间。
+            serverTimeoutObj: null,
+            reset: function () {
+                clearTimeout(this.timeoutObj);
+                clearTimeout(this.serverTimeoutObj);
+                return this;
+            },
+            start: function () {
+                var self = this;
+                this.serverTimeoutObj = setInterval(function () {
+                    if (ws.readyState == 1) {
+                        ws.send(JSON.stringify({'type': 10}));
+                        heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
+                    } else {
+                        websocketConnect();
+                    }
+                }, this.timeout)
+            }
+        };
+
+        ws.onbeforeunload = function () {
+            ws.close()
         }
-    })
+    }
 
 
-
-</script>
-{% endblock %}
+    websocketConnect();
+}

@@ -20,4 +20,5 @@ urlpatterns = [
     path('addblacklist/',AddBlackList.as_view()),
     path('modifypersonalinfo/',ModifyPersonalInformation.as_view()),
     path('removeblacklist/',RemoveBlackList.as_view()),
+    path('thirdlogin/',ThirdLogin.as_view()),
 ]
