@@ -2059,3 +2059,19 @@ iframe img{
 .ad-div > img{
     width: 100%;
 }
+.search-text{
+    background-color: #213b54;
+    height: 40px;
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.search-text > input{
+    width: 100%;
+    color: white;
+	background-color:transparent;
+    border: none;
+    border-bottom: 1px solid #eac863;
+    outline: none;
+}

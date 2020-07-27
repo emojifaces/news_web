@@ -53,12 +53,11 @@ blog
                 {% if blog.image %}
                 <div class="blog-image-div">
                     {% for img in blog.image %}
-                    <img src="/static/images/{{ img }}" class="alert-img" alt="">
+                    <img src="/media/{{ img }}" class="alert-img" alt="">
                     {% endfor %}
                 </div>
                 {% endif %}
                 <div class="blog-footer-div">
-
                     <button class="blog-share">
                         <img src="/static/images/share1.png" alt="">
                         <span>Share</span>
