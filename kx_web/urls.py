@@ -20,6 +20,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('calendar/', include('cal.urls')),
     path('ad/',include('ad.urls')),
+    path('mobile/',include('mobile.urls')),
     path('calendarInfo/', CalendarInfoView.as_view()),
     path('updatelike/',UpdateLike.as_view()),
     path('updatevote/',UpdateVote.as_view()),

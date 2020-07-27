@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=divice-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% block title %}
+        title
+    {% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/mobile.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% block link %}
+
+    {% endblock %}
+</head>
+<body>
+<div class="backgroud-nav-container" style="display: none">
+    <div class="nav-list">
+        <div class="nav-icon">
+            <img src="/static/images/mobile-nav-btn.png" alt="">
+        </div>
+        <div>
+            <a href="/mobile/index/"><span>7*24</span></a>
+        </div>
+        <div>
+            <a href="/mobile/calendar/"><span>Calendar</span></a>
+        </div>
+        <div>
+            <a href="/mobile/blog/"><span>Blog</span></a>
+        </div>
+        <div>
+            <a href="/mobile/group/"><span>Group</span></a>
+        </div>
+        <div>
+            <a href="/mobile/aboutus/"><span>About us</span></a>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;background-color: #213b54;" id="title">
+
+    <div class="nav-btm">
+        <img src="/static/images/side.png" alt="">
+    </div>
+    <div class="mobile-icon">
+        <img src="/static/images/logo1.png" alt="">
+    </div>
+    <div class="mobile-head">
+        {% if request.user.is_authenticated %}
+            <img src="/media/{{ request.session.user_img }}" id="mobile-user" width="40">
+            <ul class="mobile-user-menu" style="display: none">
+                <li >
+                    <a href="/mobile/user/">Personal</a>
+                </li>
+                <li >
+                    <a href="/user/logout/">Sign Out</a>
+                </li>
+            </ul>
+            {% else %}
+            <img src="/static/images/head.png" alt="" onclick="login()">
+        {% endif %}
+
+    </div>
+</div>
+
+{% block body %}
+
+{% endblock %}
+
+<script src="/static/js/index/mobile.js"></script>
+<script src="/static/js/bin/jquery-2.1.4.js"></script>
+<script src="/static/js/bin/bootstrap.js"></script>
+<script src="/static/layer/layer.js"></script>
+<script src="/static/js/bin/autosize.js"></script>
+<script src="/static/js/bin/jquery.pagination.js"></script>
+<script src="/static/js/index/default.js"></script>
+<script src="/static/js/index/emoji.js"></script>
+<script src="/static/js/index/index.js"></script>
+<script src="/static/js/index/fastinfowebsocket.js"></script>
+<script src="/static/js/index/login.js"></script>
+<script src="/static/js/index/ad.js"></script>
+{% block script %}
+
+{% endblock %}
+
+
+{#<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>#}
+{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
+<script>
+    initGlobalAd()
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2867805326681192',
+      xfbml      : true,
+      version    : 'v7.0'
+    });
+    FB.AppEvents.logPageView();
+
+
+
+  };
+
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+
+
+</script>
+</body>

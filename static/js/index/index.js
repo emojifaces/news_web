@@ -1,4 +1,3 @@
-
 fastinfo_page=2
 fastinfo_limit = 10
 // 加载更多快讯信息
@@ -233,6 +232,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
                     let ad_container = $('<div class="ad-container"></div>')
                     for (let ad of data.rounds_ad_group){
                         let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
+                        setWidth(data.rounds_ad_group.length,img)
                         ad_container.append(img)
                     }
                     info.append(ad_container)

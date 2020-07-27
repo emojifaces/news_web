@@ -130,3 +130,18 @@ class Blacks(AbstractModel):
     class Meta:
         db_table = u'k_blacks'
         verbose_name = u'黑名单'
+
+
+class Remind(AbstractModel):
+    user_id = models.ForeignKey(BaseUser, related_name='remind_user', on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name=u'发送者id')
+    blog_id = models.ForeignKey(Blogs, related_name='blog', on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name=u'用户id')
+    author = models.ForeignKey(BaseUser, related_name='author', on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name=u'所有者')
+    type = models.IntegerField(choices=((0, '一级'), (1, "二级")), verbose_name='分类')
+    content = models.CharField(max_length=255, null=True, blank=True, verbose_name='内容')
+    isread = models.BooleanField(default=False, verbose_name='是否已读')
+    first_comment = models.ForeignKey(FirstBlogComment, related_name='first_comment', on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name='一级')
+    second_comment = models.ForeignKey(SecondBlogComment, related_name='second_comment', on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name='二级')
+
+    class Meta:
+        db_table = u'k_remind'
+        verbose_name = u'提醒'

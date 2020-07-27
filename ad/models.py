@@ -87,3 +87,13 @@ class OfficalAdverts(AbstractModel):
     class Meta:
         db_table = u'k_offical_adverts'
         verbose_name = u'官博广告'
+
+class OfficalDetailAdverts(AbstractModel):
+    ad_id = models.ForeignKey(AdvertsFactory, on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name=u'广告商id')
+    url = models.CharField(max_length=300, null=True, blank=True, verbose_name=u'网址')
+    sort = models.PositiveIntegerField(verbose_name=u'排序', default=0)
+    img = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'广告图')
+
+    class Meta:
+        db_table = u'k_offical_detail_adverts'
+        verbose_name = u'官博详情广告'

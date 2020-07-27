@@ -48,7 +48,7 @@ function login() {
 $(document).on('click','.signup-link span',function () {
     $('.login-form').remove()
     $('.signup-link').remove()
-    $('.user-login-container').css('top','100px')
+    $('.user-login-container').css('top','5%')
     let html = $('<form class="signup-form" action="">\n' +
         '            <div class="user-signup">\n' +
         '                <div class="user-login-title">SIGN UP</div>\n' +
@@ -69,7 +69,7 @@ $(document).on('click','.login-link span',function () {
     $('.forgot-form').remove()
     $('.signup-form').remove()
     $('.login-link').remove()
-    $('.user-login-container').css('top','250px')
+    $('.user-login-container').css('top','10%')
     let html = $('<form class="login-form" method="post" action="/user/login/" enctype="multipart/form-data">\n' +
             '           <div class="user-login">\n' +
             '                <div class="user-login-title">LOG IN</div>\n' +
@@ -88,7 +88,7 @@ $(document).on('click','.login-link span',function () {
 $(document).on('click','.forgot-password',function () {
     $('.login-form').remove()
     $('.signup-link').remove()
-    $('.user-login-container').css('top','100px')
+    $('.user-login-container').css('top','5%')
     let html = $('<form class="forgot-form" action="">\n' +
         '            <div class="user-forgot">\n' +
         '                <div class="forgot-title">FORGOT PASSWORD</div>\n' +

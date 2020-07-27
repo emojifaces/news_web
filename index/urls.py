@@ -1,6 +1,7 @@
 from django.urls import path, include
 from index.views import *
 from index.api import *
+from haystack.views import SearchView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('indexgrouplist/',IndexGroupList.as_view(),name='indexgrouplist'),
     path('fbc/',GetIndexGroupComment.as_view(),name='fbc'),
     path('sbc/',GetMoreSBC.as_view(),name='sbc'),
+    path('search/',SearchView(),name='haystack_search'),
 ]

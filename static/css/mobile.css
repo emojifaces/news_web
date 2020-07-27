@@ -8,21 +8,20 @@
 
 body {
     color: #fff;
-    min-width: 1300px;
     overflow-x: scroll;
     font-size: 14px;
-    background-color: #eeeff1;
+    margin: 0;
 }
 
 .container {
-    min-width: 1000px;
+    /*min-width: 1000px;*/
 }
 
 #top {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    max-width: 1460px;
+    /*max-width: 1460px;*/
     margin: 10px auto;
 }
 
@@ -134,12 +133,9 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-bottom: 5rem;
 }
 
-#main-index #main-left, #main-group #main-left {
-    width: 65%;
-}
+
 
 #main-index #main-right, #main-group #main-right {
     width: 33%;
@@ -163,12 +159,15 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
 /*#main-left-top img {*/
 /*    margin-top: 20px;*/
 /*}*/
+
+.navbar-nav{
+    flex-direction: row;
+}
 
 #main-left-title {
     height: 68px;
@@ -1479,7 +1478,7 @@ textarea:focus {
 
 .personal-info-col {
     color: #2e3b54;
-    height: 40px;
+    height: 70px;
 }
 
 .personal-info-col img {
@@ -1746,7 +1745,7 @@ iframe img{
     margin-top: 10px;
 }
 #main-left {
-    padding: 20px 20px 0 20px;
+    padding: 1rem 1rem 0 1rem;
     background-color: white;
 }
 .delete-group {
@@ -1801,7 +1800,6 @@ iframe img{
     border-radius: 5px;
     background-color: #FFFFFF;
     position: relative;
-    /*top: 250px;*/
     top: 10%;
     margin: 0 auto;
     width: 350px;
@@ -1815,11 +1813,10 @@ iframe img{
 .register-login button {
     width: 100%;
     margin: 10px 0;
-    border: 1px solid #dddedf;
-    border-radius: 4px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
     height: 40px;
     outline: none;
-    padding-right: 0.5px;
 }
 .register-login input {
     width: 100%;
@@ -1839,7 +1836,7 @@ iframe img{
 .user-login-top button span {
     font-weight: bolder;
     font-size: small;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 .user-login input{
     padding: 10px;
@@ -2058,4 +2055,126 @@ iframe img{
 }
 .ad-div > img{
     width: 100%;
+}
+#title{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+}
+.nav-btm,.mobile-icon,.mobile-head {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+.mobile-head img{
+    border-radius: 50%;
+}
+.backgroud-nav-container{
+    width: 100%;
+    height: 1000px;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2001;
+    position: fixed;
+    left: 0;
+    right: 0;
+}
+.nav-list{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    background-color: #213b54;
+    color: #eac863;
+    height: 1000px;
+}
+.nav-list div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.nav-icon img{
+    width: 20%;
+}
+.nav-list a {
+    color: #eac863;
+}
+.blog-detail-top{
+    color: #1b1e21;
+    font-weight: bolder;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+}
+.detail-nav{
+    position: relative;
+    left: 10rem;
+}
+.blog-back{
+    font-size: x-large
+}
+.blog-detail-container{
+    color: black;
+
+}
+.blog-detail-date,.blog-detail-type,.blog-detail-title,.blog-detail-content,.blog-detail-img,.statement,.blog-detail-ad{
+    margin: 0.5rem 1rem;
+}
+.blog-detail-type{
+    display: inline-block;
+}
+.blog-detail-title{
+    font-size: larger;
+    font-weight: bolder;
+}
+.blog-detail-img,.blog-detail-ad img{
+    width: 100%;
+}
+.statement{
+    color: gray;
+}
+.blog-detail-like{
+    width: 40px;
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.blog-detail-line{
+    width: 100%;
+    border: 1px solid grey;
+}
+.blog-detail-share{
+    text-align: center;
+    color: grey;
+    font-weight: bolder;
+}
+.blog-detail-share div:first-child{
+    display: inline-block;
+    position: relative;
+    top: -0.7rem;
+    width: 100px;
+    background-color: white;
+    font-size: larger;
+    margin-bottom: 1rem;
+}
+.mobile-user-menu{
+    position: absolute;
+    top: 60px;
+    color: #eac863;
+    background-color: #213b54;
+    right: 0;
+    z-index: 1000;
+    list-style: none;
+    padding: 15px;
+}
+.mobile-user-menu a{
+    color: #eac863;
+}
+.mobile-user-menu li{
+    margin: 10px 0;
+}
+.personal-info div{
+    word-break: break-word;
 }

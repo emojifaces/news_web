@@ -1,0 +1,120 @@
+{% extends 'mobile-base.html' %}
+{% block title %}
+mobile-blog
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/zoomify.min.css">
+    <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/page-default.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/mobile.css">
+{% endblock %}
+{% block body %}
+<div id="main-index" class="container" style="justify-content: center">
+    <div id="main-left">
+        <div id="main-left-data">
+            <div class="blog-head">
+                <div class="blog-left-top">
+                    <img src="/static/images/user-facebook.png" alt="">
+                    <span style="margin-left: 0.8rem">VNwallstreet</span>
+                </div>
+                <div style="display: flex;flex-direction: column;align-items: center">
+                    <img src="/static/images/blog-logo.png" alt="" class="blog-logo">
+                    <span class="blog-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">VMwallStreet</span>
+                </div>
+
+            </div>
+            {% for blog in data %}
+
+            {% if blog.ads %}
+            <div class="blog-box color-comment">
+                <div class="ad-container">
+                    {% for ad in blog.ads %}
+                    <div class="ad-div">
+                        <img src="/media/{{ ad.img }}" data-url="{{ ad.url }}" id="ad-img" >
+                        <div class="mask">Show Me More</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="blog-box color-comment" data="{{ blog.id }}">
+                <div class="footer-date">{{ blog.pub_date }}</div>
+                {% if blog.title %}
+                <div class="blog-title-div">
+                    <span class="label-green color-white label" style="background-color: {{ blog.type.color|default_if_none:"#3CB371" }}">{{ blog.type.name|default_if_none:"默认" }}</span>
+                    <span class="blog-content-txt">{{ blog.title }}</span>
+                </div>
+                {% endif %}
+
+                <div class="blog-content">{{ blog.content }}</div>
+                {% if blog.image %}
+                <div class="blog-image-div">
+                    {% for img in blog.image %}
+                    <img src="/static/images/{{ img }}" class="alert-img" alt="">
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="blog-footer-div">
+
+                    <button class="blog-share">
+                        <img src="/static/images/share1.png" alt="">
+                        <span>Share</span>
+                    </button>
+                    <button class="blog-like" islike="{{ blog.islike }}">
+                        {% if blog.islike %}
+                        <img src="/static/images/like2.png" alt="">
+                        {% else %}
+                        <img src="/static/images/like1.png" alt="">
+                        {% endif %}
+                        <span>{{ blog.likenum }}</span>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+
+
+
+
+            <div class="pagination-box color-comment">
+                <div class="pagination">
+                    {% if page.has_previous %}
+                    <a href="?page={{ page.previous_page_number }}" class="prev"><i class="fa fa-angle-left"></i></a>
+                    {% endif %}
+
+                    {% for page_num in page.paginator.page_range %}
+                    {% if page_num == page.number %}
+                    <span class="active">{{ page_num }}</span>
+                    {% else %}
+                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                    {% endfor %}
+
+
+                    {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}" class="prev"><i class="fa fa-angle-right"></i></a>
+                    {% endif %}
+
+                    <div class="pagination-jump">
+                        <span class="pagination-jump-txt" style="cursor: pointer">Jump to Page</span>
+                        <input type="text" class="jump-ipt">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="/static/js/bin/jquery-2.1.4.js"></script>
+<script src="/static/js/bin/bootstrap.js"></script>
+<script src="/static/layer/layer.js"></script>
+<script src="/static/js/bin/jquery.pagination.js"></script>
+<script src="/static/js/index/default.js"></script>
+<script src="/static/js/index/blog.js"></script>
+<script>
+
+</script>
+{% endblock %}

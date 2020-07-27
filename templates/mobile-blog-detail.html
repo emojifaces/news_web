@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=divice-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>mobile-blog-detail</title>
+    <link rel="stylesheet" href="/static/css/mobile.css">
+    <script src="/static/js/bin/jquery-2.1.4.js"></script>
+    <script src="/static/js/index/mobile.js"></script>
+    <script src="/static/layer/layer.js"></script>
+</head>
+<body>
+<div class="blog-detail-top">
+    <div class="blog-back">&lt;</div>
+    <div class="detail-nav">Blog</div>
+</div>
+
+<div class="blog-detail-container" data="{{ data.id }}">
+    <div class="blog-detail-date">{{ data.pub_date|date:"Y-m-d h:m:s" }}</div>
+    {% if data.type %}
+    <div class="blog-detail-type" style="background-color: {{ data.type.color|default_if_none:'#ffff' }}">{{ data.type.name|default_if_none:'' }}</div>
+    {% endif %}
+    {% if data.title %}
+    <div class="blog-detail-title">{{ data.title }}</div>
+    {% endif %}
+    {% if data.content %}
+    <div class="blog-detail-content">{{ data.content }}</div>
+    {% endif %}
+    {% if data.img %}
+    {% for img in data.img %}
+    <div class="blog-detail-img"><img src="/media/{{ img }}" alt=""></div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="statement">
+        声明：本文信息仅供分析参考和学习，外汇交易存在巨大风险，由此导致的风险和亏损由投资者个人自行承担
+    </div>
+    <div class="blog-detail-like" islike="{{ data.islike }}">
+        {% if data.islike %}
+        <img src="/static/images/like2.png" alt="">
+        {% else %}
+         <img src="/static/images/like1.png" alt="">
+        {% endif %}
+        <span>{{ data.like_num }}</span>
+    </div>
+    <div class="blog-detail-line"></div>
+    <div class="blog-detail-share">
+        <div>Share</div>
+        <div><img src="/static/images/fb.png" alt=""></div>
+    </div>
+    <div class="blog-detail-ad">
+        {% for ad in data.ads %}
+            <img src="/media/{{ ad.img }}" alt="" data-url="{{ ad.url }}">
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>
