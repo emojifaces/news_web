@@ -14,4 +14,5 @@ urlpatterns = [
     path('sbc/',GetMoreSBC.as_view(),name='sbc'),
     path('search/',SearchView.as_view()),
     path('searchoffical/',SearchOffical.as_view()),
+    path('moresearchfastinfo/',MoreSearchFastInfo.as_view()),
 ]

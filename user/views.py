@@ -56,8 +56,13 @@ class UserDetail(APIView):
             "email": user.email,
             "img": user.img,
             "ismine": True if user.auth_user == request.user else False,
-            "isblack": True if Blacks.objects.filter(user_id__auth_user=request.user,black_id_id=user.id).exists() else False
         }
+        if request.user.is_authenticated:
+            data['isblack'] = True if Blacks.objects.filter(user_id__auth_user=request.user,black_id_id=user.id).exists() else False
+        else:
+            data['isblack'] = True
+
+
         return render(request,'user-detail.html',{'data':data})
 
 

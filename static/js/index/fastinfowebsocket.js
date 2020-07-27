@@ -1,9 +1,7 @@
 function formatTime(date){
-    let hour = checktime(date.getHours())
-    let min = checktime(date.getMinutes())
-    let second = checktime(date.getSeconds())
+    let str = date.split(' ')[1]
 
-    return hour+':'+min+':'+second
+    return str
 }
 
 
@@ -38,7 +36,7 @@ window.onload = function () {
         ws.onmessage = function (e) {
             heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
             var message = e.data;
-            console.log(message)
+            console.log('websocket发来的信息：',message)
             // message = JSON.parse(message);
             let container = $('.timeLine')
 

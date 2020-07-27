@@ -32,7 +32,8 @@ class SearchView(APIView):
         if not query:
             return Response({'success':False,'msg':'暂无结果'})
         else:
-            fastinfo_result = FastInfo.objects.filter(type=0,is_pub=True,translate__icontains=query).order_by('-VN_pub_date')[start:end]
+            query_set = FastInfo.objects.filter(type=0,is_pub=True,translate__icontains=query).order_by('-VN_pub_date')
+            fastinfo_result = query_set[start:end]
             return_list = list()
             for item in fastinfo_result:
                 result_dict = {
@@ -41,7 +42,7 @@ class SearchView(APIView):
                     'is_important':item.is_important
                 }
                 return_list.append(result_dict)
-            return render(request,'search.html',{'success':True,'data':return_list,'num':len(fastinfo_result),'query':query})
+            return render(request,'search.html',{'success':True,'data':return_list,'num':len(query_set),'query':query})
 
 class SearchOffical(APIView):
 
@@ -58,7 +59,8 @@ class SearchOffical(APIView):
         if not query:
             return Response({'success': False, 'msg': '暂无结果'})
         else:
-            offical_result = Offical.objects.filter(Q(title__icontains=query)|Q(content__icontains=query),is_pub=True,state=0,style=0).order_by('-pub_date')[start:end]
+            query_set = Offical.objects.filter(Q(title__icontains=query)|Q(content__icontains=query),is_pub=True,state=0,style=0).order_by('-pub_date')
+            offical_result = query_set[start:end]
             return_list = list()
             for item in offical_result:
                 img = list()
@@ -79,4 +81,27 @@ class SearchOffical(APIView):
                     },
                 }
                 return_list.append(result_dict)
-            return Response({'success':True,'data':return_list,'num':len(offical_result)})
+            return Response({'success':True,'data':return_list,'num':len(query_set)})
+
+class MoreSearchFastInfo(APIView):
+    def get(self,request):
+
+        query = request.GET.get('q',None)
+        page = request.GET.get('page', 1)
+        limit = request.GET.get('limit', 20)
+        start = (int(page) - 1) * int(limit)
+        end = int(page) * int(limit)
+        if not query:
+            return Response({'success':False,'msg':'暂无结果'})
+        else:
+            query_set = FastInfo.objects.filter(type=0,is_pub=True,translate__icontains=query).order_by('-VN_pub_date')
+            fastinfo_result = query_set[start:end]
+            return_list = list()
+            for item in fastinfo_result:
+                result_dict = {
+                    'pub_date':item.VN_pub_date.strftime('%Y年%m月%d日 %H:%M'),
+                    'content':item.translate,
+                    'is_important':item.is_important
+                }
+                return_list.append(result_dict)
+            return Response({'success':True,'data':return_list,'num':len(query_set),'query':query})

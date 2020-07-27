@@ -77,3 +77,41 @@ $('#summary').click(function () {
         }
     })
 })
+
+SearchFastInfo_page = 2
+$(document).on('click','#moreSearchFastInfo',function () {
+    let moreBtn = $(this).parents('.main-data-div')
+    let query = $('.search-text input').val()
+    $.ajax({
+        type:'get',
+        url:'/moresearchfastinfo/?q='+query+'&page='+SearchFastInfo_page,
+        success:function (res) {
+            console.log(res)
+            moreBtn.remove()
+            if (!res.success){
+                layer.msg('<div style="color: black;text-align: center;">'+res.msg+'</div>')
+            }else{
+                for (let data of res.data){
+                    let div = $('<div class="main-data-div color-comment"></div>')
+                    let icon = $('<div class="main-data-icon">\n' +
+            '             <div class="icon-div">\n' +
+            '             <img src="/static/images/7_24.png" alt="">' +
+            '             </div>\n' +
+            '         </div>')
+                    let time = $('<div class="main-data-time">'+data.pub_date+'</div>')
+                    let info = $('<div class="main-data-info"></div>')
+                    div.append(icon,time,info)
+                    let fast = $('<div>'+data.content+'</div>')
+                        info.append(fast)
+                        if (data.is_important){
+                            div.css('color','red')
+                        }
+                    $('#main-data').append(div)
+
+                    }
+                $('#main-data').append(moreBtn)
+                SearchFastInfo_page +=1
+            }
+        }
+    })
+})
