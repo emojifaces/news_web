@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}
+search
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+{% endblock %}
+{% block body %}
+<div id="main-index" class="container" style="justify-content: center">
+    <div id="main-left" style="width: 70.5%">
+        <div id="main-left-data">
+            <div class="blog-head">
+                <div class="blog-left-top">
+                    <img src="/static/images/user-facebook.png" alt="">
+                    <span style="margin-left: 0.8rem">VNwallstreet</span>
+                </div>
+                <div style="display: flex;flex-direction: column;align-items: center">
+                    <img src="/static/images/blog-logo.png" alt="" class="blog-logo">
+                    <span class="blog-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">VMwallStreet</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="search-text">
+            <input type="text" value="{{ query }}" readonly>
+        </div>
+        <div id="main-left-nav">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active" id="newsfeed">
+                            <a class="nav-link">Newsfeed</a>
+                        </li>
+                        <li class="nav-item" id="summary">
+                            <a class="nav-link">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="result-num">Find {{ num }} result</div>
+            </nav>
+        </div>
+        <div id="main-data">
+            {% for item in data %}
+            <div class="main-data-div color-comment" {% if item.is_important %}
+                style="color: red"
+            {% endif %} >
+                <div class="main-data-icon">
+                    <div class="icon-div">
+                        <img src="/static/images/7_24.png" alt="">
+                    </div>
+                </div>
+                <div class="main-data-time">{{ item.pub_date }}</div>
+            <div class="main-data-info">
+                <div>{{ item.content }}</div>
+            </div>
+            </div>
+            {% endfor %}
+        {% if data %}
+            <div class="main-data-div">
+                <div class="main-data-info">
+                    <div class="main-footer cursor-pointer" id="moreSearchFastInfo">
+                        MORE INFORMATION
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

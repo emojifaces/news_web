@@ -1832,15 +1832,14 @@ iframe img{
 .user-login-top button img {
     height: 20px;
     width: 20px;
-    left: 35px;
+    left: 30px;
     margin-top: 8px;
     position: absolute;
 }
 .user-login-top button span {
-    font-weight: bolder;
-    font-size: small;
     border-radius: 4px;
 }
+
 .user-login input{
     padding: 10px;
 }
@@ -1852,7 +1851,7 @@ iframe img{
 }
 .split-line > div {
     position: absolute;
-    top: 215px;
+    top: 155px;
     width: 100%;
     height: 1px;
     border-bottom: 1px solid #ccc;
@@ -1897,11 +1896,14 @@ iframe img{
 .facebook-btn {
     background-color: #38569a;
 }
+.facebook-btn span{
+    color: white;
+}
 .telegram-btn {
 
     background-color: #1e96c8;
 }
-.zalo-btn {
+.google-btn {
     background-color: #FFFFFF;
 }
 .facebook-btn span {
@@ -1926,14 +1928,14 @@ iframe img{
     background-color: #FFFFFF;
     color: #1e96c8;
 }
-.zalo-btn span {
+.google-btn span {
     display: inline-block;
     height: 100%;
     width: 90%;
     float: right;
     line-height: 35px;
 }
-.zalo-btn span:hover{
+.google-btn span:hover{
     background-color: #f5f7fa;
 }
 .user-login button{

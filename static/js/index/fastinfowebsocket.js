@@ -35,8 +35,13 @@ window.onload = function () {
         // 接受到消息的回调方法
         ws.onmessage = function (e) {
             heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
-            var message = e.data;
+            var msg = e.data;
             console.log('websocket发来的信息：',message)
+            console.log('websocket的类型是:',typeof message)
+            let message = JSON.parse(msg)
+            console.log('转换后的数据类型是：',message)
+
+
             // message = JSON.parse(message);
             let container = $('.timeLine')
 
