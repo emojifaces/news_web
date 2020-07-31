@@ -240,18 +240,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
 
 
 
-$(document).on('click','.facebook-btn',function () {
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-      statusChangeCallback(response);        // Returns the login status.
-    });
-    FB.login(function(response) {
-        // statusChangeCallback(response);  //登录回调函数
-        console.log('facebook登录返回的数据',response)
 
-    },{scope: 'public_profile,email'});  //需要获取的信息scope
-
-    // window.open('/login/facebook/')
-})
 
 $(document).on('click','.google-btn',function () {
 

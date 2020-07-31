@@ -206,6 +206,28 @@
       xfbml      : true,
       version    : 'v7.0'
     });
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+    $(document).on('click','.facebook-btn',function () {
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);
+      FB.login(function(response) {
+        // statusChangeCallback(response);  //登录回调函数
+        console.log('facebook登录返回的数据',response)
+
+    },{scope: 'public_profile,email'});  //需要获取的信息scope// Returns the login status.
+    });
+
+
+    {#let FACEBOOK_KEY = '394220287958534'#}
+    {#let login_url = 'https://www.facebook.com/v7.0/dialog/oauth?client_id='+FACEBOOK_KEY+"&redirect_uri="#}
+    // window.open('/login/facebook/')
+})
     {#FB.AppEvents.logPageView();#}
 
 
@@ -215,13 +237,7 @@
   };
 
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+
 
 
 
