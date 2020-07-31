@@ -236,13 +236,8 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
     }
   }
 
-function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-}
 
-checkLoginState()
+
 
 
 $(document).on('click','.facebook-btn',function () {
