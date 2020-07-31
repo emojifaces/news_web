@@ -20,7 +20,7 @@ function login() {
         // '                       <span>Log in with Telegram</span>' +
         // '               </button>\n' +
             '            <button type="button" id="facebookButton" class="facebook-btn fb-login-button"><img src="/static/images/facebook_icon.png" alt=""><span>LOG IN WITH FACEBOOK</span></button>\n' +
-            '            <button type="button" class="google-btn"><img src="/static/images/google_icon.png" alt=""><span>LOG IN WITH GOOGLE</span></button>\n' +
+            '            <button type="button" id="googleButton" class="google-btn"><img src="/static/images/google_icon.png" alt=""><span>LOG IN WITH GOOGLE</span></button>\n' +
             '        </div>\n' +
             '        <div class="split-line">\n' +
         '                <div></div>\n'+
@@ -225,8 +225,3 @@ $(document).on('click','#user-register',function () {
     }
 })
 
-
-$(document).on('click','.google-btn',function () {
-
-    window.open('/login/google/')
-})
