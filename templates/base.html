@@ -242,11 +242,9 @@
 
     function testAPI() {
         FB.api('/me', function (response) {
-            FB.api('http://graph.facebook.com/' + response.id + '?fields=first_name,last_name,email', function (data) {
+            FB.api('http://graph.facebook.com/' + response.id + '?fields=id,name,link,email,picture', function (data) {
                 //获取数据之后填充到对应的input上
-                document.getElementById("firstName").value = data.first_name;
-                document.getElementById("lastName").value = data.last_name;
-                document.getElementById("email").value = data.email;
+                console.log(data)
             });
         })
     }
