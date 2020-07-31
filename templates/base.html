@@ -208,10 +208,6 @@
   {#  });#}
 
 
-    $(document).on('click','.facebook-btn',function () {
-    checkLoginState()
-    });
-
 
     {#let FACEBOOK_KEY = '394220287958534'#}
     {#let login_url = 'https://www.facebook.com/v7.0/dialog/oauth?client_id='+FACEBOOK_KEY+"&redirect_uri="#}
@@ -219,50 +215,48 @@
 
     {#FB.AppEvents.logPageView();#}
 
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if(d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '394220287958534',
+            cookie: true, // 启用cookie
+            xfbml: true, // 解析此页面上的社交插件
+            version: 'v7.0' // 使用图形api 2.8版本
+        });
+
+// 点击按钮登录的代码
+
+        document.getElementsByClassName("facebook-btn").onclick = function () {
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    testAPI();
+                } else {
+
+                    console.log("该用户没有登录")
+                }
+            }, {scope: 'public_profile,email'});
+            return false;
+        }
 
 
-function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
-    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-      testAPI();
-    } else {
-        console.log(  'Please log ' +
-        'into this webpage.')// Not logged into your webpage;
-    }
-  }
-
-
-  function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-  }
-
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '394220287958534',
-      cookie     : true,                     // Enable cookies to allow the server to access the session.
-      xfbml      : true,                     // Parse social plugins on this webpage.
-      version    : 'v7.0'           // Use this Graph API version for this call.
-    });
-
-
-    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-      statusChangeCallback(response);        // Returns the login status.
-    });
-  };
-
-  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
-
+        function testAPI() {
+            FB.api('/me', function (response) {
+                FB.api('http://graph.facebook.com/' + response.id + '?fields=first_name,last_name,email', function (data) {
+                    //获取数据之后填充到对应的input上
+                     document.getElementById("firstName").value = data.first_name;
+                     document.getElementById("lastName").value = data.last_name;
+                     document.getElementById("email").value = data.email;
+            });
+        })
+    }}
 
 
 
