@@ -222,35 +222,46 @@
     window.fbAsyncInit = function () {
         FB.init({
             appId: '2867805326681192',
-            cookie: true, // 启用cookie
-            xfbml: true, // 解析此页面上的社交插件
-            version: 'v7.0' // 使用图形api 2.8版本
+            xfbml: true,
+            version: 'v7.0'
         });
+        FB.AppEvents.logPageView();
+    };
 
-// 点击按钮登录的代码
-        $('body').on('click', '#facebookButton', function () {
-            FB.login(function (response) {
-                if (response.status === 'connected') {
-                    testAPI();
-                } else {
-
-                    console.log("该用户没有登录")
-                }
-            }, {scope: 'public_profile,email'});
-            return false;
-        })
-
-
-        function testAPI() {
-            FB.api('/me', function (response) {
-                FB.api('http://graph.facebook.com/' + response.id + '?fields=first_name,last_name,email', function (data) {
-                    //获取数据之后填充到对应的input上
-                    document.getElementById("firstName").value = data.first_name;
-                    document.getElementById("lastName").value = data.last_name;
-                    document.getElementById("email").value = data.email;
-                });
-            })
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
         }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // 点击按钮登录的代码
+    $('body').on('click', '#facebookButton', function () {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                testAPI();
+            } else {
+
+                console.log("该用户没有登录")
+            }
+        }, {scope: 'public_profile,email'});
+        return false;
+    })
+
+
+    function testAPI() {
+        FB.api('/me', function (response) {
+            FB.api('http://graph.facebook.com/' + response.id + '?fields=first_name,last_name,email', function (data) {
+                //获取数据之后填充到对应的input上
+                document.getElementById("firstName").value = data.first_name;
+                document.getElementById("lastName").value = data.last_name;
+                document.getElementById("email").value = data.email;
+            });
+        })
     }
 
 
