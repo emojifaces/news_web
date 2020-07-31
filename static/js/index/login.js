@@ -52,6 +52,12 @@ function login() {
                     //获取用户信息
                     var profile = googleUser.getBasicProfile();
                     console.log('获取到的用户信息：', profile);
+                    let data = {
+                        'openid':profile.getId(),
+                        'email':profile.getEmail(),
+                        'image':profile.getImageUrl()
+                    }
+                    console.log(data)
                 }, function (error) {
                     console.log(JSON.stringify(error, undefined, 2));
                 }
