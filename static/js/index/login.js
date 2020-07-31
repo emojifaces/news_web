@@ -38,6 +38,25 @@ function login() {
         '</div>')
     $('body').prepend(html)
     $('#current-path').val(current_path);
+    gapi.load('auth2', function () {
+            auth2 = gapi.auth2.init({
+                client_id: '1094797449963-8h30k5v064h5idmpsn96e34hrhfsa181.apps.googleusercontent.com',  //第二步申请的客户端id
+                cookiepolicy: "single_host_origin"
+            });
+            attachSignin(document.getElementById('googleButton'));
+        });
+
+        function attachSignin(element) {
+            auth2.attachClickHandler(element, {},
+                function (googleUser) {
+                    //获取用户信息
+                    var profile = googleUser.getBasicProfile();
+                    console.log('获取到的用户信息：', profile);
+                }, function (error) {
+                    console.log(JSON.stringify(error, undefined, 2));
+                }
+            );
+        }
 }
 
 // 点击注册链接显示注册表单
