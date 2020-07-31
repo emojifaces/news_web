@@ -226,7 +226,7 @@
 
 // 点击按钮登录的代码
 
-        document.getElementsByClassName("facebook-btn").onclick = function () {
+        document.getElementById("facebookButton").onclick = function () {
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     testAPI();
