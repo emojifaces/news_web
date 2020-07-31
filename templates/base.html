@@ -4,9 +4,9 @@
     <title>{% block title %}
         title
     {% endblock %}</title>
-{#	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">#}
-{#	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>#}
-{#	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+    {#	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">#}
+    {#	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>#}
+    {#	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
     {% block link %}
 
     {% endblock %}
@@ -15,8 +15,8 @@
 <div class="top-tips">
     <div class="tips">
         <p>风险提示：保证金交易存在极高的风险，未必适合所有的投资者，请不要轻信任何高额投资收益的诱导而贸然投资。在您决定投资保证金交易时，需要提醒您：投资导致的损失可能超过您投入的资金，因此，请您考虑自身的
-投资经验及风险承担能力理性投资。投资风险不仅来自于杠杆交易本身，同时也有可能来自于券商平台的不确定性，请您仔细甄別、远离风险。所有投资者的交易帐户应仅限本人使用，不应交由第三方操作，对于任何接受第
-三方喊单、操盘、理财等操作的投资和交易，由此导致的风险和专损由投资者个人自行承担。
+            投资经验及风险承担能力理性投资。投资风险不仅来自于杠杆交易本身，同时也有可能来自于券商平台的不确定性，请您仔细甄別、远离风险。所有投资者的交易帐户应仅限本人使用，不应交由第三方操作，对于任何接受第
+            三方喊单、操盘、理财等操作的投资和交易，由此导致的风险和专损由投资者个人自行承担。
         </p>
         <div class="accept">
             <div style="float: left">Accept</div>
@@ -26,14 +26,14 @@
 </div>
 <div class="top-ad">
     <div id="top" class="row">
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
-{#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
+        {#        <img src="/static/ad/ad_top.jpg" alt="" class="col-3">#}
     </div>
 </div>
 <div style="width: 100%;background-color: #213b54;" id="title">
@@ -64,34 +64,35 @@
                     </ul>
                     <form class="form-inline my-2 my-lg-0" action="/search/" type="get">
                         <input class="form-control mr-sm-2" type="text" name="q">
-                        <button class="btn  my-2 my-sm-0 search-btn" type="button"><img src="/static/images/search.png" alt=""></button>
+                        <button class="btn  my-2 my-sm-0 search-btn" type="button"><img src="/static/images/search.png"
+                                                                                        alt=""></button>
                     </form>
                 </div>
                 <div class="user-data">
                     <div class="user-header" id="user-header" {% if request.user.is_authenticated %}
-                    onclick="toUser()"{% else %}
-                         onclick = 'login()'
+                         onclick="toUser()"{% else %}
+                         onclick='login()'
                     {% endif %} >
 
-                    {% if request.user.is_authenticated %}
-                        <img src="/media/{{ request.session.user_img }}" alt="" width="40" height="40">
-                    {% else %}
-                        <img src="/static/images/head.png" alt="" width="40" height="40">
-                    {% endif %}
+                        {% if request.user.is_authenticated %}
+                            <img src="/media/{{ request.session.user_img }}" alt="" width="40" height="40">
+                        {% else %}
+                            <img src="/static/images/head.png" alt="" width="40" height="40">
+                        {% endif %}
                     </div>
-                    <div class="user-name" id="user-name" >
+                    <div class="user-name" id="user-name">
                         <span>{% if request.user.is_authenticated %}
-                                {{ request.session.user_name }}
-                                {% else %}
-                                    LOG IN
-                                {% endif %}
+                            {{ request.session.user_name }}
+                        {% else %}
+                            LOG IN
+                        {% endif %}
                         </span>
                     </div>
                     {% if request.user.is_authenticated %}
-                    <div class="user-message cursor-pointer" id="user-message">
-                        <img src="/static/images/message.png" alt="">
-                    </div>
-                    <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
+                        <div class="user-message cursor-pointer" id="user-message">
+                            <img src="/static/images/message.png" alt="">
+                        </div>
+                        <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
                     {% endif %}
 
 
@@ -156,21 +157,23 @@
     </div>
 </div>
 <div id="fixed-left">
-{#    <div>#}
-{#        <img src="/static/ad/ad_left.jpg" alt="">#}
-{#    </div>#}
-{#    <div><img src="/static/ad/ad_left.jpg" alt=""></div>#}
-{#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
+    {#    <div>#}
+    {#        <img src="/static/ad/ad_left.jpg" alt="">#}
+    {#    </div>#}
+    {#    <div><img src="/static/ad/ad_left.jpg" alt=""></div>#}
+    {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
 </div>
 <div id="fixed-right">
-{#    <div>#}
-{#        <img src="/static/ad/ad_right.jpg" alt="">#}
-{#    </div>#}
-{#    <div><img src="/static/ad/ad_right.jpg" alt=""></div>#}
-{#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
+    {#    <div>#}
+    {#        <img src="/static/ad/ad_right.jpg" alt="">#}
+    {#    </div>#}
+    {#    <div><img src="/static/ad/ad_right.jpg" alt=""></div>#}
+    {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
 </div>
 {#<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>#}
-<audio id="bgm"  controls style="display: none"><source src="/static/sound/notice.wav" /></audio>
+<audio id="bgm" controls style="display: none">
+    <source src="/static/sound/notice.wav"/>
+</audio>
 
 <script src="/static/js/bin/jquery-2.1.4.js"></script>
 <script src="/static/js/bin/bootstrap.js"></script>
@@ -200,12 +203,12 @@
     initMode()
     initSound()
     initGlobalAd()
-  {#window.fbAsyncInit = function() {#}
-  {#  FB.init({#}
-  {#    appId      : '394220287958534',#}
-  {#    xfbml      : true,#}
-  {#    version    : 'v7.0'#}
-  {#  });#}
+    {#window.fbAsyncInit = function() {#}
+    {#  FB.init({#}
+    {#    appId      : '394220287958534',#}
+    {#    xfbml      : true,#}
+    {#    version    : 'v7.0'#}
+    {#  });#}
 
 
 
@@ -216,7 +219,7 @@
     {#FB.AppEvents.logPageView();#}
 
 
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
             appId: '394220287958534',
             cookie: true, // 启用cookie
@@ -225,8 +228,7 @@
         });
 
 // 点击按钮登录的代码
-
-        document.getElementById("facebookButton").onclick = function () {
+        $('body').on('click', '#facebookButton', function () {
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     testAPI();
@@ -236,20 +238,20 @@
                 }
             }, {scope: 'public_profile,email'});
             return false;
-        }
+        })
 
 
         function testAPI() {
             FB.api('/me', function (response) {
                 FB.api('http://graph.facebook.com/' + response.id + '?fields=first_name,last_name,email', function (data) {
                     //获取数据之后填充到对应的input上
-                     document.getElementById("firstName").value = data.first_name;
-                     document.getElementById("lastName").value = data.last_name;
-                     document.getElementById("email").value = data.email;
-            });
-        })
-    }}
-
+                    document.getElementById("firstName").value = data.first_name;
+                    document.getElementById("lastName").value = data.last_name;
+                    document.getElementById("email").value = data.email;
+                });
+            })
+        }
+    }
 
 
 </script>
