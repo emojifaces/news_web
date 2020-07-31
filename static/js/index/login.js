@@ -19,7 +19,7 @@ function login() {
         // '                       <img src="/static/images/telegram_icon.png" alt="">' +
         // '                       <span>Log in with Telegram</span>' +
         // '               </button>\n' +
-            '            <button type="button" class="facebook-btn"><img src="/static/images/facebook_icon.png" alt=""><span>LOG IN WITH FACEBOOK</span></button>\n' +
+            '            <button type="button" class="facebook-btn fb-login-button"><img src="/static/images/facebook_icon.png" alt=""><span>LOG IN WITH FACEBOOK</span></button>\n' +
             '            <button type="button" class="google-btn"><img src="/static/images/google_icon.png" alt=""><span>LOG IN WITH GOOGLE</span></button>\n' +
             '        </div>\n' +
             '        <div class="split-line">\n' +
