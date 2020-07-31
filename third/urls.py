@@ -3,5 +3,5 @@ from .views import *
 
 
 urlpatterns = [
-    path('facebook/',Facebook.as_view()),
+    path('',Login.as_view()),
 ]

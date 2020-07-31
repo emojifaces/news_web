@@ -245,6 +245,25 @@
             FB.api('http://graph.facebook.com/' + response.id + '?fields=id,name,link,email,picture', function (data) {
                 //获取数据之后填充到对应的input上
                 console.log(data)
+                $.ajax({
+                    type:'post',
+                    url:'/third/',
+                    data:{
+                        'openid':data.id,
+                        'name':data.name,
+                        'img':data.picture.data.url,
+                        'email': data.email,
+                        'type': 'facebook'
+                    },
+                    success:function (res) {
+                        console.log('fb登录返回结果：',res)
+                        if (!res.success){
+                            layer.msg('<div style="color: black;text-align: center;">' + res.err+ '</div>')
+                        }else{
+                            Location.href = '/'
+                        }
+                    }
+                })
             });
         })
     }

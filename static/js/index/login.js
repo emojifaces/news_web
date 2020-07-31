@@ -226,22 +226,6 @@ $(document).on('click','#user-register',function () {
 })
 
 
-function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback',response);
-    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-      FB.logout(function(response) {
-       // Person is now logged out
-          console.log('用户已登录facebook，现在退出',response)
-    });
-    }
-  }
-
-
-
-
-
-
-
 $(document).on('click','.google-btn',function () {
 
     window.open('/login/google/')
