@@ -11,6 +11,7 @@ class Facebook(APIView):
         data = request.GET
         print(data)
         print(dir(data))
-
+        for i in dir(data):
+            print(i)
 
         return HttpResponse(dir(data))
