@@ -37,12 +37,12 @@ function initGlobalAd() {
 // 点击广告跳转url
 $(document).on('click','#ad-img',function () {
     let url = $(this).attr('data-url')
-    location.href = url
+    window.open(url)
 })
 
 $(document).on('click','.mask',function () {
     let url = $(this).siblings('img').attr('data-url')
-    location.href = url
+    window.open(url)
 })
 
 // 初始化首页广告

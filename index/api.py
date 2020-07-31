@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 import emoji
 from cal.models import Calendar
-from group.api import UnsafeSessionAuthentication
+from group.api import UnsafeSessionAuthentication, Remind
 from group.models import Blogs, FirstBlogComment, SecondBlogComment, Attentions, CollectBlogs, GoodFingerBlogs, \
     BlogImages, BlogChoices, SelectBlogs
 from index.models import FastInfo, Summary
@@ -35,7 +35,7 @@ class GetFastInfoList(APIView):
             user = None
         is_import = request.GET.get('import', '')
         page = request.GET.get('page', 1)
-        limit = request.GET.get('limit', 10)
+        limit = request.GET.get('limit', 30)
         start = (int(page) - 1) * int(limit)
         end = int(page) * int(limit)
         data = FastInfo.objects.filter(is_pub=True).order_by('-VN_pub_date').all()
@@ -206,193 +206,7 @@ class GetFastInfoList(APIView):
 
         return Response({'count': data.count(), 'page': page, 'limit': limit, 'data': returnList})
 
-# index 加载summary列表
-# class GetSummaryList(APIView):
-#
-#     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
-#     permission_classes = (AllowAny,)
-#
-#     def get(self,request):
-#
-#         if request.user.is_authenticated:
-#             user = BaseUser.objects.get(auth_user=request.user)
-#         else:
-#             user = None
-#         is_import = request.GET.get('import', '')
-#         page = request.GET.get('page', 1)
-#         limit = request.GET.get('limit', 10)
-#         start = (int(page) - 1) * int(limit)
-#         end = int(page) * int(limit)
-#         data = FastInfo.objects.filter(is_pub=True).order_by('-VN_pub_date').all()
-#         if is_import:
-#             data = data.filter(is_important=is_import).all()
-#         res = data[start:end]
-#         returnList = list()
-#         for obj in res:
-#             if obj.type == 1:
-#                 # 日历
-#                 if Calendar.objects.filter(id=obj.other_id).exists():
-#                     calendar = Calendar.objects.get(id=obj.other_id)
-#                     dic = model_to_dict(calendar)
-#                     dic['is_important'] = obj.is_important
-#                     dic['title'] = emoji.emojize(calendar.title)
-#                     dic['tran_title'] = emoji.emojize(calendar.tran_title)
-#                     dic['VN_pub_date'] = calendar.VN_pub_date.time()
-#                     if calendar.actual:
-#                         dic['actual'] = calendar.actual
-#                     else:
-#                         dic['actual'] = u'---'
-#                     if calendar.consensus:
-#                         dic['consensus'] = calendar.consensus
-#                     else:
-#                         dic['consensus'] = u'---'
-#                     if calendar.previous:
-#                         dic['previous'] = calendar.previous
-#                     else:
-#                         dic['previous'] = u'---'
-#                     dic['star'] = calendar.star
-#                     if calendar.unit == u'%':
-#                         dic['unit'] = u'%'
-#                     else:
-#                         dic['unit'] = ''
-#                     dic['fast_type'] = 1
-#                     returnList.append(dic)
-#             elif obj.type == 2:
-#                 # group
-#                 if Blogs.objects.filter(id=obj.other_id).exists():
-#                     blog = Blogs.objects.get(id=obj.other_id)
-#                     dic = model_to_dict(blog)
-#                     dic['is_important'] = obj.is_important
-#                     firstNum = FirstBlogComment.objects.filter(blog_id=blog, is_pub=True).count()
-#                     scondNum = SecondBlogComment.objects.filter(blog_id=blog, is_pub=True).count()
-#                     dic['commentNum'] = firstNum + scondNum
-#                     dic['content'] = emoji.emojize(blog.content)
-#                     dic['pub_date'] = blog.modify_date.strftime("%Y/%m/%d %H:%M:%S")
-#                     dic['VN_pub_date'] = obj.VN_pub_date.strftime("%Y/%m/%d %H:%M:%S")
-#                     if Attentions.objects.filter(user_id=user, star_id=blog.user_id).exists():
-#                         dic['isfollow'] = True
-#                     else:
-#                         dic['isfollow'] = False
-#                     if CollectBlogs.objects.filter(user_id=user, blog_id=blog, is_pub=True).exists():
-#                         dic['iscollect'] = True
-#                     else:
-#                         dic['iscollect'] = False
-#                     if GoodFingerBlogs.objects.filter(user_id=user, blog_id=blog, is_pub=True).exists():
-#                         dic['isgood'] = True
-#                     else:
-#                         dic['isgood'] = False
-#                     dic['header'] = blog.user_id.img
-#                     dic['username'] = blog.user_id.name
-#
-#                     if BlogImages.objects.filter(blog_id=blog, is_pub=True).exists():
-#                         blogImage = BlogImages.objects.filter(blog_id=blog, is_pub=True).all()
-#                         imgList = list()
-#                         for oo in blogImage:
-#                             imgList.append(oo.img)
-#                         dic['img'] = imgList
-#                     else:
-#                         dic['img'] = []
-#                         if blog.bgcolor:
-#                             dic['isimportance'] = True
-#                     transpondList = list()
-#                     dataDic = dict()
-#                     if blog.type == 1:
-#                         # 投票
-#                         if BlogChoices.objects.filter(blog_id=blog, is_pub=True).exists():
-#                             blogChoice = BlogChoices.objects.filter(blog_id=blog, is_pub=True)
-#                             voteNum = 0
-#                             choiceList = list()
-#                             isallvote = False
-#                             for obj in blogChoice:
-#                                 obj_dic = model_to_dict(obj)
-#                                 obj_dic['content'] = emoji.emojize(obj.content)
-#                                 obj_dic['pub_date'] = obj.modify_date.strftime("%Y/%m/%d %H:%M:%S")
-#                                 if SelectBlogs.objects.filter(blog_id=blog, answer_id=obj, user_id=user).exists():
-#                                     obj_dic['isvote'] = True
-#                                     isallvote = True
-#                                 else:
-#                                     obj_dic['isvote'] = False
-#                                 choiceList.append(obj_dic)
-#                                 voteNum += obj.num
-#                             dic['vote'] = choiceList
-#                             dic['voteNum'] = voteNum
-#                             dic['isallvote'] = isallvote
-#                     elif blog.type == 2:
-#                         while True:
-#                             if blog.type == 2:
-#                                 # 转发
-#                                 if Blogs.objects.filter(id=blog.blog_id.id, is_pub=True).exists():
-#                                     blog = Blogs.objects.get(id=blog.blog_id.id, is_pub=True)
-#                                     transpondList.append({'username': blog.user_id.name, 'id': blog.user_id.id})
-#                                     continue
-#                             else:
-#                                 dataDic['data'] = model_to_dict(blog)
-#                                 dataDic['data']['content'] = emoji.emojize(blog.content)
-#                                 dataDic['data']['username'] = blog.user_id.name
-#                                 if BlogImages.objects.filter(blog_id=blog, is_pub=True).exists():
-#                                     blogImage = BlogImages.objects.filter(blog_id=blog, is_pub=True).all()
-#                                     imgList = list()
-#                                     for oo in blogImage:
-#                                         imgList.append(oo.img)
-#                                     dataDic['data']['img'] = imgList
-#                                 else:
-#                                     dataDic['data']['img'] = []
-#                                 if blog.type == 1:
-#                                     # 投票
-#                                     if BlogChoices.objects.filter(blog_id=blog, is_pub=True).exists():
-#                                         blogChoice = BlogChoices.objects.filter(blog_id=blog, is_pub=True)
-#                                         voteNum = 0
-#                                         isallvote = False
-#                                         choiceList = list()
-#                                         for obj in blogChoice:
-#                                             obj_dic = model_to_dict(obj)
-#                                             obj_dic['content'] = emoji.emojize(obj.content)
-#                                             obj_dic['pub_date'] = obj.modify_date.strftime("%Y/%m/%d %H:%M:%S")
-#                                             if SelectBlogs.objects.filter(blog_id=blog, answer_id=obj,
-#                                                                           user_id=user).exists():
-#                                                 obj_dic['isvote'] = True
-#                                                 isallvote = True
-#                                             else:
-#                                                 obj_dic['isvote'] = False
-#                                             choiceList.append(obj_dic)
-#                                             voteNum += obj.num
-#                                         dataDic['data']['vote'] = choiceList
-#                                         dataDic['data']['voteNum'] = voteNum
-#                                         dataDic['data']['isallvote'] = isallvote
-#                                 dataDic['transpond'] = transpondList
-#                                 break
-#                         dic['data'] = dataDic
-#                     dic['fast_type'] = 2
-#                     returnList.append(dic)
-#             elif obj.type == 0:
-#                 # 快讯
-#                 dic = model_to_dict(obj)
-#                 dic['content'] = emoji.emojize(obj.content)
-#                 dic['translate'] = emoji.emojize(obj.translate)
-#                 dic['VN_pub_date'] = obj.VN_pub_date.time()
-#                 dic['fast_type'] = obj.type
-#                 returnList.append(dic)
-#             elif obj.type == 3:
-#                 dic = model_to_dict(obj)
-#                 ad_list = list()
-#                 rounds_ad_group = RoundsAdvertsGroup.objects.get(id=obj.other_id)
-#                 ads = RoundsAdverts.objects.filter(round_id=rounds_ad_group.id)
-#                 for ad in ads:
-#                     ad_dict = {
-#                         'url': ad.url,
-#                         'sort': ad.sort,
-#                         'img': ad.img
-#                     }
-#                     ad_list.append(ad_dict)
-#                 dic['rounds_ad_group'] = ad_list
-#                 dic['VN_pub_date'] = obj.VN_pub_date.time().replace(microsecond=0)
-#                 dic['fast_type'] = obj.type
-#                 returnList.append(dic)
-#
-#         return Response({'count': data.count(), 'page': page, 'limit': limit, 'data': returnList})
 
-
-# index 加载日历
 class GetCalendarList(APIView):
 
     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
@@ -620,3 +434,26 @@ class DeleteComment(APIView):
                 return Response({'success': True,'msg':'成功删除'})
             except Exception as e:
                 return Response({'success': False, 'msg': 'err'})
+
+# 消息提醒
+class RemindView(APIView):
+
+    def get(self,request):
+        if request.user.is_authenticated:
+            userId = BaseUser.objects.get(auth_user=request.user).id
+        else:
+            userId = None
+        if Remind.objects.filter(author_id=userId,isread=False).exists():
+            return Response({'msg':True})
+        else:
+            return Response({'msg':False})
+
+class UpdateRemindState(APIView):
+
+    def get(self,request):
+        if request.user.is_authenticated:
+            userId = BaseUser.objects.get(auth_user=request.user).id
+        else:
+            userId = None
+        Remind.objects.filter(author_id=userId,isread=False).update(isread=True)
+        return Response({'success':True})

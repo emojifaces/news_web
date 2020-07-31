@@ -4,9 +4,9 @@
     <title>{% block title %}
         title
     {% endblock %}</title>
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{#	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">#}
+{#	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>#}
+{#	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
     {% block link %}
 
     {% endblock %}
@@ -83,14 +83,17 @@
                         <span>{% if request.user.is_authenticated %}
                                 {{ request.session.user_name }}
                                 {% else %}
-                                    Leon
+                                    LOG IN
                                 {% endif %}
                         </span>
                     </div>
+                    {% if request.user.is_authenticated %}
                     <div class="user-message cursor-pointer" id="user-message">
                         <img src="/static/images/message.png" alt="">
                     </div>
-                <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
+                    <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
+                    {% endif %}
+
 
                 </div>
             </nav>
@@ -167,6 +170,7 @@
 {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
 </div>
 {#<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>#}
+<audio id="bgm"  controls style="display: none"><source src="/static/sound/notice.wav" /></audio>
 
 <script src="/static/js/bin/jquery-2.1.4.js"></script>
 <script src="/static/js/bin/bootstrap.js"></script>
@@ -180,22 +184,31 @@
 <script src="/static/js/index/login.js"></script>
 <script src="/static/js/index/ad.js"></script>
 <script src="/static/js/index/search.js"></script>
+<script src="/static/js/index/setting.js"></script>
 {% block script %}
 
 {% endblock %}
 
 
 {#<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>#}
-{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
+    {% if request.user.is_authenticated %}
+        checkRemind()
+    {% endif %}
+
+    initMode()
+    initSound()
     initGlobalAd()
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '2867805326681192',
+      appId      : '394220287958534',
       xfbml      : true,
       version    : 'v7.0'
     });
     FB.AppEvents.logPageView();
+
+
 
 
 

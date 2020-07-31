@@ -44,11 +44,11 @@
         {% endif %}
         <span>{{ data.like_num }}</span>
     </div>
-    <div class="blog-detail-line"></div>
-    <div class="blog-detail-share">
-        <div>Share</div>
-        <div><img src="/static/images/fb.png" alt=""></div>
-    </div>
+{#    <div class="blog-detail-line"></div>#}
+{#    <div class="blog-detail-share">#}
+{#        <div>Share</div>#}
+{#        <div><img src="/static/images/fb.png" alt=""></div>#}
+{#    </div>#}
     <div class="blog-detail-ad">
         {% for ad in data.ads %}
             <img src="/media/{{ ad.img }}" alt="" data-url="{{ ad.url }}">

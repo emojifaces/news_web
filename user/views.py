@@ -23,6 +23,7 @@ class UserView(View):
 
 
     def get(self, request):
+        num = request.GET.get('num','')
         if request.user.is_authenticated:
             user = BaseUser.objects.get(auth_user=request.user)
             data = {
@@ -32,7 +33,8 @@ class UserView(View):
                 "birthday":user.birthday,
                 "phone":user.phone,
                 "email":user.email,
-                "img":user.img
+                "img":user.img,
+                "num":num
             }
             return render(request, 'user.html',{'data':data})
         else:

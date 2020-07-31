@@ -91,7 +91,7 @@ class GetMyGroup(APIView):
                 'user_name':blog.user_id.name,
                 'header':blog.user_id.img,
                 'pub_date':blog.create_date,
-                'content':emoji.emojize(blog.content),
+                'content':emoji.emojize(blog.content) if blog.content else '',
                 'img':[blog_img.img for blog_img in blog.blogImages_blog.all()],
                 'iscollect':blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
                 'collectnum':blog.collectBlog_blog.all().count(),

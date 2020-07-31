@@ -26,17 +26,17 @@ index
                 <img src="/static/images/gengduo.png" class="arrow1" alt="" style="margin-left: 5px">
             </a>
             <div class="check-div" style="display: none">
-                <div class="custom-control custom-switch">
+                <div class="custom-control custom-switch" id="onSound">
                     <input type="checkbox" class="custom-control-input" id="Sound">
                     <label class="custom-control-label" for="Sound">Sound</label>
 
                 </div>
-                <div class="custom-control custom-switch">
+                <div class="custom-control custom-switch" id="onNight">
                     <input type="checkbox" class="custom-control-input" id="Night">
                     <label class="custom-control-label" for="Night">Night</label>
 
                 </div>
-                <div class="custom-control custom-switch">
+                <div class="custom-control custom-switch" id="onNews">
                     <input type="checkbox" class="custom-control-input" id="News">
                     <label class="custom-control-label" for="News">News</label>
 
@@ -58,8 +58,19 @@ index
 
             </nav>
         </div>
-        <div id="main-left-data" style="background-color: white;">
+        <div id="main-left-data" >
             <div class="timeLine"></div>
+{#            <div class="main-data-div color-comment">#}
+{#                <div class="main-data-icon">#}
+{#                    <div class="icon-div">#}
+{#                        <img src="/static/images/7_24.png" alt="">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="main-data-time">15.40</div>#}
+{#                <div class="main-data-info">#}
+{##}
+{#                </div>#}
+{#            </div>#}
 {#            <div class="main-data-div color-comment">#}
 {#                <div class="main-data-icon">#}
 {#                    <div class="icon-div">#}
@@ -205,11 +216,14 @@ index
         '             <img src="/static/images/7_24.png" alt="">' +
         '             </div>\n' +
         '         </div>')
-                let time = $('<div class="main-data-time">'+data.VN_pub_date+'</div>')
+                let time = $('<div class="main-data-time">'+removeMS(data.VN_pub_date)+'</div>')
                 let info = $('<div class="main-data-info"></div>')
                 div.append(icon,time,info)
                 if (data.fast_type==0){
                     // 快讯
+                    if (data.translate.indexOf('&lt;iframe src=')!=-1){
+                        data.translate = entityToString(data.translate)
+                    }
                     let fast = $('<div>'+data.translate+'</div>')
                     info.append(fast)
                     if (data.is_important){
@@ -414,6 +428,7 @@ index
 
                     info.append(parentDiv)
                 } else if (data.fast_type==3){
+                    广告
                     let ad_container = $('<div class="ad-container"></div>')
                     for (let ad of data.rounds_ad_group){
                         let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')

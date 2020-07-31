@@ -36,14 +36,15 @@ window.onload = function () {
         ws.onmessage = function (e) {
             heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
             var msg = e.data;
-            console.log('websocket发来的信息：',message)
-            console.log('websocket的类型是:',typeof message)
             let message = JSON.parse(msg)
-            console.log('转换后的数据类型是：',message)
 
 
+
+            console.log('websocket数据：',message)
             // message = JSON.parse(message);
             let container = $('.timeLine')
+
+
 
 
             let div = $('<div class="main-data-div color-comment"></div>')
@@ -274,6 +275,9 @@ window.onload = function () {
                 }
 
                 container.after(div)
+                if (getCookie('onSound')=='true'){
+                    playBGM()
+                }
         };
 
         // 接受到服务端关闭连接时的回调方法

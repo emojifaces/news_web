@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'social_django',
     'rest_framework',
     'user',
     'index',
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'blog',
     'cal',
     'ad',
+    'third',
 ]
 
 
@@ -59,6 +61,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -138,3 +142,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
+
+# AUTHENTICATION_BACKENDS = {
+#     'social_core.backends.facebook.FacebookOAuth2',
+#     'social_core.backends.google.GoogleOAuth2',
+# }
+
+SOCIAL_AUTH_FACEBOOK_KEY = '394220287958534'
+SOCIAL_AUTH_FACEBOOK_SECRET = '8c83164b850be7c964c200fff1d9dea3'
+
+SOCIAL_AUTH_GOOGLE_KEY = '1094797449963-8h30k5v064h5idmpsn96e34hrhfsa181.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_SECRET = '5GR_JCOCaLezKJdOJjxQS6UM'
+
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'

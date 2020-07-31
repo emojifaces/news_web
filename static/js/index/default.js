@@ -1094,6 +1094,8 @@ $(document).on('click','#groupMoreGroup',function () {
             }
                 dom.append(moreBtn)
                 group_page += 1
+            }else{
+                layer.msg('<div style="color: black;text-align: center;">' + res.msg+'</div>')
             }
         }
     })

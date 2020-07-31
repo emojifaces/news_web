@@ -1,5 +1,5 @@
 fastinfo_page=2
-fastinfo_limit = 10
+fastinfo_limit = 30
 // 加载更多快讯信息
 $(document).on('click','#moreFastInfoBtn',function () {
     let btn = $(this).parents('.main-data-div')
@@ -17,11 +17,15 @@ $(document).on('click','#moreFastInfoBtn',function () {
         '             <img src="/static/images/7_24.png" alt="">' +
         '             </div>\n' +
         '         </div>')
-                let time = $('<div class="main-data-time">'+data.VN_pub_date+'</div>')
+                let time = $('<div class="main-data-time">'+removeMS(data.VN_pub_date)+'</div>')
                 let info = $('<div class="main-data-info"></div>')
                 div.append(icon,time,info)
                 if (data.fast_type==0){
+
                     // 快讯
+                    if (data.translate.indexOf('&lt;iframe src=')!=-1){
+                        data.translate = entityToString(data.translate)
+                    }
                     let fast = $('<div>'+data.translate+'</div>')
                     info.append(fast)
                     if (data.is_important){
@@ -251,7 +255,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
 })
 // 加载更对summary
 summary_page=2
-summary_limit = 10
+summary_limit = 30
 $(document).on('click','#moreSummaryBtn',function () {
     let btn = $(this).parents('.main-data-div')
     $.ajax({
@@ -499,8 +503,8 @@ $(document).on('click','#moreSummaryBtn',function () {
 
 })
 
-let month_list = new Array("Jan","Jan","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-let week_list = new Array("Sun","Mon","Tues","Wed","Thurs","Fri","Sat","Sun");
+month_list = new Array("Jan","Jan","Mar","Apr","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+week_list = new Array("Sun","Mon","Tues","Wed","Thurs","Fri","Sat","Sun");
 // 格式化时间函数
 function checktime(str){
     return str>9?str:'0'+str;
@@ -532,18 +536,24 @@ setInterval(function () {
 
     // calendar模块中的倒计时功能
     let nexttime = $('#card-calendar-body').children('div:first-child').children('div:first-child').children('.calendar-time').text()
-    let nexttime_list = nexttime.split(':')
-    let lefttime = new Date(datetime.getFullYear(),datetime.getMonth(),datetime.getDate(),parseInt(nexttime_list[0]),parseInt(nexttime_list[1]),parseInt(nexttime_list[2]))-datetime
-    if (lefttime<=0){
-        $('#card-calendar-body').children('div:first-child').remove();
-        let remaining_time = 'Next Date: 00 H 00 M 00 S'
+    if (!nexttime){
+        let remaining_time = 'Next Date:  00:00:00'
         $('#remaining-time').text(remaining_time)
     }else{
-        let lefthour = checktime(parseInt(lefttime / 1000 / 60 / 60 % 24))     // 剩余的小时数
-        let leftminute = checktime(parseInt(lefttime / 1000 / 60 % 60));       // 剩余的分钟数
-        let leftsecond = checktime(parseInt(lefttime / 1000 % 60));        // 剩余的秒数
-        let remaining_time = 'Next Date:  '+lefthour+':'+leftminute+':'+leftsecond
-        $('#remaining-time').text(remaining_time)
+        let nexttime_list = nexttime.split(':')
+        let lefttime = new Date(datetime.getFullYear(),datetime.getMonth(),datetime.getDate(),parseInt(nexttime_list[0]),parseInt(nexttime_list[1]),parseInt(nexttime_list[2]))-datetime
+        if (lefttime<=0){
+            $('#card-calendar-body').children('div:first-child').remove();
+            let remaining_time = 'Next Date: 00 H 00 M 00 S'
+            $('#remaining-time').text(remaining_time)
+        }else{
+            let lefthour = checktime(parseInt(lefttime / 1000 / 60 / 60 % 24))     // 剩余的小时数
+            let leftminute = checktime(parseInt(lefttime / 1000 / 60 % 60));       // 剩余的分钟数
+            let leftsecond = checktime(parseInt(lefttime / 1000 % 60));        // 剩余的秒数
+            let remaining_time = 'Next Date:  '+lefthour+':'+leftminute+':'+leftsecond
+            $('#remaining-time').text(remaining_time)
+    }
+
     }
 
 },1000)
@@ -1153,3 +1163,15 @@ $(document).on('click','.more-sbc',function () {
     })
 })
 
+// 点击跳转评论
+$(document).on('click','#user-message',function () {
+
+    $.ajax({
+        type:'get',
+        url:'/updateremind/',
+        success:function (res) {
+
+            location.href = '/user/?num=2'
+        }
+    })
+})

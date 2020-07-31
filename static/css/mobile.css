@@ -2109,17 +2109,20 @@ iframe img{
     border-bottom: 1px solid #ebebeb;
 }
 .detail-nav{
-    position: relative;
-    left: 10rem;
+    position: absolute;
+    margin-left: 45%;
+    font-size: x-large;
 }
 .blog-back{
-    font-size: x-large
+    font-size: 30px;
+    margin-left: 1rem;
+    width: 30px;
 }
 .blog-detail-container{
     color: black;
 
 }
-.blog-detail-date,.blog-detail-type,.blog-detail-title,.blog-detail-content,.blog-detail-img,.statement,.blog-detail-ad{
+.blog-detail-date,.blog-detail-type,.blog-detail-title,.blog-detail-content,.statement{
     margin: 0.5rem 1rem;
 }
 .blog-detail-type{
@@ -2129,7 +2132,16 @@ iframe img{
     font-size: larger;
     font-weight: bolder;
 }
-.blog-detail-img,.blog-detail-ad img{
+
+.blog-detail-img,.blog-detail-ad{
+    box-sizing: border-box;
+    padding: 1rem;
+}
+.blog-detail-img > img{
+    width: 100%;
+
+}
+.blog-detail-ad > img{
     width: 100%;
 }
 .statement{

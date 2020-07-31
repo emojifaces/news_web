@@ -42,12 +42,14 @@ class BaseUser(AbstractModel):
     name = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'姓名')
     phone = models.CharField(max_length=50, null=True, blank=True, verbose_name=u'手机号')
     email = models.CharField(max_length=150, null=True, blank=True, verbose_name=u'邮箱')
-    openid = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'openID')
+    facebookopenid = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'fackbookopenID')
+    googleopenid = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'googleopenID')
     gender = models.IntegerField(choices=SEX_CHOICES, verbose_name=u'性别', default=0)
     img = models.CharField(max_length=255, null=True, blank=True, verbose_name=u'头像')
     birthday = models.DateTimeField(null=True, blank=True, verbose_name='生日')
     slogan = models.CharField(max_length=255, null=True, blank=True, verbose_name='个人签名')
     facebook = models.CharField(max_length=255, null=True, blank=True, verbose_name='Facebook账号')
+    facebook_link = models.CharField(max_length=255, null=True, blank=True, verbose_name='facebook地址')
     auth_user = models.OneToOneField(settings.AUTH_USER_MODEL, models.CASCADE, verbose_name=u'登录用户', blank=True, null=True)
 
     class Meta:

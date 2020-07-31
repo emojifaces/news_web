@@ -447,6 +447,9 @@ $(document).on('click','#moreMyGroup',function () {
             }
                 dom.append(moreBtn)
                 mygroup_page += 1
+            }else{
+                layer.msg('<div style="color: black;text-align: center;">' + '没有更多数据</div>')
+                moreBtn.remove()
             }
         },
         error:function () {

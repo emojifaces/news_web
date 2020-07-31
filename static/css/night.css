@@ -1,0 +1,78 @@
+body{
+    background-color:#101017;
+}
+#main-left{
+    background-color:#101017;
+    border: 1px solid #26282e;
+
+}
+#main-left-title{
+    background-color:#262a38;
+}
+#main-left-nav,#main-left-data{
+    background-color:#101017;
+}
+.main-data-icon{
+    background-color:#101017;
+}
+.color-comment{
+    background-color:#101017;
+    color:white;
+}
+#main-setting span{
+    color: white;
+}
+.right-user-dynamic-scroll-box{
+    background-color: #101017;
+}
+.content-user-name{
+    color: white;
+}
+.card-calendar-header{
+    background-color: #101017;
+    color: white;
+}
+.card-calendar-body{
+    background-color: #101017;
+}
+tbody{
+    color: white;
+}
+button span{
+    color: white;
+}
+.vote-box{
+    background-color:#101017;
+    border: 1px solid #26282e;
+}
+.personal-info div{
+    color: white;
+}
+.user-info div{
+    color: white;
+}
+.comment-blog-box{
+     background-color:#101017;
+}
+.comment-blog-box div{
+    color: white;
+    background-color:#101017;
+
+}
+.blog-user-info{
+    border: 1px solid #26282e;
+}
+.black-box span{
+    color: white;
+}
+.delete-mycomment span{
+    color: white;
+}
+.delete-comment span{
+    color: white;
+}
+.textarea_1{
+    color: white;
+    background-color:#101017;
+    border: 1px solid #26282e;
+}

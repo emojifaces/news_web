@@ -123,11 +123,16 @@ class AddFirstComment(APIView):
         if not request.user.is_authenticated:
             return Response({"success":False,'err':"未登录"})
         else:
+            try:
+                blog = Blogs.objects.get(id=blog_id)
+            except:
+                return Response({'success':False,'err':'该blog不存在'})
             baseuser = BaseUser.objects.get(auth_user=request.user)
-            fbc = FirstBlogComment.objects.create(blog_id_id=blog_id,user_id_id=baseuser.id,content=content)
+            fbc = FirstBlogComment.objects.create(blog_id_id=blog_id,user_id_id=baseuser.id,content=emoji.demojize(content))
             print('blog_id：', blog_id,fbc.blog_id_id)
             print('baseuser.id：', baseuser.id,fbc.user_id_id)
             print('content：', content,fbc.content)
+            Remind.objects.create(user_id=baseuser,blog_id_id=blog_id,content=emoji.demojize(content),author=blog.user_id,type=0,first_comment=fbc)
 
             data = {
                 "success": True,
@@ -153,6 +158,10 @@ class AddSecondComment(APIView):
         if not request.user.is_authenticated:
             return Response({"success":False,"err":"未登录"})
         else:
+            try:
+                blog = Blogs.objects.get(id=blog_id)
+            except:
+                return Response({'success':False,'err':'该blog不存在'})
             baseuser = BaseUser.objects.get(auth_user=request.user)
             reply_id = FirstBlogComment.objects.get(id=first_id).user_id_id
             sbc = SecondBlogComment.objects.create(blog_id_id=blog_id, first_comment_id=first_id,user_id_id=baseuser.id,content=content,reply_id_id=reply_id)
@@ -163,6 +172,7 @@ class AddSecondComment(APIView):
                 'create_date':sbc.create_date,
                 'id':sbc.id
             }
+            Remind.objects.create(user_id=baseuser,blog_id=blog,author_id=reply_id,type=1,content=emoji.demojize(content),)
             return Response(data)
 
 class Publish(APIView):
@@ -303,7 +313,7 @@ class GroupList(APIView):
                 'user_name':blog.user_id.name,
                 'header':blog.user_id.img,
                 'pub_date':blog.create_date,
-                'content':emoji.emojize(blog.content),
+                'content':emoji.emojize(blog.content) if blog.content else '',
                 'img':[blog_img.img for blog_img in blog.blogImages_blog.all()],
                 'iscollect':blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
                 'collectnum':blog.collectBlog_blog.filter(is_pub=True).count(),
