@@ -1437,7 +1437,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .user-follow-div, .user-fans-div, .user-blacklist-div {

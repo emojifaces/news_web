@@ -15,9 +15,11 @@ user-detail
     <div id="main-left" style="width: 70.5%">
         <div id="main-left-data">
             <div class="user-head">
-                <div class="blog-left-top">
+                <div class="blog-left-top" data-url="{{ data.facebook_link }}">
+                    {% if data.facebook_link %}
                     <img src="/static/images/user-facebook.png" alt="">
-                    <span style="margin-left: 0.8rem">Alexaiorry</span>
+                    <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
+                    {% endif %}
                 </div>
             {% if not data.ismine and not data.isblack %}
                 <div class="add-black-btn" data="{{ data.userId }}">
@@ -37,7 +39,7 @@ user-detail
                         <span class="user-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                     </div>
                     <div class="user-profile">
-                        {{ data.slogan }}
+                        {{ data.slogan | default_if_none:'' }}
                     </div>
 
 
@@ -76,7 +78,7 @@ user-detail
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/BD.png" alt="">
-                                <span class="personal-birthday">{{ data.birthday|date:'Y/m/d/' }}</span>
+                                <span class="personal-birthday">{{ data.birthday|date:'Y-m-d' }}</span>
                             </div>
 
                         </div>
@@ -97,7 +99,7 @@ user-detail
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/FB1.png" alt="">
-                                <span class="personal-facebook">Alexarrowbrown</span>
+                                <span class="personal-facebook">{{ data.facebook_link | default_if_none:'' }}</span>
                             </div>
 
                         </div>

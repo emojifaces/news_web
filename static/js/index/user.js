@@ -1742,5 +1742,8 @@ $(document).on('click','.black-name',function () {
     location.href = '/user/userdetail/'+uid
 })
 
-
+$(document).on('click','.blog-left-top',function () {
+    let url = $(this).attr('data-url')
+    window.open(url)
+})
 

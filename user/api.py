@@ -349,9 +349,7 @@ class GetMyCommentList(APIView):
             comment_list = comment_list[:10]
             data = list()
             for comment in comment_list:
-                print(type(comment))
                 if isinstance(comment,FirstBlogComment):
-                    print('1级评论')
                     comment_dict = {
                         'id':comment.id,
                         'userId':comment.user_id_id,
@@ -366,7 +364,6 @@ class GetMyCommentList(APIView):
                         'blog_content':emoji.emojize(comment.blog_id.content),
                     }
                 else:
-                    print('2级评论')
                     comment_dict = {
                         'id': comment.id,
                         'userId':comment.user_id_id,
@@ -384,7 +381,6 @@ class GetMyCommentList(APIView):
                         'blog_content':emoji.emojize(comment.blog_id.content),
                     }
                 data.append(comment_dict)
-            print(data)
             return Response({'success':True,'data':data})
         else:
             return Response({'success':False,'msg':'暂无数据'})

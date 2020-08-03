@@ -59,6 +59,7 @@ class UserDetail(APIView):
             "phone": user.phone,
             "email": user.email,
             "img": user.img,
+            'facebook_link':user.facebook_link,
             "ismine": True if user.auth_user == request.user else False,
         }
         if request.user.is_authenticated:
@@ -90,7 +91,6 @@ class LoginView(APIView):
                 if baseuser.status == 0:
                     user = authenticate(username=baseuser.account,
                                         password=hashlib.md5(password.encode("utf-8")).hexdigest())
-                    print(user)
                     if user is not None:
                         if user.is_active:
                             login(request, user)
@@ -170,7 +170,6 @@ class GetCode(APIView):
             if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email):
                 usertoken, created = UserToken.objects.get_or_create(email=email)
                 token = random.randint(100000, 999999)
-                print('token:',token)
                 usertoken.token = str(token)
                 usertoken.save()
                 data = {'success': True}
@@ -189,10 +188,7 @@ class ForgotPassword(APIView):
         email = request.POST.get('email',None)
         token = request.POST.get('code',None)
         password = request.POST.get('password',None)
-        print('修改邮箱:',email)
-        print('修改密码：',password)
-        print('加密后的修改密码：',hashlib.md5(password.encode("utf-8")).hexdigest())
-        print('修改token：',token)
+
         if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email):
             if UserToken.objects.filter(email=email,token=token).exists():
                 auth_user = User.objects.get(username=email)

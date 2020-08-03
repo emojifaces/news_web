@@ -15,15 +15,14 @@ user
     <div id="main-left" style="width: 70.5%">
         <div id="main-left-data">
             <div class="user-head">
-                <div class="blog-left-top">
-                    {% if data.facebook %}
-                    <a href="{{ data.facebook_link }}">
-                        <img src="/static/images/user-facebook.png" alt="">
-                        <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
-                    </a>
-                    {% endif %}
 
+                <div class="blog-left-top" data-url="{{ data.facebook_link }}">
+                    {% if data.facebook_link %}
+                    <img src="/static/images/user-facebook.png" alt="">
+                    <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
+                    {% endif %}
                 </div>
+
                 <div style="display: flex;flex-direction: column;align-items: center">
                     <img src="/media/{{ data.img }}" alt="" class="blog-logo">
                     <div>

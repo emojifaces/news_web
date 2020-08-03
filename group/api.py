@@ -48,7 +48,7 @@ class UpdateLike(APIView):
                     blog.goodfingers += 1
                     blog.save()
                 else:
-                    print('之前点过赞')
+                    return Response({'success':False,'err':'不能重复点赞'})
             elif islike == '0':
                 gfb = GoodFingerBlogs.objects.filter(blog_id_id=blog_id,user_id_id=baseuser.id)
                 if gfb:
@@ -56,7 +56,7 @@ class UpdateLike(APIView):
                     blog.save()
                     GoodFingerBlogs.objects.get(blog_id_id=blog_id,user_id_id=baseuser.id).delete()
                 else:
-                    print('之前没点过赞 不能取消')
+                    return Response({'success':False,'err':'不能重复点赞'})
             return Response({'success':True})
         else:
             return Response({'success':False,'err':'未登录'})
@@ -67,7 +67,7 @@ class UpdateVote(APIView):
     permission_classes = (AllowAny,)
 
     def post(self,request):
-        print('开始投票')
+
         votechoice_id = request.POST.get('votechoice_id')
         blog_id = request.POST.get('blog_id')
         if not request.user.is_authenticated:
@@ -100,13 +100,13 @@ class UpdateCollect(APIView):
                 if not collect_blog:
                     CollectBlogs.objects.create(blog_id_id=blog_id, user_id_id=baseuser.id)
                 else:
-                    print('之前收藏过')
+                    return Response({'success': False, 'err': '之前收藏过'})
             elif iscollect == '0':
                 collect_blog = CollectBlogs.objects.filter(blog_id_id=blog_id, user_id_id=baseuser.id)
                 if collect_blog:
                     CollectBlogs.objects.get(blog_id_id=blog_id, user_id_id=baseuser.id).delete()
                 else:
-                    print('之前没收藏过 不能取消')
+                    return Response({'success': False, 'err': '之前没收藏过 不能取消'})
             return Response({'success': True})
         else:
             return Response({'success': False, 'err': '未登录'})
@@ -129,9 +129,7 @@ class AddFirstComment(APIView):
                 return Response({'success':False,'err':'该blog不存在'})
             baseuser = BaseUser.objects.get(auth_user=request.user)
             fbc = FirstBlogComment.objects.create(blog_id_id=blog_id,user_id_id=baseuser.id,content=emoji.demojize(content))
-            print('blog_id：', blog_id,fbc.blog_id_id)
-            print('baseuser.id：', baseuser.id,fbc.user_id_id)
-            print('content：', content,fbc.content)
+
             Remind.objects.create(user_id=baseuser,blog_id_id=blog_id,content=emoji.demojize(content),author=blog.user_id,type=0,first_comment=fbc)
 
             data = {
@@ -204,7 +202,6 @@ class Publish(APIView):
                 if files:
                     for img in files:
                         path = os.path.join(settings.MEDIA_ROOT, f'{img.name}')
-                        print(path)
                         destination = open(path, 'wb')
                         for chunk in img.chunks():
                             destination.write(chunk)
