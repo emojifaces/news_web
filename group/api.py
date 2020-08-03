@@ -327,7 +327,8 @@ class GroupList(APIView):
                 'votedata':voteData,
                 'ismine': True if blog.user_id.id == user_id else False,
                 'fbc_num': blog.first_blogComment_blog.filter(is_pub=True).count(),
-                'bgcolor':blog.bgcolor
+                'bgcolor':blog.bgcolor,
+                'facebook_link': blog.user_id.facebook_link if blog.user_id.facebook_link else None
             }
             group_list.append(data)
         return Response({'success':True,'data':group_list})

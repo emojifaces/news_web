@@ -332,7 +332,8 @@ class IndexGroupList(APIView):
                 'isallvote':blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
                 'votedata':voteData,
                 'ismine': True if blog.user_id.id == user_id else False,
-                'bgcolor': blog.bgcolor
+                'bgcolor': blog.bgcolor,
+                'facebook_link': blog.user_id.facebook_link if blog.user_id.facebook_link else None
             }
             group_list.append(data)
         return Response({'success':True,'data':group_list})

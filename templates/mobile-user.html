@@ -3,16 +3,25 @@
 mobile-user
 {% endblock %}
 {% block link %}
-<script src="/static/js/index/user.js"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/page-default.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
 {% endblock %}
 {% block body %}
-<div id="main-index">
+<div id="main-index" class="container" style="justify-content: center">
     <div id="main-left">
         <div id="main-left-data">
             <div class="user-head">
                 <div class="blog-left-top">
-                    <img src="/static/images/user-facebook.png" alt="">
-                    <span style="margin-left: 0.8rem">Alexaiorry</span>
+                    {% if data.facebook %}
+                    <a href="{{ data.facebook_link }}">
+                        <img src="/static/images/user-facebook.png" alt="">
+                        <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
+                    </a>
+                    {% endif %}
+
                 </div>
                 <div style="display: flex;flex-direction: column;align-items: center">
                     <img src="/media/{{ data.img }}" alt="" class="blog-logo">
@@ -26,13 +35,13 @@ mobile-user
                         <span class="user-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                     </div>
                     <div class="user-profile">
-                        {{ data.slogan }}
+                        {{ data.slogan | default_if_none:'' }}
                     </div>
 
 
                 </div>
             </div>
-            <div style="display: flex;margin: 1.875rem 0 5rem;justify-content: space-between">
+            <div class="mobile-user-center">
                 <div class="user-div-left">
                     <div class="personal-info">
                         <div class="personal-info-header">
@@ -62,35 +71,74 @@ mobile-user
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/BD.png" alt="">
-                                <span class="personal-birthday">{{ data.birthday|date:'Y/m/d/' }}</span>
+                                <span class="personal-birthday">{% if data.birthday %}
+                                    {{ data.birthday|date:'Y/m/d/' }}
+                                {% else %}
+                                    <span class="blank-info">INPUT BIRTHDAY</span>
+                                {% endif %} </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/TP.png" alt="">
-                                <span class="personal-phone">{{ data.phone }}</span>
+                                <span class="personal-phone">{% if data.phone %}
+                                    {{ data.phone }}
+                                    {% else %}
+                                     <span class="blank-info">INPUT PHONE</span>
+                                {% endif %}
+                                    </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/MA.png" alt="">
-                                <span class="personal-email">{{ data.email }}</span>
+                                <span class="personal-email">{% if data.email %}
+                                {{ data.email }}
+                                {% else %}
+                                    <span class="blank-info">INPUT EMAIL</span>
+                                {% endif %}
+                                    </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/FB1.png" alt="">
-                                <span class="personal-facebook">Alexarrowbrown</span>
+                                <span class="personal-facebook">
+                                    {% if data.facebook %}
+                                    {{ data.facebook }}
+                                    {% else %}
+                                        <span class="blank-info">INPUT FACEBOOK</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="personal-info-col">
+                            <div>
+                                <img src="/static/images/FB1.png" alt="">
+                                <span class="personal-facebook-link">
+                                    {% if data.facebook_link %}
+                                    {{ data.facebook_link }}
+                                    {% else %}
+                                        <span class="blank-info">INPUT FACEBOOK-LINK</span>
+                                    {% endif %}
+                                </span>
                             </div>
 
                         </div>
                         <div class="color-comment" style="min-height: 40px">
                             <div style="width: 100%;display: flex;align-items: self-start">
                                 <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">
-                                <span class="personal-slogan" style="margin: .6rem 0">{{ data.slogan }}</span>
+                                <span class="personal-slogan" style="margin: .6rem 0">
+                                    {% if data.slogan %}
+                                    {{ data.slogan }}
+                                        {% else %}
+                                        <span class="blank-info">INPUT SLOGAN</span>
+                                    {% endif %}
+                                    </span>
                             </div>
                         </div>
 
@@ -98,24 +146,24 @@ mobile-user
                 </div>
                 <div class="user-div-right">
                     <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="my-group-tab" data-toggle="pill" href="#my-group" role="tab" aria-controls="pills-my-group" aria-selected="true">My Group</a>
+                        <li class="nav-item  {% if data.num %}{% if data.num == '1' %}active{% endif %}{% else %}active{% endif %}">
+                            <a class="nav-link {% if data.num %}{% if data.num == '1' %}active{% endif %}{% else %}active{% endif %}" id="my-group-tab" data-toggle="pill" href="#my-group" role="tab" aria-controls="pills-my-group" aria-selected="true">My Group</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="comment-tab" data-toggle="pill" href="#comment" role="tab" aria-controls="pills-comment" aria-selected="false">Comment</a>
+                        <li class="nav-item {% if data.num == '2' %}active{% endif %}">
+                            <a class="nav-link {% if data.num == '2' %}active{% endif %}" id="comment-tab" data-toggle="pill" href="#comment" role="tab" aria-controls="pills-comment" aria-selected="false">Comment</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="collect-tab" data-toggle="pill" href="#collect" role="tab" aria-controls="pills-collect" aria-selected="false">Collect</a>
+                        <li class="nav-item {% if data.num == '3' %}active{% endif %}">
+                            <a class="nav-link {% if data.num == '3' %}active{% endif %}" id="collect-tab" data-toggle="pill" href="#collect" role="tab" aria-controls="pills-collect" aria-selected="false">Collect</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="blacklist-tab" data-toggle="pill" href="#blacklist" role="tab" aria-controls="pills-blacklist" aria-selected="false">Blacklist</a>
+                        <li class="nav-item {% if data.num == '4' %}active{% endif %}">
+                            <a class="nav-link {% if data.num == '4' %}active{% endif %}" id="blacklist-tab" data-toggle="pill" href="#blacklist" role="tab" aria-controls="pills-blacklist" aria-selected="false">Blacklist</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="my-group" role="tabpanel" aria-labelledby="my-group-tab"></div>
-                        <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab"></div>
-                        <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab"></div>
-                        <div class="tab-pane fade" id="blacklist" role="tabpanel" aria-labelledby="blacklist-tab"></div>
+                        <div class="tab-pane fade {% if data.num %}{% if data.num == '1' %}in show active{% endif %}{% else %}in show active{% endif %}" id="my-group" role="tabpanel" aria-labelledby="my-group-tab"></div>
+                        <div class="tab-pane fade {% if data.num == '2' %}in show active{% endif %}" id="comment" role="tabpanel" aria-labelledby="comment-tab"></div>
+                        <div class="tab-pane fade {% if data.num == '3' %}in show active{% endif %}" id="collect" role="tabpanel" aria-labelledby="collect-tab"></div>
+                        <div class="tab-pane fade {% if data.num == '4' %}in show active{% endif %}" id="blacklist" role="tabpanel" aria-labelledby="blacklist-tab"></div>
                     </div>
                 </div>
             </div>
@@ -124,6 +172,15 @@ mobile-user
 </div>
 {% endblock %}
 {% block script %}
+<script src="/static/js/bin/jquery-2.1.4.js"></script>
+<script src="/static/js/bin/bootstrap.js"></script>
+<script src="/static/layer/layer.js"></script>
+<script src="/static/js/bin/jquery.pagination.js"></script>
+<script src="/static/js/index/default.js"></script>
+<script src="/static/js/index/emoji.js"></script>
+<script src="/static/js/index/user.js"></script>
+<script src="/static/js/index/index.js"></script>
+<script src="/static/js/bin/bootstrap-datepicker.js"></script>
 <script>
 // 初始化mygroup数据
 initMyGroup();
@@ -135,3 +192,8 @@ initMyCollect();
 initBlackList()
 </script>
 {% endblock %}
+
+
+
+
+

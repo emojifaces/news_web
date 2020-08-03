@@ -1708,6 +1708,7 @@ $(document).on('click','.personal-info-submit button',function () {
               layer.msg('<div style="color: black;text-align: center;">' +res.msg +'</div>')
           }else{
               layer.msg('<div style="color: black;text-align: center;">' +res.msg +'</div>')
+              location.reload()
           }
         }
     })
@@ -1740,4 +1741,6 @@ $(document).on('click','.black-name',function () {
     let uid = $(this).parent('.black-box').attr('uid')
     location.href = '/user/userdetail/'+uid
 })
+
+
 

@@ -189,14 +189,14 @@
 <script src="/static/js/index/search.js"></script>
 <script src="/static/js/index/setting.js"></script>
 <script src="/static/js/bin/api_client.js"></script>
-
+<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>
 {% block script %}
 
 {% endblock %}
 
 
-{#<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>#}
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
 <script>
     {% if request.user.is_authenticated %}
         checkRemind()
@@ -209,7 +209,8 @@
 
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '394220287958534',
+            {#appId: '394220287958534',#}
+            appId: '2867805326681192',
             xfbml: true,
             version: 'v7.0'
         });

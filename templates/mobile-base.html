@@ -55,7 +55,7 @@
                     <a href="/mobile/user/">Personal</a>
                 </li>
                 <li >
-                    <a href="/user/logout/">Sign Out</a>
+                    <a href="/mobile/logout/">Sign Out</a>
                 </li>
             </ul>
             {% else %}
@@ -82,35 +82,75 @@
 <script src="/static/js/index/login.js"></script>
 <script src="/static/js/index/ad.js"></script>
 <script src="/static/js/index/setting.js"></script>
+<script src="/static/js/bin/api_client.js"></script>
+<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>
 {% block script %}
 
 {% endblock %}
 
-
-{#<script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>#}
-{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
 <script>
     initGlobalAd()
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '2867805326681192',
-      xfbml      : true,
-      version    : 'v7.0'
-    });
-    FB.AppEvents.logPageView();
+      window.fbAsyncInit = function () {
+        FB.init({
+            appId: '394220287958534',
+            xfbml: true,
+            version: 'v7.0'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // 点击按钮登录的代码
+    $('body').on('click', '#facebookButton', function () {
+        FB.login(function (response) {
+            if (response.status === 'connected') {
+                testAPI();
+            } else {
+
+                console.log("该用户没有登录")
+            }
+        }, {scope: 'public_profile,email'});
+        return false;
+    })
 
 
-
-  };
-
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+    function testAPI() {
+        FB.api('/me', function (response) {
+            FB.api('http://graph.facebook.com/' + response.id + '?fields=id,name,link,email,picture', function (data) {
+                //获取数据之后填充到对应的input上
+                console.log(data)
+                $.ajax({
+                    type: 'post',
+                    url: '/third/',
+                    data: {
+                        'openid': data.id,
+                        'name': data.name,
+                        'img': data.picture.data.url,
+                        'email': data.email,
+                        'type': 'facebook'
+                    },
+                    success: function (res) {
+                        console.log('fb登录返回结果：', res)
+                        if (!res.success) {
+                            layer.msg('<div style="color: black;text-align: center;">' + res.err + '</div>')
+                        } else {
+                            window.location.reload(true)
+                        }
+                    }
+                })
+            });
+        })
+    }
 
 
 

@@ -696,11 +696,11 @@ function getBlogList() {
                             '</div>')
                         content_header.append(content_account_status)
                     }else{
-                        let content_account_status = ('<div class="content-account-status">\n' +
-                        '<div class=content-facebook">\n' +
-                        '<img src="/static/images/fb.png" alt="">\n' +
-                        '</div>\n' +
-                        '</div>\n')
+                        let content_account_status = $('<div class="content-account-status"></div>')
+                        if (data.facebook_link){
+                            let facebook_link_div = $('<div class="content-facebook" data-url="'+data.facebook_link+'"><img src="/static/images/fb.png" alt=""></div>')
+                            content_account_status.append(facebook_link_div)
+                        }
                         content_header.append(content_account_status)
                     }
 
@@ -859,11 +859,11 @@ $(document).on('click','#indexMoreGroup',function () {
                             '</div>')
                         content_header.append(content_account_status)
                     }else{
-                        let content_account_status = ('<div class="content-account-status">\n' +
-                        '<div class=content-facebook">\n' +
-                        '<img src="/static/images/fb.png" alt="">\n' +
-                        '</div>\n' +
-                        '</div>\n')
+                        let content_account_status = $('<div class="content-account-status"></div>')
+                        if (data.facebook_link){
+                            let facebook_link_div = $('<div class="content-facebook" data-url="'+data.facebook_link+'"><img src="/static/images/fb.png" alt=""></div>')
+                            content_account_status.append(facebook_link_div)
+                        }
                         content_header.append(content_account_status)
                     }
                     let content_data = $('<div class="content-data"></div>')

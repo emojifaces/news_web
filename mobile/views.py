@@ -1,12 +1,17 @@
+from django.contrib.auth import logout
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ad.models import OfficalAdverts, OfficalDetailAdverts
 from blog.models import Offical
+from cal.models import Calendar
+from group.api import UnsafeSessionAuthentication
 from user.models import BaseUser
 
 
@@ -135,5 +140,33 @@ class MobileUser(APIView):
         else:
             return Response('未登录，请登录')
 
+class MobileLogOut(APIView):
 
+    def get(self, request):
+        logout(request)
+        return redirect('/mobile/index/')
+
+class MobileCalendar(APIView):
+
+    def get(self, request):
+        return render(request, 'mobile-calendar.html')
+
+class MobileCalendarInfoView(APIView):
+    authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        id = request.GET.get('id','')
+        calendar = Calendar.objects.get(id=id)
+        return render(request, 'mobile-calendarInfo.html',{'id':calendar.id,'jid':calendar.jId})
+
+class MobileAboutUs(APIView):
+    def get(self,request):
+        return render(request, 'mobile-about-us.html')
+
+class MobileGroupView(APIView):
+
+    def get(self, request):
+
+        return render(request, 'mobile-group.html')
 

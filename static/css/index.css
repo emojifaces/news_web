@@ -111,8 +111,11 @@ body {
 
 .user-data .user-name {
     color: #eac863;
-    min-width: 6rem;
+    width: 100px;
     padding: 0 1rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 .user-out {

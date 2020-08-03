@@ -142,7 +142,7 @@ body {
 }
 
 #main #main-left {
-    width: 67%;
+    width: 100%;
 }
 
 #main-group #main-left > .user-dynamic-box {
@@ -1450,7 +1450,7 @@ textarea:focus {
 }
 
 .user-div-left {
-    width: 30%;
+    width: 100%;
 
 }
 
@@ -1495,7 +1495,7 @@ textarea:focus {
 }
 
 .user-div-right {
-    width: 68%;
+    width: 100%;
 }
 
 .user-div-right #pills-tab {
@@ -1747,6 +1747,7 @@ iframe img{
 #main-left {
     padding: 1rem 1rem 0 1rem;
     background-color: white;
+    width: 100%;
 }
 .delete-group {
     text-align: center;
@@ -1849,7 +1850,7 @@ iframe img{
 }
 .split-line > div {
     position: absolute;
-    top: 215px;
+    top: 155px;
     width: 100%;
     height: 1px;
     border-bottom: 1px solid #ccc;
@@ -2189,4 +2190,11 @@ iframe img{
 }
 .personal-info div{
     word-break: break-word;
+}
+.mobile-user-center{
+    display: flex;
+    flex-direction: column;
+}
+.mobile-user-center > div{
+    margin-top: 1rem;
 }
