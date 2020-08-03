@@ -233,6 +233,7 @@ $(document).on('click','#moreFastInfoBtn',function () {
 
                     info.append(parentDiv)
                 }else if (data.fast_type==3){
+                    // 广告组
                     let ad_container = $('<div class="ad-container"></div>')
                     for (let ad of data.rounds_ad_group){
                         let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
@@ -240,6 +241,51 @@ $(document).on('click','#moreFastInfoBtn',function () {
                         ad_container.append(img)
                     }
                     info.append(ad_container)
+                }else if (data.fast_type==5){
+                    // 官博
+                    let blog_container = $('<div class="blog-box color-comment" data="'+data.id+'">' +
+                        '<div class="footer-date">'+data.VN_pub_date+'</div>' +
+                        '</div>')
+                    if (data.title){
+                        let blog_title = $('<div class="blog-title-div"></div>')
+                        if (data.type&&data.typecolor){
+                            let type = $('<span class="label-green color-white label">'+data.type+'</span>')
+                            type.css('background-color',data.typecolor)
+                            blog_title.append(type)
+                        }
+                        let blog_title_content = $('<span class="blog-content-txt">'+data.title+'</span>')
+                        blog_title.append(blog_title_content)
+                        blog_container.append(blog_title)
+                    }
+                    let blog_content = $('<div class="blog-content">'+data.content+'</div>')
+                    blog_container.append(blog_content)
+                    if (data.imglist){
+                        let blog_img_div = $('<div class="blog-image-div"></div>')
+                        for (let img of data.imglist){
+                            let img_node = $('<img src="/media/'+img+'" class="alert-img">')
+                            blog_img_div.append(img_node)
+                        }
+                        blog_container.append(blog_img_div)
+                    }
+                    let blog_footer_div = $('<div class="blog-footer-div">' +
+                        '<button class="blog-share">' +
+                        '   <img src="/static/images/share1.png" alt="">' +
+                        '   <span>Share</span>' +
+                        '</button>' +
+                        '</div>')
+                    if (data.isgood){
+                        let button = $('<button class="blog-like" islike="True">' +
+                            '<img src="/static/images/like2.png" alt=""><span>'+data.goodfingers+'</span>' +
+                            '</button>')
+                        blog_footer_div.append(button)
+                    }else{
+                        let button = $('<button class="blog-like" islike="False">' +
+                            '<img src="/static/images/like1.png" alt=""><span>'+data.goodfingers+'</span>' +
+                            '</button>')
+                        blog_footer_div.append(button)
+                    }
+                    blog_container.append(blog_footer_div)
+                    info.append(blog_container)
                 }
                 container.append(div)
 
@@ -278,6 +324,9 @@ $(document).on('click','#moreSummaryBtn',function () {
                 div.append(icon,time,info)
                 if (data.fast_type==0){
                     // 快讯
+                    if (data.translate.indexOf('&lt;iframe src=')!=-1){
+                        data.translate = entityToString(data.translate)
+                    }
                     let fast = $('<div>'+data.translate+'</div>')
                     info.append(fast)
 

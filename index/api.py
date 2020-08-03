@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import emoji
+
+from blog.models import GoodFingerOfficals, OfficalImages
 from cal.models import Calendar
 from group.api import UnsafeSessionAuthentication, Remind
 from group.models import Blogs, FirstBlogComment, SecondBlogComment, Attentions, CollectBlogs, GoodFingerBlogs, \
@@ -203,6 +205,44 @@ class GetFastInfoList(APIView):
                 dic['VN_pub_date'] = obj.VN_pub_date.time().replace(microsecond=0)
                 dic['fast_type'] = obj.type
                 returnList.append(dic)
+            elif obj.type == 5:
+                if Offical.objects.filter(id=obj.other_id).exists():
+                    offical = Offical.objects.get(id=obj.other_id)
+                    dic = model_to_dict(offical)
+                    if offical.title:
+                        dic['title'] = emoji.emojize(offical.title)
+                    if offical.content:
+                        dic['content'] = emoji.emojize(offical.content)
+                    if offical.type:
+                        dic['type'] = offical.type.name
+                        dic['typecolor'] = offical.type.color
+                    else:
+                        dic['type'] = ''
+                        dic['typecolor'] = ''
+                    dic['pub_date'] = offical.modify_date.strftime("%Y/%m/%d %H:%M:%S")
+                    dic['VN_pub_date'] = obj.VN_pub_date.strftime("%Y/%m/%d %H:%M:%S")
+                    if GoodFingerOfficals.objects.filter(user_id=user, offical_id=offical, is_pub=True).exists():
+                        dic['isgood'] = True
+                    else:
+                        dic['isgood'] = False
+                    dic['imglist'] = []
+                    piclist = OfficalImages.objects.filter(offical_id=offical)
+                    if len(piclist) > 0:
+                        for pic in piclist:
+                            dic['imglist'].append(pic.img)
+                    dic['adlist'] = []
+                    adlist = OfficalAdverts.objects.filter(offical_id=offical).order_by('sort')
+                    if len(adlist) > 0:
+                        for ad in adlist:
+                            adobj = {'id': ad.id, 'url': ad.url, 'img': ad.img}
+                            if ad.ad_id:
+                                adobj['factoryname'] = ad.ad_id.name
+                            else:
+                                adobj['factoryname'] = ''
+                            dic['adlist'].append(adobj)
+                    dic['fast_type'] = 5
+                    returnList.append(dic)
+
 
         return Response({'count': data.count(), 'page': page, 'limit': limit, 'data': returnList})
 

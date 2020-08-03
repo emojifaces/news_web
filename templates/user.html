@@ -16,8 +16,13 @@ user
         <div id="main-left-data">
             <div class="user-head">
                 <div class="blog-left-top">
-                    <img src="/static/images/user-facebook.png" alt="">
-                    <span style="margin-left: 0.8rem">Alexaiorry</span>
+                    {% if data.facebook %}
+                    <a href="{{ data.facebook_link }}">
+                        <img src="/static/images/user-facebook.png" alt="">
+                        <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
+                    </a>
+                    {% endif %}
+
                 </div>
                 <div style="display: flex;flex-direction: column;align-items: center">
                     <img src="/media/{{ data.img }}" alt="" class="blog-logo">
@@ -31,7 +36,7 @@ user
                         <span class="user-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                     </div>
                     <div class="user-profile">
-                        {{ data.slogan }}
+                        {{ data.slogan | default_if_none:'' }}
                     </div>
 
 
@@ -67,35 +72,74 @@ user
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/BD.png" alt="">
-                                <span class="personal-birthday">{{ data.birthday|date:'Y/m/d/' }}</span>
+                                <span class="personal-birthday">{% if data.birthday %}
+                                    {{ data.birthday|date:'Y/m/d/' }}
+                                {% else %}
+                                    <span class="blank-info">INPUT BIRTHDAY</span>
+                                {% endif %} </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/TP.png" alt="">
-                                <span class="personal-phone">{{ data.phone }}</span>
+                                <span class="personal-phone">{% if data.phone %}
+                                    {{ data.phone }}
+                                    {% else %}
+                                     <span class="blank-info">INPUT PHONE</span>
+                                {% endif %}
+                                    </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/MA.png" alt="">
-                                <span class="personal-email">{{ data.email }}</span>
+                                <span class="personal-email">{% if data.email %}
+                                {{ data.email }}
+                                {% else %}
+                                    <span class="blank-info">INPUT EMAIL</span>
+                                {% endif %}
+                                    </span>
                             </div>
 
                         </div>
                         <div class="personal-info-col">
                             <div>
                                 <img src="/static/images/FB1.png" alt="">
-                                <span class="personal-facebook">Alexarrowbrown</span>
+                                <span class="personal-facebook">
+                                    {% if data.facebook %}
+                                    {{ data.facebook }}
+                                    {% else %}
+                                        <span class="blank-info">INPUT FACEBOOK</span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="personal-info-col">
+                            <div>
+                                <img src="/static/images/FB1.png" alt="">
+                                <span class="personal-facebook-link">
+                                    {% if data.facebook_link %}
+                                    {{ data.facebook_link }}
+                                    {% else %}
+                                        <span class="blank-info">INPUT FACEBOOK-LINK</span>
+                                    {% endif %}
+                                </span>
                             </div>
 
                         </div>
                         <div class="color-comment" style="min-height: 40px">
                             <div style="width: 100%;display: flex;align-items: self-start">
                                 <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">
-                                <span class="personal-slogan" style="margin: .6rem 0">{{ data.slogan }}</span>
+                                <span class="personal-slogan" style="margin: .6rem 0">
+                                    {% if data.slogan %}
+                                    {{ data.slogan }}
+                                        {% else %}
+                                        <span class="blank-info">INPUT SLOGAN</span>
+                                    {% endif %}
+                                    </span>
                             </div>
                         </div>
 

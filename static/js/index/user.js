@@ -1571,15 +1571,17 @@ $(document).on('click','#modify-personal-information',function () {
         let birthdayNode = btn.find('.personal-birthday')
         let phoneNode = btn.find('.personal-phone')
         let facebookNode = btn.find('.personal-facebook')
+        let facebook_linkNode = btn.find('.personal-facebook-link')
         let sloganNode = btn.find('.personal-slogan')
         let submit_btn = $('<div class="personal-info-submit"><button type="button">SUBMIT</button></div>')
         _this.parents('.personal-info').append(submit_btn)
-        let old_name = nameNode.text()
+        let old_name = nameNode.text().trim()
         let old_gender = genderNode.text().trim()
-        let old_birthday = birthdayNode.text()
-        let old_phone = phoneNode.text()
-        let old_facebook = facebookNode.text()
-        let old_slogan = sloganNode.text()
+        let old_birthday = birthdayNode.text().trim()
+        let old_phone = phoneNode.text().trim()
+        let old_facebook = facebookNode.text().trim()
+        let old_facebook_link = facebook_linkNode.text().trim()
+        let old_slogan = sloganNode.text().trim()
         nameNode.html('<input type="text" value="'+old_name+'">')
         if (old_gender=='Man'){
             var gender_html = '<input type="radio" value="1" name="gender" checked>Man<input type="radio" value="2" name="gender">Woman'
@@ -1587,10 +1589,34 @@ $(document).on('click','#modify-personal-information',function () {
             var gender_html = '<input type="radio" value="1" name="gender">Man<input type="radio" value="2" name="gender" checked>Woman'
         }
         genderNode.html(gender_html)
-        birthdayNode.html('<input class="personal-birthday-input" type="text" value="'+old_birthday+'" readonly="readonly">')
-        phoneNode.html('<input type="text" value="'+old_phone+'">')
-        facebookNode.html('<input type="text" value="'+old_facebook+'">')
-        sloganNode.html('<input type="text" value="'+old_slogan+'">')
+        if (old_birthday=="INPUT BIRTHDAY"){
+            birthdayNode.html('<input class="personal-birthday-input" type="text" placeholder="INPUT BIRTHDAY" readonly="readonly">')
+        }else{
+            birthdayNode.html('<input class="personal-birthday-input" type="text" value="'+old_birthday+'" readonly="readonly">')
+        }
+
+        if (old_phone=="INPUT PHONE"){
+            phoneNode.html('<input type="text" placeholder="INPUT PHONE">')
+        }else{
+            phoneNode.html('<input type="text" value="'+old_phone+'">')
+        }
+
+        if (old_facebook=='INPUT FACEBOOK'){
+            facebookNode.html('<input type="text" placeholder="INPUT FACEBOOK">')
+        }else{
+            facebookNode.html('<input type="text" value="'+old_facebook+'">')
+        }
+        if (old_facebook_link=='INPUT FACEBOOK-LINK'){
+            facebook_linkNode.html('<input type="text" placeholder="INPUT FACEBOOK-LINK">')
+        }else{
+            facebook_linkNode.html('<input type="text" value="'+old_facebook_link+'">')
+        }
+        if (old_slogan=="INPUT SLOGAN"){
+            sloganNode.html('<input type="text" placeholder="INPUT SLOGAN">')
+        }else{
+            sloganNode.html('<input type="text" value="'+old_slogan+'">')
+        }
+
         bindDateTimePicker()
     }
 
@@ -1618,6 +1644,7 @@ $(document).on('click','.personal-info-submit button',function () {
     let new_birthday = _this.parents('.personal-info').find('.personal-birthday input').val()
     let new_phone = _this.parents('.personal-info').find('.personal-phone input').val()
     let new_facebook = _this.parents('.personal-info').find('.personal-facebook input').val()
+    let new_facebook_link = _this.parents('.personal-info').find('.personal-facebook-link input').val()
     let new_slogan = _this.parents('.personal-info').find('.personal-slogan input').val()
 
     let nameNode =  _this.parents('.personal-info').find('.personal-name')
@@ -1625,6 +1652,7 @@ $(document).on('click','.personal-info-submit button',function () {
     let birthdayNode =  _this.parents('.personal-info').find('.personal-birthday')
     let phoneNode =  _this.parents('.personal-info').find('.personal-phone')
     let facebookNode =  _this.parents('.personal-info').find('.personal-facebook')
+    let facebook_link_Node =  _this.parents('.personal-info').find('.personal-facebook-link')
     let sloganNode =  _this.parents('.personal-info').find('.personal-slogan')
 
     $.ajax({
@@ -1636,6 +1664,7 @@ $(document).on('click','.personal-info-submit button',function () {
             'birthday':new_birthday,
             'phone':new_phone,
             'facebook':new_facebook,
+            'facebook_link':new_facebook_link,
             'slogan':new_slogan
         },
         success:function (res) {
@@ -1649,11 +1678,31 @@ $(document).on('click','.personal-info-submit button',function () {
                   $('.gender').attr('src','/static/images/famale.png')
               }
               birthdayNode.html(new_birthday)
-              phoneNode.html(new_phone)
-              facebookNode.html(new_facebook)
-              sloganNode.html(new_slogan)
+              if (new_phone==''){
+                  phoneNode.html('<span class="blank-info">INPUT PHONE</span>')
+              }else{
+                  phoneNode.html(new_phone)
+              }
+              if (new_facebook==''){
+                  facebookNode.html('<span class="blank-info">INPUT FACEBOOK</span>')
+              }else{
+                  facebookNode.html(new_facebook)
+              }
+              if (new_facebook_link==''){
+                  facebook_link_Node.html('<span class="blank-info">INPUT FACEBOOK-LINK</span>')
+              }else{
+                  facebook_link_Node.html(new_facebook_link)
+              }
+              if (new_slogan==''){
+                  sloganNode.html('<span class="blank-info">INPUT SLOGAN</span>')
+                  $('.user-profile').html('')
+              }else{
+                  sloganNode.html(new_slogan)
+                  $('.user-profile').html(new_slogan)
+              }
+
               $('.user-name').html(new_name)
-              $('.user-profile').html(new_slogan)
+
 
               _this.parent('div').remove()
               layer.msg('<div style="color: black;text-align: center;">' +res.msg +'</div>')

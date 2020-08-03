@@ -34,7 +34,9 @@ class UserView(View):
                 "phone":user.phone,
                 "email":user.email,
                 "img":user.img,
-                "num":num
+                "num":num,
+                "facebook":user.facebook,
+                "facebook_link":user.facebook_link
             }
             return render(request, 'user.html',{'data':data})
         else:

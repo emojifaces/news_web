@@ -412,13 +412,16 @@ class ModifyPersonalInformation(APIView):
         birthday = request.POST.get('birthday',None)
         phone = request.POST.get('phone',None)
         facebook = request.POST.get('facebook',None)
+        facebook_link = request.POST.get('facebook_link',None)
         slogan = request.POST.get('slogan',None)
+
         try:
             user.name = name
             user.gender = int(gender)
             user.birthday = birthday
             user.phone = phone
             user.facebook = facebook
+            user.facebook_link = facebook_link
             user.slogan = slogan
             user.save()
         except:

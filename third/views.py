@@ -39,6 +39,7 @@ class Login(APIView):
         img = request.POST.get('img', '')
         email = request.POST.get('email', '')
         loginType = request.POST.get('type', '')
+        baseuser = None
         if not loginType:
             return Response({'success': False, 'err': u'Data Error'})
         if openId and name:
@@ -68,7 +69,7 @@ class Login(APIView):
                     if User.objects.filter(email=email).exists():
                         user = User.objects.get(email=email)
                         if BaseUser.objects.filter(auth_user=user).exists():
-                            baseUser = BaseUser.objects.get(auth_user=user)
+                            baseuser = BaseUser.objects.get(auth_user=user)
                         else:
                             if loginType.lower() == 'facebook':
                                 baseuser = BaseUser.objects.create(facebookopenid=openId, name=name, facebook=name,
