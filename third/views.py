@@ -53,8 +53,8 @@ class Login(APIView):
                     user = baseuser.auth_user
                     if user is not None:
                         if user.is_active:
-                            request.session['user_img'] = user.img
-                            request.session['user_name'] = user.name
+                            request.session['user_img'] = baseuser.img
+                            request.session['user_name'] = baseuser.name
                             login(request, user)
                             return Response({'success': True, 'userimg': baseuser.img, 'userid': baseuser.id})
                         else:
