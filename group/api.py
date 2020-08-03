@@ -403,3 +403,96 @@ class DeleteGroup(APIView):
         blog.state = 1
         blog.save()
         return Response({'success':True,'msg':'删除成功'})
+
+# 动态详情
+class GroupDetail(APIView):
+
+    def get(self,request,pk):
+        if request.user.is_authenticated:
+            baseuser = BaseUser.objects.get(auth_user=request.user)  # 已登录的用户
+            user_id = baseuser.id
+        else:
+            user_id = None
+        blog = Blogs.objects.get(id=pk)
+        voteData = list()
+        vote_list = blog.blogChoice_blog.all()
+        first_comment = list()
+        fbc_list = blog.first_blogComment_blog.filter(is_pub=True).order_by('-create_date')[0:5]
+        if fbc_list:
+            for fbc in fbc_list:
+                second_comment = list()
+                sbc_data = dict()
+                sbc_list = fbc.firstBlogComment.filter(is_pub=True).order_by('-create_date')[0:2]
+                if sbc_list:
+                    for sbc in sbc_list:
+                        sbc_dict = {
+                            'id': sbc.id,
+                            'userId': sbc.user_id.id,
+                            'header': sbc.user_id.img,
+                            'username': sbc.user_id.name,
+                            'content': emoji.emojize(sbc.content),
+                            'pub_date': sbc.create_date,
+                            'reply_id': sbc.reply_id.id,
+                            'reply_name': sbc.reply_id.name,
+                            'ismine': True if sbc.user_id.id == user_id else False
+                        }
+                        second_comment.append(sbc_dict)
+                    sbc_data = {
+                        'num': fbc.firstBlogComment.filter(is_pub=True).count(),
+                        'sbc_list': second_comment
+                    }
+                fbc_dict = {
+                    'id': fbc.id,
+                    'userId': fbc.user_id.id,
+                    'header': fbc.user_id.img,
+                    'username': fbc.user_id.name,
+                    'content': emoji.emojize(fbc.content),
+                    'pub_date': fbc.create_date,
+                    'secondComment': sbc_data,
+                    'ismine': True if fbc.user_id.id == user_id else False,
+                    'sbc_num': fbc.firstBlogComment.filter(is_pub=True).count(),
+                }
+                first_comment.append(fbc_dict)
+
+        commentData = {
+            'count': blog.first_blogComment_blog.filter(is_pub=True).count(),
+            'first_comment': first_comment
+        }
+
+        if vote_list:
+            for vote in vote_list:
+                vote_dict = {
+                    'content': emoji.emojize(vote.content),
+                    'isVote': vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
+                    'num': vote.num,
+                    'id': vote.id
+                }
+                voteData.append(vote_dict)
+
+        data = {
+            'id': blog.id,
+            'userId': blog.user_id_id,
+            'type': blog.type,
+            'user_id': blog.user_id.id,
+            'user_name': blog.user_id.name,
+            'header': blog.user_id.img,
+            'pub_date': blog.create_date,
+            'content': emoji.emojize(blog.content) if blog.content else '',
+            'img': [blog_img.img for blog_img in blog.blogImages_blog.all()],
+            'iscollect': blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
+            'collectnum': blog.collectBlog_blog.filter(is_pub=True).count(),
+            'islike': blog.goodFingerBlog_blog.filter(user_id_id=user_id).exists(),
+            'likenum': blog.goodfingers,
+            'commentnum': blog.first_blogComment_blog.filter(is_pub=True).count() + blog.second_blogComment_blog.filter(
+                is_pub=True).count(),
+            'commentData': commentData,
+            'votenum': blog.selectBlog_blog.all().count(),
+            'votetitle': blog.vote_title,
+            'isallvote': blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
+            'votedata': voteData,
+            'ismine': True if blog.user_id.id == user_id else False,
+            'fbc_num': blog.first_blogComment_blog.filter(is_pub=True).count(),
+            'bgcolor': blog.bgcolor,
+            'facebook_link': blog.user_id.facebook_link if blog.user_id.facebook_link else None
+        }
+        return Response({'success':True,'data':data})

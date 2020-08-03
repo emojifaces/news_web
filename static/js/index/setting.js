@@ -86,6 +86,9 @@ function entityToString(entity){
 }
 
 function removeMS(date) {
+    if (date.indexOf(' ')!=-1){
+        date = date.split(' ')[1]
+    }
     if (date.indexOf('.')!=-1){
         return date.substring(0,date.indexOf('.'))
     }else{
