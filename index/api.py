@@ -5,6 +5,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import emoji
+import json
+
+import asyncio
+from channels.layers import get_channel_layer
 
 from blog.models import GoodFingerOfficals, OfficalImages
 from cal.models import Calendar
@@ -16,6 +20,15 @@ from user.models import BaseUser
 from datetime import datetime
 from ad.models import *
 
+async def SendSocket(data):
+    channel_layer = get_channel_layer()
+    await channel_layer.group_send(
+        'kfast',
+        {
+            'type': 'tui_kfast',
+            'msg': data
+        }
+    )
 
 class Mypage(PageNumberPagination):
     page_size = 10
@@ -498,3 +511,16 @@ class UpdateRemindState(APIView):
             userId = None
         Remind.objects.filter(author_id=userId,isread=False).update(isread=True)
         return Response({'success':True})
+
+
+class SendFastToWebsocket(APIView):
+    authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
+    permission_classes = (AllowAny,)
+
+    def post(self, request, format=None):
+        data = request.POST.get('data', '')
+        if data:
+            if isinstance(data, str):
+                data = json.loads(data)
+            asyncio.new_event_loop().run_until_complete(SendSocket(data))
+        return Response({"Success": True})

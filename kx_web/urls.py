@@ -36,6 +36,7 @@ urlpatterns = [
     path('deletecomment/',DeleteComment.as_view()),
     path('checkremind/',RemindView.as_view()),
     path('updateremind/',UpdateRemindState.as_view()),
+    path('sendfastwebsocket/',SendFastToWebsocket.as_view()),
     # path('', include('social_django.urls', namespace='social')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
