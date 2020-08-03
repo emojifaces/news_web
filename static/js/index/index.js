@@ -23,7 +23,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                 if (data.fast_type == 0) {
 
                     // 快讯
-                    if (data.translate.indexOf('&lt;iframe src=') != -1) {
+                    if (data.translate.indexOf('&lt;iframe') != -1) {
                         data.translate = entityToString(data.translate)
                     }
                     let fast = $('<div>' + data.translate + '</div>')
@@ -726,7 +726,7 @@ function getCalendarList() {
                     let pre_exp_act = $('<div>\n' +
                         '       <div class="pre">Pre:' + data.previous + '</div>\n' +
                         '       <div class="exp">Exp:' + data.consensus + '</div>\n' +
-                        '        <div class="act">Act:' + data.actual + '</div>\n' +
+                        '        <div class="act">Act:' + (data.actual)?(data.actual):("--") + '</div>\n' +
                         '</div>')
                     let starDiv = $('<div class="calendar-star"></div>')
                     for (let lightStar = 0; lightStar < data.star; lightStar++) {

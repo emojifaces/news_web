@@ -1409,15 +1409,16 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .blog-left-top {
-    width: 100%;
-    padding-left: 30px;
+    width: 150px;
+    margin-left: 30px;
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: white;
 }
 
 .blog-logo {
@@ -1485,7 +1486,11 @@ textarea:focus {
 
 .personal-info-col {
     color: #2e3b54;
-    height: 40px;
+    height: 50px;
+}
+
+.personal-info-col >div {
+    word-break: break-all;
 }
 
 .personal-info-col img {
@@ -2096,4 +2101,13 @@ iframe img{
     border: 1px solid #2e3b5430;
     resize: none;
     background-color: #f3f3f3;
+}
+.blog-name{
+    color: white;
+}
+.result-num{
+    color: black;
+}
+#main-data{
+    padding-bottom: 2rem;
 }

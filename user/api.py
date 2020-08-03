@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import emoji
 from django.db.models import Q
 from django.shortcuts import render
@@ -411,21 +413,23 @@ class ModifyPersonalInformation(APIView):
         gender = request.POST.get('gender',1)
         birthday = request.POST.get('birthday',None)
         phone = request.POST.get('phone',None)
-        facebook = request.POST.get('facebook',None)
+        # facebook = request.POST.get('facebook',None)
         facebook_link = request.POST.get('facebook_link',None)
         slogan = request.POST.get('slogan',None)
 
         try:
             user.name = name
             user.gender = int(gender)
-            user.birthday = birthday
+            user.birthday = datetime.strptime(birthday, "%Y-%m-%d")
             user.phone = phone
-            user.facebook = facebook
+            # user.facebook = facebook
             user.facebook_link = facebook_link
             user.slogan = slogan
             user.save()
         except:
             return Response({'success':False,'msg':'修改失败'})
+
+
         return Response({'success':True,'msg':'修改成功'})
 
 # 解除黑名单

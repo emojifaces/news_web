@@ -196,9 +196,11 @@ initCalendarAd()
                 title: 'Exp',
                 formatter: function (value, row, index) {
                     if (row['star'] >= 3) {
-                        return '<span class="color-red">' + row['exp'] + '</span>'
+                        {#return '<span class="color-red">' + row['exp'] + '</span>'#}
+                        return '<span class="color-red">' + (row['exp'])?(row['exp']):('--') + '</span>'
                     } else {
-                        return '<span class="color-comment">' + row['exp'] + '</span>'
+                        {#return '<span class="color-comment">' + row['exp'] + '</span>'#}
+                        return '<span class="color-comment">' + (row['exp'])?(row['exp']):('--') + '</span>'
                     }
 
                 }
@@ -208,9 +210,11 @@ initCalendarAd()
                 title: 'Art',
                 formatter: function (value, row, index) {
                     if (row['star'] >= 3) {
-                        return '<span class="color-red">' + row['act'] + '</span>'
+                        {#return '<span class="color-red">' + row['act'] + '</span>'#}
+                        return '<span class="color-red">' + (row['act'])?(row['act']):('--') + '</span>'
                     } else {
-                        return '<span class="color-comment">' + row['act'] + '</span>'
+                        {#return '<span class="color-comment">' + row['act'] + '</span>'#}
+                        return '<span class="color-comment">' + (row['act'])?(row['act']):('--') + '</span>'
                     }
 
                 }

@@ -38,3 +38,9 @@ $(document).on('click','.blog-like',function () {
         }
     })
 });
+
+$(document).on('click','.blog-left-top',function () {
+    let _this = $(this)
+    let url = _this.attr('data-url')
+    window.open(url)
+})
