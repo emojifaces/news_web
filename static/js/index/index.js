@@ -342,7 +342,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
             fastinfo_page += 1
 
             // 加载快讯广告
-            initFastInfoAd()
+            // initFastInfoAd()
         }
     })
 
