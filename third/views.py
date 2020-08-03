@@ -1,7 +1,7 @@
 import os
 import string
 import uuid
-from random import random
+import random
 import time
 import emoji
 import requests
