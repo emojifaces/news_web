@@ -13,7 +13,7 @@ redis_client = redis.Redis(host="127.0.0.1", port=6379, db=5)
 
 class Fast(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room_group_name = 'fast'
+        self.room_group_name = 'kfast'
         self.user_id = str(int(time.time()))
         # Join room group
         await self.channel_layer.group_add(
@@ -43,6 +43,6 @@ class Fast(AsyncWebsocketConsumer):
         await self.send(json.dumps(event))
 
     # 主动推送
-    async def tui_fast(self, event):
+    async def tui_kfast(self, event):
         mes = event['msg']
         await self.send(json.dumps(mes))
