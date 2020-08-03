@@ -13,7 +13,8 @@ window.onload = function () {
     function websocketConnect() {
         if (window.WebSocket) {
             if (!ws) {
-                var url = 'ws://121.40.211.134:8080/ws/fast/';
+                // var url = 'ws://121.40.211.134:8080/ws/fast/';
+                var url = 'wss://bookadd.gazrey.com/wss/fast/';
                 ws = new WebSocket(url)
             }
         } else {

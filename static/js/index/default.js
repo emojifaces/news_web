@@ -1261,7 +1261,7 @@ $(document).on('click', '.content-facebook', function () {
 $(document).on('click', '.textarea_1', function () {
     layer.open({
         type: 1,
-        title: 'PUBLISH',
+        title: ' ',
         area: '1000px',
         content: '<div class="VN-input-group">\n' +
             '            <textarea name="" rows="8" class="large-input" id="content"></textarea>\n' +

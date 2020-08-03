@@ -625,8 +625,9 @@ body {
 .VN-input-group {
     display: flex;
     flex-direction: column;
-    padding-bottom: 20px;
+    /*padding-bottom: 10px;*/
 }
+
 
 .textarea_1 {
     color: black;
