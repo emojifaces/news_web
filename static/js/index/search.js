@@ -5,14 +5,14 @@ $('.search-btn').click(function () {
     location.href = '/search/?q=' + query
 })
 
-$('#newsfeed').click(function () {
+$('#search-result-fastinfo').click(function () {
     $(this).parents('ul').find('li').removeClass('active');
     $(this).addClass('active');
     let query = $('.search-text input').val()
     location.href = '/search/?q=' + query
 })
 
-$('#summary').click(function () {
+$('#search-result-blog').click(function () {
     $(this).parents('ul').find('li').removeClass('active');
     $(this).addClass('active');
     let query = $('.search-text input').val()

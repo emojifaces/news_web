@@ -11,7 +11,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
             let container = $('#main-left-data')
             btn.remove()
             for (let data of result.data) {
-                let div = $('<div class="main-data-div color-comment"></div>')
+                let div = $('<div class="main-data-div color-comment fastinfo"></div>')
                 let icon = $('<div class="main-data-icon">\n' +
                     '             <div class="icon-div">\n' +
                     '             <img src="/static/images/7_24.png" alt="">' +
@@ -30,18 +30,24 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                     info.append(fast)
                     if (data.is_important) {
                         div.css('color', 'red')
+                        icon.children('.icon-div').css('background-color', 'red')
                     }
                 } else if (data.fast_type == 1) {
                     // 日历
                     let calendar_box = $('<div class="main-calendar-box">\n' +
-                        '                        <img src="/static/images/flag/' + data.tran_country + '.png" class="flag" alt="">\n' +
+                        '                        <img src="/static/images/flag/' + data.country + '.png" class="flag" alt="">\n' +
                         '                    </div>')
                     let calendar_data = $('<div class="main-calendar-data"><div class="main-calendar-title">' + data.tran_title + '</div></div>')
+                    if (data.star>=3){
+                        var star_color = '#eb695e'
+                    }else{
+                        var star_color = '#ecbe1d'
+                    }
                     let calendar_star = $('<div class="calendar-star"></div>')
                     for (let lightStar = 0; lightStar < data.star; lightStar++) {
                         let lightStarDiv = $('<svg t="1583754430858" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2559" width="16" height="16">\n' +
                             ' <path d="M747.682255 638.235053c10.091846 49.955762 18.998703 95.172593 26.714432 135.6464 3.560082 17.076934 6.824429 34.151821 9.795087 51.227732 2.965541 17.070794 5.78475 32.564673 8.456602 46.479591 2.673899 13.908778 4.897543 25.76685 6.67912 35.573193 1.778506 9.801227 2.968611 15.965623 3.560082 18.492166 1.778506 12.650111-0.889253 21.029966-8.010441 25.142633-7.125281 4.102435-15.138792 6.163373-24.041556 6.163373-2.968611 0-7.271614-1.110287-12.911054-3.319605-5.637394-2.215458-9.943466-3.954055-12.909008-5.217838L512.616542 804.236807c-42.147936 26.559912-80.432891 50.276057-114.864074 71.146387-14.842033 8.849552-29.529547 17.705244-44.073798 26.553773-14.544251 8.854669-27.754111 17.081027-39.625486 24.662703-11.872399 7.590885-22.109554 13.920034-30.714536 18.97926-8.610098 5.053086-14.398942 8.214079-17.364483 9.484002-5.936199 3.162016-12.023848 4.266164-18.256806 3.314489-6.235005-0.946558-11.872399-3.314489-16.915251-7.109931-5.043876-3.796466-8.756431-8.378831-11.129478-13.755282-2.376117-5.376451-2.965541-10.911514-1.781576-16.594957 0.596588-2.532683 2.078335-8.702196 4.453429-18.502399 2.376117-9.801227 5.043876-21.50171 8.013511-35.098379 2.965541-13.596669 6.380314-28.615735 10.239202-45.057195 3.857864-16.440437 7.862062-33.199123 12.018731-50.275034 8.904811-39.210024 18.996656-83.474157 30.274514-132.798539-35.021631-32.254611-66.482157-61.028958-94.381577-86.322018-11.872399-10.749832-23.598464-21.344121-35.173081-31.776727-11.574616-10.437723-21.963221-19.919678-31.162744-28.461215-9.203616-8.535397-16.769942-15.490809-22.705118-20.866237-5.936199-5.373381-9.203616-8.378831-9.800203-9.012258-7.121188-6.957459-13.20372-14.70184-18.250666-23.23826-5.043876-8.541537-6.975878-17.231453-5.785773-26.086122 1.187035-8.853645 4.449335-15.812127 9.79611-20.871353 5.340635-5.057179 11.275811-8.218172 17.807574-9.487072l275.131221-26.557866L470.766388 102.288664c3.560082-10.122545 8.608052-18.818601 15.140839-26.085098 6.526647-7.272637 15.432481-10.911514 26.710338-10.911514 5.935176 0 11.129478 1.425466 15.582907 4.267187 4.451382 2.847861 8.16189 6.16542 11.133571 9.959839 2.963495 3.795443 5.485945 7.589862 7.563256 11.386328 2.079358 3.794419 3.713578 6.954389 4.897543 9.485025l99.729375 254.222005 275.136338 27.510564c11.872399 3.160993 20.177552 6.955412 24.927739 11.380188 4.751211 4.426823 7.121188 11.383258 7.121188 20.87033 0 8.853645-2.521426 16.59905-7.566326 23.237237-5.047969 6.643304-11.42726 14.705933-19.144012 24.193005L747.682255 638.235053 747.682255 638.235053zM747.682255 638.235053"\n' +
-                            ' p-id="2560" fill="#e8c04c"></path>\n' +
+                            ' p-id="2560" fill="'+star_color+'"></path>\n' +
                             '</svg>')
                         calendar_star.append(lightStarDiv)
                     }
@@ -53,7 +59,20 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                         calendar_star.append(darkStarDiv)
                     }
                     let act = $('<div class="act">Act:' + data.actual + '%</div>')
-                    let tag = $('<div class="bear">BEAR</div>')
+                    let tag = $('<div class="bear"></div>')
+                    if (data.tag==0){
+                            tag.text('---')
+                            tag.css('background-color','#2e3a54')
+                        }else if (data.tag==1){
+                            tag.text('BEAR')
+                            tag.css('background-color','#eb695e')
+                        }else if (data.tag==2){
+                            tag.text('=')
+                            tag.css('background-color','#ecbe1b')
+                        }else if (data.tag==3){
+                            tag.text('BULL')
+                            tag.css('background-color','#62c227')
+                        }
                     let pre_exp = $('<div style="width: 100%;display: flex">\n' +
                         '                 <div class="pre">Pre:' + data.previous + '%</div>\n' +
                         '                 <div class="exp">Exp:' + data.consensus + '</div>\n' +
@@ -109,7 +128,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 let content_text = $('<div class="content-text color-comment">\n' +
                                     '                    <span>' + data.content + '</span>\n' +
                                     '                </div>')
-                                if (data.bgcolor) {
+                                if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                                     content_text.addClass('bg-color')
                                     content_text.css('background-color', data.bgcolor)
                                 }
@@ -133,7 +152,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                             let vote_choose = $('<div class="vote-choose" vote="' + vote_item.id + '" data="' + vote_item.isVote + '">\n' +
                                                 '                     <div class="vote-choose-txt">' + vote_item.content + '</div>\n' +
                                                 '                </div>')
-                                            let vote_choose_num = $('<div class="vote-choose-num" >' + vote_item.num + '</div>')
+                                            let vote_choose_num = $('<div class="vote-choose-num" data-num="'+vote_item.num+'">' + calper(vote_item.num,data.votenum) + '</div>')
                                             let vote_percent = $('<div class="vote-percent" ></div>')
                                             if (data.isallvote) {
                                                 vote_choose_num.css('display', 'block')
@@ -197,7 +216,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                     '            </div>\n' +
                                     '        </div>\n' +
                                     '        <div class="VN-input-item">\n' +
-                                    '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                                    '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                                     '            <div class="emojiBtn">\n' +
                                     '                <img src="/static/images/emojiButton.png" alt="">\n' +
                                     '            </div>\n' +
@@ -211,17 +230,17 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 for (let fbc of data.commentData.first_comment) {
                                     let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="' + fbc.userId + '"></div>')
                                     let fbc_header = $('<div class="user-header">\n' +
-                                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                                        '                  <img class="fbc-head-img" src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                                         '               </div>')
                                     let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                                     let fbc_comment_text = $('<div class="comment-text">\n' +
                                         '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
                                         '                            <span>:&nbsp;</span>\n' +
                                         '                        </div>')
-                                    if (fbc.ismine) {
-                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
-                                        fbc_comment_text.append(fbc_delete)
-                                    }
+                                    // if (fbc.ismine) {
+                                    //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                    //     fbc_comment_text.append(fbc_delete)
+                                    // }
                                     let fbc_content = $('<div>' + fbc.content + '</div>')
                                     fbc_comment_text.append(fbc_content)
                                     let fbc_comment_op = $('<div class="comment-op">\n' +
@@ -230,15 +249,19 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                         '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                                         '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                                         '                            </div>\n' +
-                                        '                            <div class="reply">Reply</div>\n' +
+                                        '                            <div class="reply fbc-reply">Reply</div>\n' +
                                         '                       </div>')
+                                    if (fbc.ismine) {
+                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                        fbc_comment_op.append(fbc_delete)
+                                    }
                                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
                                     fbc_box.append(fbc_header, fbc_commentDate)
                                     if (fbc.secondComment.sbc_list) {
                                         for (let sbc of fbc.secondComment.sbc_list) {
                                             let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
                                                 '                  <div class="user-header">\n' +
-                                                '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                                '                       <img class="sbc-head-img" src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                                 '                  </div>\n' +
                                                 '            </div>')
                                             let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -247,22 +270,26 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                                 '                          <span class="content-user-name">' + sbc.username + '</span>\n' +
                                                 '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
                                                 '                     </div>')
-                                            if (sbc.ismine) {
-                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
-                                                sbc_comment_text.append(sbc_comment_delete)
-                                            }
+                                            // if (sbc.ismine) {
+                                            //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                            //     sbc_comment_text.append(sbc_comment_delete)
+                                            // }
                                             let sbc_comment_content = $('<div>' + sbc.content + '</div>')
                                             sbc_comment_text.append(sbc_comment_content)
                                             let sbc_comment_op = $('<div class="comment-op">\n' +
                                                 '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
                                                 '                        <div class="reply">Reply</div>\n' +
                                                 '                   </div>')
+                                            if (sbc.ismine) {
+                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                                sbc_comment_op.append(sbc_comment_delete)
+                                            }
                                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
                                             sbc_box.append(sbc_comment_data)
                                             fbc_commentDate.append(sbc_box)
                                         }
                                         if (fbc.sbc_num > 2) {
-                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
+                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
                                             fbc_commentDate.append(moreSBCBtn)
                                         }
                                     }
@@ -270,7 +297,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 }
                                 if (data.fbc_num > 5) {
                                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                                        '<img src="/static/images/more1.png" alt="">\n' +
+                                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                                         '</div>')
                                     comment_box.append(moreFBCBtn)
                                 }
@@ -360,7 +387,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
             let container = $('#main-left-data')
             btn.remove()
             for (let data of result.data) {
-                let div = $('<div class="main-data-div color-comment"></div>')
+                let div = $('<div class="main-data-div color-comment fastinfo"></div>')
 
                 let icon = $('<div class="main-data-icon">\n' +
                     '             <div class="icon-div">\n' +
@@ -372,7 +399,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                 div.append(icon, time, info)
                 if (data.fast_type == 0) {
                     // 快讯
-                    if (data.translate.indexOf('&lt;iframe src=') != -1) {
+                    if (data.translate.indexOf('&lt;iframe') != -1) {
                         data.translate = entityToString(data.translate)
                     }
                     let fast = $('<div>' + data.translate + '</div>')
@@ -381,14 +408,19 @@ $(document).on('click', '#moreSummaryBtn', function () {
                 } else if (data.fast_type == 1) {
                     // 日历
                     let calendar_box = $('<div class="main-calendar-box">\n' +
-                        '                        <img src="/static/images/flag/' + data.tran_country + '.png" class="flag" alt="">\n' +
+                        '                        <img src="/static/images/flag/' + data.country + '.png" class="flag" alt="">\n' +
                         '                    </div>')
                     let calendar_data = $('<div class="main-calendar-data"><div class="main-calendar-title">' + data.tran_title + '</div></div>')
                     let calendar_star = $('<div class="calendar-star"></div>')
+                    if (data.star>=3){
+                        var star_color = '#eb695e'
+                    }else{
+                        var star_color = '#ecbe1d'
+                    }
                     for (let lightStar = 0; lightStar < data.star; lightStar++) {
                         let lightStarDiv = $('<svg t="1583754430858" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2559" width="16" height="16">\n' +
                             ' <path d="M747.682255 638.235053c10.091846 49.955762 18.998703 95.172593 26.714432 135.6464 3.560082 17.076934 6.824429 34.151821 9.795087 51.227732 2.965541 17.070794 5.78475 32.564673 8.456602 46.479591 2.673899 13.908778 4.897543 25.76685 6.67912 35.573193 1.778506 9.801227 2.968611 15.965623 3.560082 18.492166 1.778506 12.650111-0.889253 21.029966-8.010441 25.142633-7.125281 4.102435-15.138792 6.163373-24.041556 6.163373-2.968611 0-7.271614-1.110287-12.911054-3.319605-5.637394-2.215458-9.943466-3.954055-12.909008-5.217838L512.616542 804.236807c-42.147936 26.559912-80.432891 50.276057-114.864074 71.146387-14.842033 8.849552-29.529547 17.705244-44.073798 26.553773-14.544251 8.854669-27.754111 17.081027-39.625486 24.662703-11.872399 7.590885-22.109554 13.920034-30.714536 18.97926-8.610098 5.053086-14.398942 8.214079-17.364483 9.484002-5.936199 3.162016-12.023848 4.266164-18.256806 3.314489-6.235005-0.946558-11.872399-3.314489-16.915251-7.109931-5.043876-3.796466-8.756431-8.378831-11.129478-13.755282-2.376117-5.376451-2.965541-10.911514-1.781576-16.594957 0.596588-2.532683 2.078335-8.702196 4.453429-18.502399 2.376117-9.801227 5.043876-21.50171 8.013511-35.098379 2.965541-13.596669 6.380314-28.615735 10.239202-45.057195 3.857864-16.440437 7.862062-33.199123 12.018731-50.275034 8.904811-39.210024 18.996656-83.474157 30.274514-132.798539-35.021631-32.254611-66.482157-61.028958-94.381577-86.322018-11.872399-10.749832-23.598464-21.344121-35.173081-31.776727-11.574616-10.437723-21.963221-19.919678-31.162744-28.461215-9.203616-8.535397-16.769942-15.490809-22.705118-20.866237-5.936199-5.373381-9.203616-8.378831-9.800203-9.012258-7.121188-6.957459-13.20372-14.70184-18.250666-23.23826-5.043876-8.541537-6.975878-17.231453-5.785773-26.086122 1.187035-8.853645 4.449335-15.812127 9.79611-20.871353 5.340635-5.057179 11.275811-8.218172 17.807574-9.487072l275.131221-26.557866L470.766388 102.288664c3.560082-10.122545 8.608052-18.818601 15.140839-26.085098 6.526647-7.272637 15.432481-10.911514 26.710338-10.911514 5.935176 0 11.129478 1.425466 15.582907 4.267187 4.451382 2.847861 8.16189 6.16542 11.133571 9.959839 2.963495 3.795443 5.485945 7.589862 7.563256 11.386328 2.079358 3.794419 3.713578 6.954389 4.897543 9.485025l99.729375 254.222005 275.136338 27.510564c11.872399 3.160993 20.177552 6.955412 24.927739 11.380188 4.751211 4.426823 7.121188 11.383258 7.121188 20.87033 0 8.853645-2.521426 16.59905-7.566326 23.237237-5.047969 6.643304-11.42726 14.705933-19.144012 24.193005L747.682255 638.235053 747.682255 638.235053zM747.682255 638.235053"\n' +
-                            ' p-id="2560" fill="#e8c04c"></path>\n' +
+                            ' p-id="2560" fill="'+star_color+'"></path>\n' +
                             '</svg>')
                         calendar_star.append(lightStarDiv)
                     }
@@ -400,7 +432,20 @@ $(document).on('click', '#moreSummaryBtn', function () {
                         calendar_star.append(darkStarDiv)
                     }
                     let act = $('<div class="act">Act:' + data.actual + '%</div>')
-                    let tag = $('<div class="bear">BEAR</div>')
+                    let tag = $('<div class="bear"></div>')
+                    if (data.tag==0){
+                            tag.text('---')
+                            tag.css('background-color','#2e3a54')
+                        }else if (data.tag==1){
+                            tag.text('BEAR')
+                            tag.css('background-color','#eb695e')
+                        }else if (data.tag==2){
+                            tag.text('=')
+                            tag.css('background-color','#ecbe1b')
+                        }else if (data.tag==3){
+                            tag.text('BULL')
+                            tag.css('background-color','#62c227')
+                        }
                     let pre_exp = $('<div style="width: 100%;display: flex">\n' +
                         '                 <div class="pre">Pre:' + data.previous + '%</div>\n' +
                         '                 <div class="exp">Exp:' + data.consensus + '</div>\n' +
@@ -479,7 +524,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                             let vote_choose = $('<div class="vote-choose" vote="' + vote_item.id + '" data="' + vote_item.isVote + '">\n' +
                                                 '                     <div class="vote-choose-txt">' + vote_item.content + '</div>\n' +
                                                 '                </div>')
-                                            let vote_choose_num = $('<div class="vote-choose-num" >' + vote_item.num + '</div>')
+                                            let vote_choose_num = $('<div class="vote-choose-num" data-num="'+vote_item.num+'">' + calper(vote_item.num,data.votenum) + '</div>')
                                             let vote_percent = $('<div class="vote-percent" ></div>')
                                             if (data.isallvote) {
                                                 vote_choose_num.css('display', 'block')
@@ -543,7 +588,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                     '            </div>\n' +
                                     '        </div>\n' +
                                     '        <div class="VN-input-item">\n' +
-                                    '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                                    '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                                     '            <div class="emojiBtn">\n' +
                                     '                <img src="/static/images/emojiButton.png" alt="">\n' +
                                     '            </div>\n' +
@@ -557,17 +602,17 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                 for (let fbc of data.commentData.first_comment) {
                                     let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="' + fbc.userId + '"></div>')
                                     let fbc_header = $('<div class="user-header">\n' +
-                                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                                        '                  <img class="fbc-head-img" src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                                         '               </div>')
                                     let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                                     let fbc_comment_text = $('<div class="comment-text">\n' +
                                         '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
                                         '                            <span>:&nbsp;</span>\n' +
                                         '                        </div>')
-                                    if (fbc.ismine) {
-                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
-                                        fbc_comment_text.append(fbc_delete)
-                                    }
+                                    // if (fbc.ismine) {
+                                    //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                    //     fbc_comment_text.append(fbc_delete)
+                                    // }
                                     let fbc_content = $('<div>' + fbc.content + '</div>')
                                     fbc_comment_text.append(fbc_content)
                                     let fbc_comment_op = $('<div class="comment-op">\n' +
@@ -576,15 +621,19 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                         '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                                         '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                                         '                            </div>\n' +
-                                        '                            <div class="reply">Reply</div>\n' +
+                                        '                            <div class="reply fbc-reply">Reply</div>\n' +
                                         '                       </div>')
+                                    if (fbc.ismine) {
+                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                        fbc_comment_op.append(fbc_delete)
+                                    }
                                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
                                     fbc_box.append(fbc_header, fbc_commentDate)
                                     if (fbc.secondComment.sbc_list) {
                                         for (let sbc of fbc.secondComment.sbc_list) {
                                             let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
                                                 '                  <div class="user-header">\n' +
-                                                '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                                '                       <img class="sbc-head-img" src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                                 '                  </div>\n' +
                                                 '            </div>')
                                             let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -593,22 +642,26 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                                 '                          <span class="content-user-name">' + sbc.username + '</span>\n' +
                                                 '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
                                                 '                     </div>')
-                                            if (sbc.ismine) {
-                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
-                                                sbc_comment_text.append(sbc_comment_delete)
-                                            }
+                                            // if (sbc.ismine) {
+                                            //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                            //     sbc_comment_text.append(sbc_comment_delete)
+                                            // }
                                             let sbc_comment_content = $('<div>' + sbc.content + '</div>')
                                             sbc_comment_text.append(sbc_comment_content)
                                             let sbc_comment_op = $('<div class="comment-op">\n' +
                                                 '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
                                                 '                        <div class="reply">Reply</div>\n' +
                                                 '                   </div>')
+                                            if (sbc.ismine) {
+                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                                sbc_comment_op.append(sbc_comment_delete)
+                                            }
                                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
                                             sbc_box.append(sbc_comment_data)
                                             fbc_commentDate.append(sbc_box)
                                         }
                                         if (fbc.sbc_num > 2) {
-                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
+                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
                                             fbc_commentDate.append(moreSBCBtn)
                                         }
                                     }
@@ -616,7 +669,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                 }
                                 if (data.fbc_num > 5) {
                                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                                        '<img src="/static/images/more1.png" alt="">\n' +
+                                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                                         '</div>')
                                     comment_box.append(moreFBCBtn)
                                 }
@@ -678,6 +731,15 @@ setInterval(function () {
     $('#calendar-head-fullyear').text(fullyear);
     $('#calendar-head-week').text(week);
 
+    // 将本地时间转为越南时间
+    let localTime = datetime.getTime();
+    let localOffset = datetime.getTimezoneOffset() * 60000;   //getTimezoneOffset()返回是以分钟为单位，需要转化成ms
+    let utc = localTime + localOffset;
+    let offset = 7; //以越南时间为例，东7区
+    let Vietnam = utc + (3600000 * offset);
+    let Vietnam_time = new Date(Vietnam);
+
+
     // calendar模块中的倒计时功能
     let nexttime = $('#card-calendar-body').children('div:first-child').children('div:first-child').children('.calendar-time').text()
     if (!nexttime) {
@@ -685,7 +747,7 @@ setInterval(function () {
         $('#remaining-time').text(remaining_time)
     } else {
         let nexttime_list = nexttime.split(':')
-        let lefttime = new Date(datetime.getFullYear(), datetime.getMonth(), datetime.getDate(), parseInt(nexttime_list[0]), parseInt(nexttime_list[1]), parseInt(nexttime_list[2])) - datetime
+        let lefttime = new Date(Vietnam_time.getFullYear(), Vietnam_time.getMonth(), Vietnam_time.getDate(), parseInt(nexttime_list[0]), parseInt(nexttime_list[1]), parseInt(nexttime_list[2])) - Vietnam_time
         if (lefttime <= 0) {
             $('#card-calendar-body').children('div:first-child').remove();
             let remaining_time = 'Next Date: 00 H 00 M 00 S'
@@ -720,19 +782,24 @@ function getCalendarList() {
                         '</div>')
                     let country_title = $('<div>\n' +
                         '      <img src="/static/images/flag/' + data.country + '.png" class="flag" width="30" height="20" alt="">\n' +
-                        '      <div class="countryCode">' + data.country + '</div>\n' +
+                        '      <div class="countryCode">' + data.tran_country + '</div>\n' +
                         '      <div class="calendar-title">' + data.title + '</div>\n' +
                         '</div>')
                     let pre_exp_act = $('<div>\n' +
                         '       <div class="pre">Pre:' + data.previous + '</div>\n' +
                         '       <div class="exp">Exp:' + data.consensus + '</div>\n' +
-                        '        <div class="act">Act:' + (data.actual)?(data.actual):("--") + '</div>\n' +
+                        '       <div class="act">Act:' + data.actual + '</div>\n' +
                         '</div>')
+                    if (data.star>=3){
+                        var star_color = '#eb695e'
+                    }else{
+                        var star_color = '#ecbe1d'
+                    }
                     let starDiv = $('<div class="calendar-star"></div>')
                     for (let lightStar = 0; lightStar < data.star; lightStar++) {
                         let lightStarDiv = $('<svg t="1583754430858" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2559" width="16" height="16">\n' +
                             ' <path d="M747.682255 638.235053c10.091846 49.955762 18.998703 95.172593 26.714432 135.6464 3.560082 17.076934 6.824429 34.151821 9.795087 51.227732 2.965541 17.070794 5.78475 32.564673 8.456602 46.479591 2.673899 13.908778 4.897543 25.76685 6.67912 35.573193 1.778506 9.801227 2.968611 15.965623 3.560082 18.492166 1.778506 12.650111-0.889253 21.029966-8.010441 25.142633-7.125281 4.102435-15.138792 6.163373-24.041556 6.163373-2.968611 0-7.271614-1.110287-12.911054-3.319605-5.637394-2.215458-9.943466-3.954055-12.909008-5.217838L512.616542 804.236807c-42.147936 26.559912-80.432891 50.276057-114.864074 71.146387-14.842033 8.849552-29.529547 17.705244-44.073798 26.553773-14.544251 8.854669-27.754111 17.081027-39.625486 24.662703-11.872399 7.590885-22.109554 13.920034-30.714536 18.97926-8.610098 5.053086-14.398942 8.214079-17.364483 9.484002-5.936199 3.162016-12.023848 4.266164-18.256806 3.314489-6.235005-0.946558-11.872399-3.314489-16.915251-7.109931-5.043876-3.796466-8.756431-8.378831-11.129478-13.755282-2.376117-5.376451-2.965541-10.911514-1.781576-16.594957 0.596588-2.532683 2.078335-8.702196 4.453429-18.502399 2.376117-9.801227 5.043876-21.50171 8.013511-35.098379 2.965541-13.596669 6.380314-28.615735 10.239202-45.057195 3.857864-16.440437 7.862062-33.199123 12.018731-50.275034 8.904811-39.210024 18.996656-83.474157 30.274514-132.798539-35.021631-32.254611-66.482157-61.028958-94.381577-86.322018-11.872399-10.749832-23.598464-21.344121-35.173081-31.776727-11.574616-10.437723-21.963221-19.919678-31.162744-28.461215-9.203616-8.535397-16.769942-15.490809-22.705118-20.866237-5.936199-5.373381-9.203616-8.378831-9.800203-9.012258-7.121188-6.957459-13.20372-14.70184-18.250666-23.23826-5.043876-8.541537-6.975878-17.231453-5.785773-26.086122 1.187035-8.853645 4.449335-15.812127 9.79611-20.871353 5.340635-5.057179 11.275811-8.218172 17.807574-9.487072l275.131221-26.557866L470.766388 102.288664c3.560082-10.122545 8.608052-18.818601 15.140839-26.085098 6.526647-7.272637 15.432481-10.911514 26.710338-10.911514 5.935176 0 11.129478 1.425466 15.582907 4.267187 4.451382 2.847861 8.16189 6.16542 11.133571 9.959839 2.963495 3.795443 5.485945 7.589862 7.563256 11.386328 2.079358 3.794419 3.713578 6.954389 4.897543 9.485025l99.729375 254.222005 275.136338 27.510564c11.872399 3.160993 20.177552 6.955412 24.927739 11.380188 4.751211 4.426823 7.121188 11.383258 7.121188 20.87033 0 8.853645-2.521426 16.59905-7.566326 23.237237-5.047969 6.643304-11.42726 14.705933-19.144012 24.193005L747.682255 638.235053 747.682255 638.235053zM747.682255 638.235053"\n' +
-                            ' p-id="2560" fill="#e8c04c"></path>\n' +
+                            ' p-id="2560" fill="'+star_color+'"></path>\n' +
                             '</svg>')
                         starDiv.append(lightStarDiv);
                     }
@@ -753,7 +820,7 @@ function getCalendarList() {
     })
 }
 
-// 加载blog模块数据’
+// 加载blog模块数据
 function getBlogList() {
     $.ajax({
         url: '/indexgrouplist/',
@@ -803,7 +870,7 @@ function getBlogList() {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor) {
+                    if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                         content_text.addClass('bg-color')
                         content_text.css('background-color', data.bgcolor)
                     }
@@ -827,7 +894,7 @@ function getBlogList() {
                                 let vote_choose = $('<div class="vote-choose" vote="' + vote_item.id + '" data="' + vote_item.isVote + '">\n' +
                                     '                     <div class="vote-choose-txt">' + vote_item.content + '</div>\n' +
                                     '                </div>')
-                                let vote_choose_num = $('<div class="vote-choose-num" >' + vote_item.num + '</div>')
+                                let vote_choose_num = $('<div class="vote-choose-num" data-num="'+vote_item.num+'">' + calper(vote_item.num,data.votenum) + '</div>')
                                 let vote_percent = $('<div class="vote-percent" ></div>')
                                 if (data.isallvote) {
                                     vote_choose_num.css('display', 'block')
@@ -891,7 +958,7 @@ function getBlogList() {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -912,8 +979,9 @@ function getBlogList() {
     })
 }
 
+
 index_group_page = 1
-index_group_limit = 10
+index_group_limit = 30
 // index 加载更多group
 $(document).on('click', '#indexMoreGroup', function () {
     let moreBtn = $(this).parents('.main-data-div')
@@ -966,7 +1034,7 @@ $(document).on('click', '#indexMoreGroup', function () {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor) {
+                    if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                         content_text.addClass('bg-color')
                         content_text.css('background-color', data.bgcolor)
                     }
@@ -990,7 +1058,7 @@ $(document).on('click', '#indexMoreGroup', function () {
                                 let vote_choose = $('<div class="vote-choose" vote="' + vote_item.id + '" data="' + vote_item.isVote + '">\n' +
                                     '                     <div class="vote-choose-txt">' + vote_item.content + '</div>\n' +
                                     '                </div>')
-                                let vote_choose_num = $('<div class="vote-choose-num" >' + vote_item.num + '</div>')
+                                let vote_choose_num = $('<div class="vote-choose-num" data-num="'+vote_item.num+'">' + calper(vote_item.num,data.votenum) + '</div>')
                                 let vote_percent = $('<div class="vote-percent" ></div>')
                                 if (data.isallvote) {
                                     vote_choose_num.css('display', 'block')
@@ -1054,7 +1122,7 @@ $(document).on('click', '#indexMoreGroup', function () {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -1076,87 +1144,103 @@ index_fbc_page = 1
 index_fbc_limit = 5
 $(document).on('click', '#all-comments', function () {
     let _this = $(this)
-    let blog_id = _this.parents('.user-dynamic-box').attr('data')
-    let container = _this.parents('.user-dynamic-box')
-    $.ajax({
-        type: 'get',
-        url: '/fbc/?id=' + blog_id + '&page=' + index_fbc_page + '&limit=' + index_fbc_limit,
-        success: function (res) {
-            console.log('获取group评论区:', res)
-            if (!res.success) {
-                layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
-            } else {
-                let parentDiv = $('<div class="dynamic-comment-box"></div>')
-                for (let fbc of res.data) {
-                    let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="' + fbc.userId + '"></div>')
-                    let fbc_header = $('<div class="user-header">\n' +
-                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
-                        '               </div>')
-                    let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
-                    let fbc_comment_text = $('<div class="comment-text">\n' +
-                        '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
-                        '                            <span>:&nbsp;</span>\n' +
-                        '                        </div>')
-                    if (fbc.ismine) {
-                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
-                        fbc_comment_text.append(fbc_delete)
-                    }
-                    let fbc_content = $('<div>' + fbc.content + '</div>')
-                    fbc_comment_text.append(fbc_content)
-                    let fbc_comment_op = $('<div class="comment-op">\n' +
-                        '                            <div class="content-time">' + timeformat(fbc.pub_date) + '</div>\n' +
-                        '                            <div class="fbc-num">\n' +
-                        '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
-                        '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
-                        '                            </div>\n' +
-                        '                            <div class="reply">Reply</div>\n' +
-                        '                       </div>')
-                    fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
-                    fbc_box.append(fbc_header, fbc_commentDate)
-                    if (fbc.sbc) {
-                        for (let sbc of fbc.sbc.sbc_list) {
-                            let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
-                                '                  <div class="user-header">\n' +
-                                '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
-                                '                  </div>\n' +
-                                '            </div>')
-                            let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
+    if (!_this.hasClass('expand')) {
+        let blog_id = _this.parents('.user-dynamic-box').attr('data')
+        let container = _this.parents('.user-dynamic-box')
+        $.ajax({
+            type: 'get',
+            url: '/fbc/?id=' + blog_id + '&page=' + index_fbc_page + '&limit=' + index_fbc_limit,
+            success: function (res) {
+                console.log('获取group评论区:', res)
+                if (!res.success) {
+                    layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                } else {
+                    let parentDiv = $('<div class="dynamic-comment-box"></div>')
+                    for (let fbc of res.data) {
+                        let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="' + fbc.userId + '"></div>')
+                        let fbc_header = $('<div class="user-header">\n' +
+                            '                  <img class="fbc-head-img" src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                            '               </div>')
+                        let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
+                        let fbc_comment_text = $('<div class="comment-text">\n' +
+                            '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
+                            '                            <span>:&nbsp;</span>\n' +
+                            '                        </div>')
+                        // if (fbc.ismine) {
+                        //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                        //     fbc_comment_text.append(fbc_delete)
+                        // }
+                        let fbc_content = $('<div>' + fbc.content + '</div>')
+                        fbc_comment_text.append(fbc_content)
+                        let fbc_comment_op = $('<div class="comment-op">\n' +
+                            '                            <div class="content-time">' + timeformat(fbc.pub_date) + '</div>\n' +
+                            '                            <div class="fbc-num">\n' +
+                            '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
+                            '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
+                            '                            </div>\n' +
+                            '                            <div class="reply fbc-reply">Reply</div>\n' +
+                            '                       </div>')
+                        if (fbc.ismine) {
+                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                            fbc_comment_op.append(fbc_delete)
+                        }
+                        fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
+                        fbc_box.append(fbc_header, fbc_commentDate)
+                        if (fbc.sbc) {
+                            for (let sbc of fbc.sbc.sbc_list) {
+                                let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
+                                    '                  <div class="user-header">\n' +
+                                    '                       <img class="sbc-head-img" src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                    '                  </div>\n' +
+                                    '            </div>')
+                                let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
 
-                            let sbc_comment_text = $('<div class="comment-text">\n' +
-                                '                          <span class="content-user-name">' + sbc.username + '</span>\n' +
-                                '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
-                                '                     </div>')
-                            if (sbc.ismine) {
-                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
-                                sbc_comment_text.append(sbc_comment_delete)
+                                let sbc_comment_text = $('<div class="comment-text">\n' +
+                                    '                          <span class="content-user-name">' + sbc.username + '</span>\n' +
+                                    '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
+                                    '                     </div>')
+                                // if (sbc.ismine) {
+                                //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                //     sbc_comment_text.append(sbc_comment_delete)
+                                // }
+                                let sbc_comment_content = $('<div>' + sbc.content + '</div>')
+                                sbc_comment_text.append(sbc_comment_content)
+                                let sbc_comment_op = $('<div class="comment-op">\n' +
+                                    '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
+                                    '                        <div class="reply">Reply</div>\n' +
+                                    '                   </div>')
+                                if (sbc.ismine) {
+                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                    sbc_comment_op.append(sbc_comment_delete)
+                                }
+                                sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
+                                sbc_box.append(sbc_comment_data)
+                                fbc_commentDate.append(sbc_box)
                             }
-                            let sbc_comment_content = $('<div>' + sbc.content + '</div>')
-                            sbc_comment_text.append(sbc_comment_content)
-                            let sbc_comment_op = $('<div class="comment-op">\n' +
-                                '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
-                                '                        <div class="reply">Reply</div>\n' +
-                                '                   </div>')
-                            sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
-                            sbc_box.append(sbc_comment_data)
-                            fbc_commentDate.append(sbc_box)
+                            if (fbc.sbc_num > 2) {
+                                let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
+                                fbc_commentDate.append(moreSBCBtn)
+                            }
                         }
-                        if (fbc.sbc_num > 2) {
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
-                            fbc_commentDate.append(moreSBCBtn)
-                        }
+                        parentDiv.append(fbc_box)
                     }
-                    parentDiv.append(fbc_box)
+                    if (res.fbc_num > 5) {
+                        let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
+                            '<img src="/static/images/morecomment1.png" alt="">\n' +
+                            '</div>')
+                        parentDiv.append(moreFBCBtn)
+                    }
+                    container.append(parentDiv)
                 }
-                if (res.fbc_num > 5) {
-                    let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
-                        '</div>')
-                    parentDiv.append(moreFBCBtn)
-                }
-                container.append(parentDiv)
             }
-        }
-    })
+        })
+        _this.addClass('expand')
+    } else {
+        _this.parents('.dynamic-info').siblings('.dynamic-comment-box').remove()
+        _this.removeClass('expand')
+    }
+
+
 })
 
 // 加载更多一级评论
@@ -1178,17 +1262,17 @@ $(document).on('click', 'div[class="dynamic-comment-footer"]', function () {
                 for (let fbc of result.data) {
                     let fbc_box = $('<div class="dynamic-comment-group fbc-box" data="' + fbc.id + '" uid="' + fbc.userId + '"></div>')
                     let fbc_header = $('<div class="user-header">\n' +
-                        '                  <img src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
+                        '                  <img class="fbc-head-img" src="/media/' + fbc.header + '" width="40" height="40" alt="">\n' +
                         '               </div>')
                     let fbc_commentDate = $('<div class="comment-data color-comment"></div>')
                     let fbc_comment_text = $('<div class="comment-text">\n' +
                         '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
                         '                            <span>:&nbsp;</span>\n' +
                         '                        </div>')
-                    if (fbc.ismine) {
-                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
-                        fbc_comment_text.append(fbc_delete)
-                    }
+                    // if (fbc.ismine) {
+                    //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                    //     fbc_comment_text.append(fbc_delete)
+                    // }
                     let fbc_content = $('<div>' + fbc.content + '</div>')
                     fbc_comment_text.append(fbc_content)
                     let fbc_comment_op = $('<div class="comment-op">\n' +
@@ -1197,15 +1281,19 @@ $(document).on('click', 'div[class="dynamic-comment-footer"]', function () {
                         '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                         '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                         '                            </div>\n' +
-                        '                            <div class="reply">Reply</div>\n' +
+                        '                            <div class="reply fbc-reply">Reply</div>\n' +
                         '                       </div>')
+                    if (fbc.ismine) {
+                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                        fbc_comment_op.append(fbc_delete)
+                    }
                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
                     fbc_box.append(fbc_header, fbc_commentDate)
                     if (fbc.sbc) {
                         for (let sbc of fbc.sbc.sbc_list) {
                             let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
                                 '                  <div class="user-header">\n' +
-                                '                       <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                                '                       <img class="sbc-head-img" src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                                 '                  </div>\n' +
                                 '            </div>')
                             let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -1214,23 +1302,27 @@ $(document).on('click', 'div[class="dynamic-comment-footer"]', function () {
                                 '                          <span class="content-user-name">' + sbc.username + '</span>\n' +
                                 '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
                                 '                     </div>')
-                            if (sbc.ismine) {
-                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
-                                sbc_comment_text.append(sbc_comment_delete)
-                            }
+                            // if (sbc.ismine) {
+                            //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                            //     sbc_comment_text.append(sbc_comment_delete)
+                            // }
                             let sbc_comment_content = $('<div>' + sbc.content + '</div>')
                             sbc_comment_text.append(sbc_comment_content)
                             let sbc_comment_op = $('<div class="comment-op">\n' +
                                 '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
                                 '                        <div class="reply">Reply</div>\n' +
                                 '                   </div>')
+                            if (sbc.ismine) {
+                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                sbc_comment_op.append(sbc_comment_delete)
+                            }
                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
                             sbc_box.append(sbc_comment_data)
                             fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num > 2) {
                             let moreSBCBtn = $('<div class="more-sbc">' +
-                                '<img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span>' +
+                                '<img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span>' +
                                 '</div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
@@ -1270,7 +1362,7 @@ $(document).on('click', '.more-sbc', function () {
                 for (let sbc of res.data) {
                     let sbc_box = $('<div class="dynamic-comment-group sbc-box" data="' + sbc.id + '" uid="' + sbc.userId + '">\n' +
                         '     <div class="user-header">\n' +
-                        '         <img src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
+                        '         <img class="sbc-head-img" src="/media/' + sbc.header + '" width="30" height="30" alt="">\n' +
                         '     </div>\n' +
                         '</div>')
                     let sbc_comment_data = $('<div class="comment-data color-comment"></div>')
@@ -1284,7 +1376,7 @@ $(document).on('click', '.more-sbc', function () {
                         '       </div>\n')
                     if (sbc.ismine) {
                         let sbc_comment_delete = $('<div class="delete-comment"><span>Delete</span></div>\n')
-                        sbc_comment_text.append(sbc_comment_delete)
+                        sbc_comment_op.append(sbc_comment_delete)
                     }
                     let sbc_comment_content = $('<div>' + sbc.content + '</div>')
                     sbc_comment_text.append(sbc_comment_content)

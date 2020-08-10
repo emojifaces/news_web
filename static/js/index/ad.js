@@ -51,12 +51,12 @@ function initIndexAd() {
         type:'get',
         url:'/ad/indexad/',
         success:function (res) {
-            console.log('初始化日历广告：',res)
+            console.log('初始化网页首页广告：',res)
             let top_container = $('#main-left-top')
             let right_container = $('#main-right-ad')
             // 顶部
             for (let [key,val] of Object.entries(res.data.top)){
-                let ad_div = $('<div class="ad-container"></div>')
+                let ad_div = $('<div class="ad-container maxw190"></div>')
                 for (let ad of val){
                     let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
                     // if (val.length==1){
@@ -175,12 +175,11 @@ function initGroupad() {
 // 初始化快讯内固定广告
 function initFastInfoAd() {
 
-    // $('#main-left-data').find('.ad-container').remove()
+    $('#main-left-data').find('.fast-info-ad').remove()
     let div = $('#main-left-data').find('.main-data-info')
-    let top = div[12]
-    let middle = div[17]
-    let bottom = div[22]
-
+    let top = div[10]
+    let middle = div[15]
+    let bottom = div[20]
     if ($(top).find('.fast-info-ad').length||$(middle).find('.fast-info-ad').length||$(bottom).find('.fast-info-ad').length){
         return null
 
@@ -196,8 +195,8 @@ function initFastInfoAd() {
             let bottom_container = $('<div class="ad-container fast-info-ad"></div>')
             // top
             for (let ad of res.data.top){
-                let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                setWidth(res.data.top.length,img)
+                let img = $('<div class="ad-div fast-11"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
+
                 top_container.append(img)
             }
             $(top).append(top_container)
@@ -205,7 +204,7 @@ function initFastInfoAd() {
             // middle
             for (let ad of res.data.middle){
                 let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                setWidth(res.data.middle.length,img)
+
                 middle_container.append(img)
             }
             $(middle).append(middle_container)
@@ -213,8 +212,8 @@ function initFastInfoAd() {
             // bottom
             for (let ad of res.data.bottom){
                 let img = $('<div class="ad-div"><img src="/media/'+ad.img+'" data-url="'+ad.url+'" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                setWidth(res.data.bottom.length,img)
-                top_container.append(img)
+
+                bottom_container.append(img)
             }
             $(bottom).append(bottom_container)
         }
@@ -238,3 +237,4 @@ function setWidth(num,node) {
         node.css('width','20%')
     }
 }
+

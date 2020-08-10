@@ -3,6 +3,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from ad.models import OfficalAdverts
 from blog.models import *
 
 
@@ -36,34 +38,51 @@ class BlogList(APIView):
             user_id = BaseUser.objects.get(auth_user=request.user).id
         else:
             user_id = None
-        blog_set = Offical.objects.all().order_by('-pub_date')
-        page_obj = Mypage()
-        blogs = page_obj.paginate_queryset(blog_set,request,self)
+        blog_set = Offical.objects.filter(is_pub=True).order_by('-pub_date')
+        page = request.GET.get('page',1)
+        limit = request.GET.get('limit',30)
+        start = (int(page)-1)* int(limit)
+        end = start+int(limit)
+        blogs = blog_set[start:end]
         blog_list = list()
+        if blogs:
+            for blog in blogs:
+                blog_img = blog.officalAndimage_offical.all()
+                image = list()
+                ad_list = list()
+                ad_set = OfficalAdverts.objects.filter(offical_id_id=blog.id)
+                if ad_set:
+                    for ad in ad_set:
+                        ad_dict = {
+                            'url':ad.url,
+                            'img':ad.img,
+                            'sort':ad.sort
+                        }
+                        ad_list.append(ad_dict)
 
-        for blog in blogs:
-            blog_img = blog.officalAndimage_offical.all()
-            image = list()
-            if blog_img:
-                for img in blog_img:
-                    image.append(img.img)
-            blog_dict = {
-                'id': blog.id,      # blog ID
-                'title': blog.title,     # blog 标题
-                'type': {                       # blog 类型
-                    'name': blog.officaltype_set.name,
-                    'color': blog.officaltype_set.color,
-                },
-                'content': blog.content,       # blog 内容
-                'pub_date': blog.pub_date,      # blog 发布日期
-                'likenum': blog.goodfingers,        # 点赞数
-                'islike': blog.goodFingerOffical_offical.filter(user_id_id=user_id).exists(),   # 当前用户是否点赞
-                'image': image      # blog 图片
-            }
-            blog_list.append(blog_dict)
 
-        return Response({'success':True,'data':blog_list})
+                if blog_img:
+                    for img in blog_img:
+                        image.append(img.img)
+                blog_dict = {
+                    'id': blog.id,      # blog ID
+                    'title': blog.title,     # blog 标题
+                    'type': {                       # blog 类型
+                        'name': blog.type.name if blog.type else None,
+                        'color': blog.type.color if blog.type else None,
+                    },
+                    'content': blog.content,       # blog 内容
+                    'pub_date': blog.pub_date,      # blog 发布日期
+                    'likenum': blog.goodfingers,        # 点赞数
+                    'islike': blog.goodFingerOffical_offical.filter(user_id_id=user_id).exists(),   # 当前用户是否点赞
+                    'image': image,      # blog 图片
+                    'ads': ad_list if ad_list else None
+                }
+                blog_list.append(blog_dict)
 
+            return Response({'success':True,'data':blog_list})
+        else:
+            return Response({'success':False,'msg':'无更多数据'})
 class LikeBlogView(APIView):
 
     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)

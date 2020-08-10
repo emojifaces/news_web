@@ -80,7 +80,10 @@
                             <img src="/static/images/head.png" alt="" width="40" height="40">
                         {% endif %}
                     </div>
-                    <div class="user-name" id="user-name">
+                    <div class="user-name" id="user-name" {% if request.user.is_authenticated %}
+                         onclick="toUser()"{% else %}
+                         onclick='login()'
+                    {% endif %}>
                         <span>{% if request.user.is_authenticated %}
                             {{ request.session.user_name }}
                         {% else %}
@@ -140,20 +143,26 @@
             <img src="/static/ad/pic8.png" alt="">
         </div>
         <div class="footer-ad-right">
-            <h1>Title</h1>
-            <span>Word</span>
+
         </div>
     </div>
 
     <div class="footer-ad-bottom container">
-        <div>
-            <h1>Title</h1>
-            <span>Word</span>
-        </div>
-        <div>
-            <h1>Title</h1>
-            <span>Word</span>
-        </div>
+        <div class="bottom-line"></div>
+            <div class="bottom-warning">
+                <div class="bottom-warning-top">Warning&Policy</div>
+                <div class="bottom-warning-middle">
+                    Leveraged trading in foreign currency or off-exchange products on margin carries significant risk and may not be
+suitable for all investors. We advise you to carefully consider whether trading is appropriate for you based on your
+personal circumstances. Forex trading involves risk. Losses can exceed deposits. We recommend that you seek
+independent advice and ensure you fully understand the risks involved before trading.
+                </div>
+                <div class="bottom-warning-bottom">
+                    FX Publications Inc (dba DailyFX) is registered with the Commodities Futures Trading Commission as a Guaranteed Introducing Broker
+and is a member of the National Futures Association (ID# 0517400). Registered Address: 32 Old Slip, Suite 803; New York, NY 10005.
+FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered in Delaware under number 4456365)
+                </div>
+            </div>
     </div>
 </div>
 <div id="fixed-left">
@@ -169,6 +178,9 @@
     {#    </div>#}
     {#    <div><img src="/static/ad/ad_right.jpg" alt=""></div>#}
     {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
+</div>
+<div class="back-top" id="backtop" style="display: none">
+    <img src="/static/images/backtop.png" alt="">
 </div>
 {#<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>#}
 <audio id="bgm" controls style="display: none">

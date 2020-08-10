@@ -1,5 +1,7 @@
+import base64
 import os
 import random
+import time
 
 import emoji
 from django.conf import settings
@@ -21,6 +23,8 @@ def getstrlen(string):
     else:
         length = 0
     return int(length)
+
+
 
 class UnsafeSessionAuthentication(SessionAuthentication):
     def authenticate(self, request):
@@ -74,14 +78,14 @@ class UpdateVote(APIView):
             return Response({"success": False,"msg": "未登录"})
         else:
             baseuser = BaseUser.objects.get(auth_user=request.user)
-            v = BlogChoices.objects.get(id=votechoice_id)
-            v.num += 1
-            v.save()
             if SelectBlogs.objects.filter(blog_id_id=blog_id,answer_id_id=votechoice_id,user_id_id=baseuser.id).exists():
                 return Response({'success':False,'msg':'不能重复投票'})
-            SelectBlogs.objects.create(blog_id_id=blog_id,answer_id_id=votechoice_id,user_id_id=baseuser.id)
-            # allvotenum = SelectBlogs.objects.filter(blog_id_id=blog_id).count()
-            return Response({"success": True})
+            else:
+                SelectBlogs.objects.create(blog_id_id=blog_id, answer_id_id=votechoice_id, user_id_id=baseuser.id)
+                v = BlogChoices.objects.get(id=votechoice_id)
+                v.num += 1
+                v.save()
+                return Response({"success": True})
 
 
 class UpdateCollect(APIView):
@@ -180,9 +184,11 @@ class Publish(APIView):
     def post(self,request):
         content = request.POST.get('content', None)
         vote_title = request.POST.get('votetitle', None)
-        vote_date = request.POST.getlist('votedata[]', None)
+        vote_date = request.POST.getlist('votedata', None)
         files = request.FILES.getlist('img', None)
+        # files = request.FILES.get('img', None)
         content = emoji.demojize(content)
+
         if not request.user.is_authenticated:
             return Response({"success":False,"msg":"未登录"})
         else:
@@ -194,20 +200,43 @@ class Publish(APIView):
                 if vote_date:
                     for vote_option in vote_date:
                         BlogChoices.objects.create(blog_id_id=blog_id,content=vote_option)
+                if files:
+                    for img in files:
+                        # path = os.path.join(settings.MEDIA_ROOT, f'{img.name}')
+                        # destination = open(path, 'wb')
+                        # for chunk in img.chunks():
+                        #     destination.write(chunk)
+                        # destination.close()
+                        # BlogImages.objects.create(blog_id_id=blog_id, img=img)
+                        img_suffix = img.name.split('.')[-1]
+                        t = time.time()
+                        path = str(int(round(t * 1000))) + str(blog_id) + 'group.'+img_suffix
+                        destination = open(os.path.join(settings.MEDIA_ROOT, path), "wb")
+                        for chunk in img.chunks():
+                            destination.write(chunk)
+                        destination.close()
+                        BlogImages.objects.create(blog_id_id=blog_id, img=path)
                 else:
-                    return Response({"msg":0})
+                    return Response({"msg":'投票选项是必填项'})
             else:
                 blog = Blogs.objects.create(type=0,content=content,user_id_id=baseuser.id)
                 blog_id = blog.id
                 if files:
                     for img in files:
-                        path = os.path.join(settings.MEDIA_ROOT, f'{img.name}')
-                        destination = open(path, 'wb')
+                        # path = os.path.join(settings.MEDIA_ROOT, f'{img.name}')
+                        # destination = open(path, 'wb')
+                        # for chunk in img.chunks():
+                        #     destination.write(chunk)
+                        # destination.close()
+                        # BlogImages.objects.create(blog_id_id=blog_id, img=img)
+                        img_suffix = img.name.split('.')[-1]
+                        t = time.time()
+                        path = str(int(round(t * 1000))) + str(blog_id) + 'group.' + img_suffix
+                        destination = open(os.path.join(settings.MEDIA_ROOT, path), "wb")
                         for chunk in img.chunks():
                             destination.write(chunk)
                         destination.close()
-                        BlogImages.objects.create(blog_id_id=blog_id, img=img)
-
+                        BlogImages.objects.create(blog_id_id=blog_id, img=path)
             if getstrlen(content) < 120:
                 blog.bgcolor = random.choice(colors)
                 blog.save()
@@ -236,7 +265,7 @@ class GroupList(APIView):
         else:
             user_id = None
         page = request.GET.get('page', 1)
-        limit = request.GET.get('limite', 10)
+        limit = request.GET.get('limite', 30)
         offset = request.GET.get('offset', 0)
         start = (int(page) - 1) * int(limit) + int(offset)
         end = start + int(limit)
@@ -297,7 +326,8 @@ class GroupList(APIView):
                     vote_dict = {
                         'content':emoji.emojize(vote.content),
                         'isVote':vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
-                        'num':vote.num,
+                        # 'num':vote.num,
+                        'num':vote.selectBlog_answer.all().count(),
                         'id':vote.id
                     }
                     voteData.append(vote_dict)

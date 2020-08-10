@@ -48,7 +48,7 @@ function initMyGroup() {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -136,7 +136,7 @@ function initMyGroup() {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -201,7 +201,7 @@ function initMyGroup() {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -209,7 +209,7 @@ function initMyGroup() {
                 }
                     if (data.fbc_num > 5){
                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
+                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                         '</div>')
                     comment_box.append(moreFBCBtn)
                 }
@@ -279,7 +279,7 @@ $(document).on('click','#moreMyGroup',function () {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -367,7 +367,7 @@ $(document).on('click','#moreMyGroup',function () {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -432,7 +432,7 @@ $(document).on('click','#moreMyGroup',function () {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -440,7 +440,7 @@ $(document).on('click','#moreMyGroup',function () {
                 }
                 if (res.fbc_num > 5){
                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
+                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                         '</div>')
                     comment_box.append(moreFBCBtn)
                 }
@@ -627,7 +627,7 @@ function initMyCollect() {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -715,7 +715,7 @@ function initMyCollect() {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -780,7 +780,7 @@ function initMyCollect() {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -788,7 +788,7 @@ function initMyCollect() {
                 }
                     if (data.fbc_num > 5){
                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
+                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                         '</div>')
                     comment_box.append(moreFBCBtn)
                 }
@@ -858,7 +858,7 @@ $(document).on('click','#moreMyCollect',function () {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -946,7 +946,7 @@ $(document).on('click','#moreMyCollect',function () {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -1010,7 +1010,7 @@ $(document).on('click','#moreMyCollect',function () {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -1126,7 +1126,7 @@ function initUserDetail() {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -1214,7 +1214,7 @@ function initUserDetail() {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -1279,7 +1279,7 @@ function initUserDetail() {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -1287,7 +1287,7 @@ function initUserDetail() {
                 }
                     if (data.fbc_num > 5){
                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
+                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                         '</div>')
                     comment_box.append(moreFBCBtn)
                 }
@@ -1359,7 +1359,7 @@ $(document).on('click','#moreUserGroup',function () {
                     let content_text = $('<div class="content-text color-comment">\n' +
                         '                    <span>' + data.content + '</span>\n' +
                         '                </div>')
-                    if (data.bgcolor){
+                    if (data.bgcolor&&(data.type==0)&&(data.img.length==0)){
                         content_text.addClass('bg-color')
                         content_text.css('background-color',data.bgcolor)
                     }
@@ -1447,7 +1447,7 @@ $(document).on('click','#moreUserGroup',function () {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -1512,7 +1512,7 @@ $(document).on('click','#moreUserGroup',function () {
                                 fbc_commentDate.append(sbc_box)
                         }
                         if (fbc.sbc_num>2){
-                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
+                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>('+(fbc.sbc_num-2)+')</span></div>')
                             fbc_commentDate.append(moreSBCBtn)
                         }
                     }
@@ -1520,7 +1520,7 @@ $(document).on('click','#moreUserGroup',function () {
                 }
                 if (res.fbc_num > 5){
                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                        '<img src="/static/images/more1.png" alt="">\n' +
+                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                         '</div>')
                     comment_box.append(moreFBCBtn)
                 }

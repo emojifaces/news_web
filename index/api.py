@@ -17,9 +17,9 @@ from group.models import Blogs, FirstBlogComment, SecondBlogComment, Attentions,
     BlogImages, BlogChoices, SelectBlogs
 from index.models import FastInfo, Summary
 from user.models import BaseUser
-from datetime import datetime
-from ad.models import *
 
+from ad.models import *
+import datetime
 async def SendSocket(data):
     channel_layer = get_channel_layer()
     await channel_layer.group_send(
@@ -50,7 +50,7 @@ class GetFastInfoList(APIView):
             user = None
         is_import = request.GET.get('import', '')
         page = request.GET.get('page', 1)
-        limit = request.GET.get('limit', 30)
+        limit = request.GET.get('limit', 100)
         start = (int(page) - 1) * int(limit)
         end = int(page) * int(limit)
         data = FastInfo.objects.filter(is_pub=True).order_by('-VN_pub_date').all()
@@ -266,7 +266,8 @@ class GetCalendarList(APIView):
     permission_classes = (AllowAny,)
 
     def get(self,request):
-        current_time = datetime.now()
+        current_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
+
         calendar_set = Calendar.objects.filter(VN_pub_date__gt=current_time).order_by('VN_pub_date')
         if calendar_set:
             calendar_list = list()
@@ -275,12 +276,13 @@ class GetCalendarList(APIView):
                     "id": calendar.id,
                     "title": calendar.tran_title,
                     "tag": calendar.tag,
-                    "actual": calendar.actual,
-                    "consensus": calendar.consensus,
-                    "previous": calendar.previous,
+                    "actual": calendar.actual if calendar.actual else '--',
+                    "consensus": calendar.consensus if calendar.consensus else '--',
+                    "previous": calendar.previous if calendar.previous else '--',
                     "star": calendar.star,
-                    "country": calendar.tran_country,
+                    "tran_country": calendar.tran_country,
                     "pub_date":calendar.VN_pub_date.time(),
+                    'country': calendar.country
                 }
                 calendar_list.append(calendar_dict)
             # print(calendar_list)
@@ -303,7 +305,7 @@ class IndexGroupList(APIView):
         else:
             user_id = None
         page = request.GET.get('page', 1)
-        limit = request.GET.get('limite', 10)
+        limit = request.GET.get('limite', 30)
         offset = request.GET.get('offset', 0)
         start = (int(page) - 1) * int(limit) + int(offset)
         end = start + int(limit)
@@ -320,7 +322,8 @@ class IndexGroupList(APIView):
                     vote_dict = {
                         'content':emoji.emojize(vote.content),
                         'isVote':vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
-                        'num':vote.num,
+                        # 'num':vote.num,
+                        'num':vote.selectBlog_answer.all().count(),
                         'id':vote.id
                     }
                     voteData.append(vote_dict)
@@ -333,7 +336,7 @@ class IndexGroupList(APIView):
                 'user_name':blog.user_id.name,
                 'header':blog.user_id.img,
                 'pub_date':blog.create_date,
-                'content':emoji.emojize(blog.content),
+                'content':emoji.emojize(blog.content) if blog.content else '',
                 'img':[blog_img.img for blog_img in blog.blogImages_blog.all()],
                 'iscollect':blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
                 'collectnum':blog.collectBlog_blog.all().count(),

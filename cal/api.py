@@ -14,26 +14,35 @@ class DataView(APIView):
     def get(self, request):
 
         date = request.GET.get('date',None)
+        filter = request.GET.get('filter',0)
+
         if not date:
             date = datetime.now()
         else:
             date = datetime.strptime(date,"%Y-%m-%d")
-        data_set = Calendar.objects.filter(VN_pub_date__year=date.year,VN_pub_date__month=date.month,VN_pub_date__day=date.day).order_by("VN_pub_date")
+
+        if int(filter)==1:
+            data_set = Calendar.objects.filter(VN_pub_date__year=date.year,VN_pub_date__month=date.month,VN_pub_date__day=date.day,star__gte=3).order_by("VN_pub_date")
+        else:
+            data_set = Calendar.objects.filter(VN_pub_date__year=date.year, VN_pub_date__month=date.month,
+                                               VN_pub_date__day=date.day).order_by("VN_pub_date")
         if not data_set:
             return Response({'success':False,"msg":"暂无数据"})
         else:
             data_list = list()
             for data in data_set:
+                unit = data.unit if data.unit=='%' else ''
                 data_dict = {
                     "id":data.id,
-                    "time": data.VN_pub_date.time(),
-                    "area": data.tran_country,
-                    "name": data.tran_title,
+                    "time": data.VN_pub_date.strftime('%H:%M'),
+                    "area": data.country,
+                    "name": data.tran_title if data.tran_title else '',
                     "star": data.star,
-                    "pre": data.previous,
-                    "exp": data.consensus,
-                    "act": data.actual,
-                    "tag": data.tag
+                    "pre": data.previous + unit if data.previous else '',
+                    "exp": data.consensus + unit if data.consensus else '---',
+                    "act": data.actual + unit if data.actual else 'Waiting',
+                    "tag": data.tag,
+                    "unit": data.unit if data.unit else ''
                 }
                 data_list.append(data_dict)
             return Response(data_list)
@@ -60,11 +69,11 @@ class EventsView(APIView):
             for event in event_set:
                 event_dict = {
                     "id": event.id,
-                    "time": event.VN_pub_date.time(),
-                    "area": event.tran_country,
+                    "time": event.VN_pub_date.strftime('%H:%M'),
+                    "area": event.country,
                     "events": event. tran_event_content,
                     "star": event.star,
-                    "city": event.region
+                    "city": event.tran_city if event.tran_city else ''
                 }
                 event_list.append(event_dict)
             return Response(event_list)

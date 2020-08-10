@@ -76,3 +76,10 @@ button span{
     background-color:#101017;
     border: 1px solid #26282e;
 }
+.fastinfo:hover {
+    background-color: #fff5f5;
+    color: black;
+}
+.fastinfo:hover .main-data-icon{
+    background-color:transparent;
+}

@@ -167,7 +167,7 @@
                                 let content_text = $('<div class="content-text color-comment">\n' +
                                     '                    <span>' + data.content + '</span>\n' +
                                     '                </div>')
-                                if (data.bgcolor) {
+                                if (data.bgcolor&&(data.type==0)&&(data.img.length==0)) {
                                     content_text.addClass('bg-color')
                                     content_text.css('background-color', data.bgcolor)
                                 }
@@ -255,7 +255,7 @@
                                     '            </div>\n' +
                                     '        </div>\n' +
                                     '        <div class="VN-input-item">\n' +
-                                    '            <input type="text" value="" class="group-1-input commentBox">\n' +
+                                    '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
                                     '            <div class="emojiBtn">\n' +
                                     '                <img src="/static/images/emojiButton.png" alt="">\n' +
                                     '            </div>\n' +
@@ -320,7 +320,7 @@
                                             fbc_commentDate.append(sbc_box)
                                         }
                                         if (fbc.sbc_num > 2) {
-                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/more2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
+                                            let moreSBCBtn = $('<div class="more-sbc"><img src="/static/images/morecomment2.png" alt="">&nbsp;&nbsp;<span>(' + (fbc.sbc_num - 2) + ')</span></div>')
                                             fbc_commentDate.append(moreSBCBtn)
                                         }
                                     }
@@ -328,7 +328,7 @@
                                 }
                                 if (data.fbc_num > 5) {
                                     let moreFBCBtn = $('<div class="dynamic-comment-footer">\n' +
-                                        '<img src="/static/images/more1.png" alt="">\n' +
+                                        '<img src="/static/images/morecomment1.png" alt="">\n' +
                                         '</div>')
                                     comment_box.append(moreFBCBtn)
                                 }
