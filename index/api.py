@@ -51,8 +51,14 @@ class GetFastInfoList(APIView):
         is_import = request.GET.get('import', '')
         page = request.GET.get('page', 1)
         limit = request.GET.get('limit', 100)
-        start = (int(page) - 1) * int(limit)
-        end = int(page) * int(limit)
+        offset = request.GET.get('offset',0)
+        if offset == 0:
+            start = int(offset)
+            end = start + int(limit)
+        else:
+
+            start = (int(page) - 1) * int(limit)
+            end = int(page) * int(limit)
         data = FastInfo.objects.filter(is_pub=True).order_by('-VN_pub_date').all()
         if is_import:
             data = data.filter(is_important=is_import).all()
@@ -268,7 +274,7 @@ class GetCalendarList(APIView):
     def get(self,request):
         current_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
 
-        calendar_set = Calendar.objects.filter(VN_pub_date__gt=current_time).order_by('VN_pub_date')
+        calendar_set = Calendar.objects.filter(VN_pub_date__year=current_time.year,VN_pub_date__month=current_time.month,VN_pub_date__day=current_time.day,VN_pub_date__gt=current_time).order_by('VN_pub_date')
         if calendar_set:
             calendar_list = list()
             for calendar in calendar_set:
@@ -324,7 +330,8 @@ class IndexGroupList(APIView):
                         'isVote':vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
                         # 'num':vote.num,
                         'num':vote.selectBlog_answer.all().count(),
-                        'id':vote.id
+                        'id':vote.id,
+                        'ismychoose':SelectBlogs.objects.filter(blog_id_id=blog.id,answer_id_id=vote.id,user_id_id=user_id).exists()
                     }
                     voteData.append(vote_dict)
 
