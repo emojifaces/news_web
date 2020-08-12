@@ -2452,3 +2452,9 @@ iframe img {
 .global-top{
     width: 100%;
 }
+#economicDataTable  th, #economicDataTable  td{
+    padding: 0.5rem;
+}
+#economicDataTable .th-inner{
+    padding: 0.5rem;
+}
