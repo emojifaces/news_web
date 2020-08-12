@@ -2187,7 +2187,10 @@ iframe img {
 #main-right-ad img {
     max-height: 120px;
 }
-
+#main-right-ad{
+    display: flex;
+    flex-direction: column;
+}
 .search-text {
     background-color: #213b54;
     height: 40px;

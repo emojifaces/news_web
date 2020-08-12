@@ -53,34 +53,23 @@ function initIndexAd() {
             let top_container = $('#main-left-top')
             let right_container = $('#main-right-ad')
             // 顶部
-            for (let [key, val] of Object.entries(res.data.top)) {
+            for (let ad of res.data.top){
                 let ad_div = $('<div class="ad-container maxw190"></div>')
-                for (let ad of val) {
-                    let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                    // if (val.length==1){
-                    //     img.css('width','100%')
-                    //     img.children('img').css('width','100%')
-                    // }
-                    setWidth(val.length, img)
-                    ad_div.append(img)
-                }
+                let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
+                ad_div.append(img)
                 top_container.append(ad_div)
             }
 
+
             // 右部
-            for (let [key, val] of Object.entries(res.data.right)) {
+            for (let ad of res.data.right){
                 let ad_div = $('<div class="ad-container"></div>')
-                for (let ad of val) {
-                    let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                    // if (val.length==1){
-                    //     img.css('width','100%')
-                    //     img.children('img').css('width','100%')
-                    // }
-                    setWidth(val.length, img)
-                    ad_div.append(img)
-                }
+                let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
+                ad_div.append(img)
                 right_container.append(ad_div)
             }
+
+
         }
     })
 }

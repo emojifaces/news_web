@@ -69,8 +69,6 @@ class IndexAD(APIView):
             elif ad.site == 1:
                 right.append(ad_dict)
 
-        top = key_sort_group(top, 'sort')
-        right = key_sort_group(right, 'sort')
 
         data = {
             'top':top,
