@@ -46,7 +46,7 @@ $(document).on('click','.blog-left-top',function () {
 })
 
 function initBlogDate(page,limit) {
-    let container = $('#main-left-data')
+    let container = $('.blog-load-div')
     $.ajax({
         type:'get',
         url:'/blog/getbloglist/?page='+page+'&limit='+limit,
@@ -67,7 +67,7 @@ function initBlogDate(page,limit) {
                         }
                         container.append(ad_box)
                     }
-                    let blog_box = $('<div class="blog-box color-comment" data="{{ blog.id }}">' +
+                    let blog_box = $('<div class="blog-box color-comment" data="'+data.id+'">' +
                         '<div class="footer-date">'+timeformat(data.pub_date)+'</div>' +
                         '</div>')
                     if (data.title){
@@ -112,7 +112,7 @@ function initBlogDate(page,limit) {
                     }
                     footer_div.append(like_btn)
                     blog_box.append(footer_div)
-                    container.append(blog_box)
+                    container.before(blog_box)
                 }
                 let moreBtn = $('<div class="main-data-div">\n' +
                     '                <div class="main-data-info">\n' +
@@ -121,10 +121,16 @@ function initBlogDate(page,limit) {
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>')
-                container.append(moreBtn)
+                container.after(moreBtn)
             }else{
                 layer.msg('<div style="color: black;text-align: center;">'+res.msg+ '</div>')
             }
+        },
+        beforeSend: function () {
+            $('.blog-load-div').show()
+        },
+        complete: function () {
+            $('.blog-load-div').hide()
         }
 
     })

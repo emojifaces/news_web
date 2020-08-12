@@ -13,7 +13,7 @@
 {% endblock %}
 {% block body %}
     <div id="main" class="container">
-        <div id="main-left">
+        <div id="main-left" class="main-padding">
             <div id="main-left-top">
                 {#            <div class="ad-1">#}
                 {#                <a href=""><img src="/static/ad/ad1.jpg" class="w-100"></a>#}
@@ -24,7 +24,7 @@
             <div id="main-left-data">
                 <div class="calendar-detail-title">
                     <div class="calendar-title-left color-comment">
-                        <span>2020-02-04</span>
+                        <span></span>
                         <span>Economic Data</span>
                     </div>
                     <div class="calendar-title-right">
@@ -33,7 +33,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa fa-calendar fa-fw"></i></div>
                                 </div>
-                                <input type="text" class="form-control" name="choose-date">
+                                <input id="cal-date-choose" type="text" class="form-control" name="choose-date">
                             </div>
                         </div>
                         <div class="calendar-title-filter-btn color-white cursor-pointer">Filter</div>
@@ -93,30 +93,40 @@
             {#        </div>#}
 
         </div>
+        <div class="global-left"></div>
+        <div class="global-right"></div>
     </div>
 {% endblock %}
 {% block script %}
+    <script src="/static/js/bin/laydate/laydate.js"></script>
 
-    <script src="/static/js/bin/jquery-2.1.4.js"></script>
-    <script src="/static/js/bin/bootstrap.js"></script>
+
     <script src="/static/js/bin/moment.js"></script>
-    <script src="/static/layer/layer.js"></script>
-    <script src="/static/js/bin/bootstrap-datepicker.js"></script>
+
     <script src="/static/js/bin/bootstrap-table.js"></script>
-    <script src="/static/js/index/default.js"></script>
+
     <script src="/static/js/index/timeSelect.js"></script>
+
     <script>
         initCalendarAd()
         $(function () {
 
-            var date = '',
+            var search_date = '',
                 filter = 0;
 
+            laydate.render({
+                elem: '#cal-date-choose',
+                trigger: 'click',
+                lang:'en',
 
-            $('.calendar-choose-box .date ').datepicker({
-                format: 'yyyy-mm-dd',
-                orientation: "bottom auto",
-                autoclose: true
+                done: function (value, date, endDate) {
+                    search_date = value;
+                    $('.main-calendar-title-left span:first-child').text(value)
+                    $('.calendar-title-left span:first-child' ).text(value)
+                    $('#economicDataTable').bootstrapTable('refresh')
+                }
+
+
             });
 
             $('#economicDataTable').bootstrapTable({
@@ -125,7 +135,7 @@
 
                 queryParams: function () {
                     return {
-                        'date': date,
+                        'date': search_date,
                         'filter': filter,
                     }
                 },
@@ -138,7 +148,7 @@
                         return {
                             classes: redclass
                         }
-                    }else{
+                    } else {
                         return {
                             classes: black
                         }
@@ -215,11 +225,9 @@
                     title: 'Exp',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
-                            {#return '<span class="color-red">' + row['exp'] + '</span>'#}
-                            return '<span class="color-red">' + (row['exp']) ? (row['exp']) : ('--') + '</span>'
+                            return '<span class="color-red">' + row['exp'] + '</span>'
                         } else {
-                            {#return '<span class="color-comment">' + row['exp'] + '</span>'#}
-                            return '<span class="color-comment">' + (row['exp']) ? (row['exp']) : ('--') + '</span>'
+                            return '<span class="color-comment">' + row['exp'] + '</span>'
                         }
 
                     }
@@ -276,7 +284,7 @@
                 method: 'GET',
                 queryParams: function () {
                     return {
-                        'date': date,
+                        'date': search_date,
                         'filter': filter,
                     }
                 },
@@ -390,11 +398,22 @@
 
             };
 
-            $('input[name="choose-date"]').on('change', function () {
-                date = $(this).val();
-                $('.main-calendar-title-left span:first-child').text(date)
+            /*
+                $('input[name="choose-date"]').on('change', function () {
+                    date = $(this).val();
+                    $('.main-calendar-title-left span:first-child').text(date)
+                    $('#economicDataTable').bootstrapTable('refresh')
+                });
+            */
+
+            $(document).on('change', '#cal-date-choose', function () {
+                console.log('调用change')
+                search_date = $(this).val();
+                $('.main-calendar-title-left span:first-child').text(search_date)
+                $('.calendar-title-left span:first-child' ).text(search_date)
                 $('#economicDataTable').bootstrapTable('refresh')
-            });
+            })
+
 
             $('.calendar-title-filter-btn').on('click', function () {
                 $('.filter-choose').css('display', 'flex')
@@ -408,13 +427,14 @@
                 $('#economicDataTable').bootstrapTable('refresh')
             })
         })
-/*
-    function initTable() {
-        let html = $('<link rel="stylesheet" href="/static/css/calendar-table.css">')
-        $('head').append(html)
-    }
-    initTable()
 
- */
+        /*
+            function initTable() {
+                let html = $('<link rel="stylesheet" href="/static/css/calendar-table.css">')
+                $('head').append(html)
+            }
+            initTable()
+        */
+
     </script>
 {% endblock %}

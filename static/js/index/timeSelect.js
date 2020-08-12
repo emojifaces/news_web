@@ -1,41 +1,41 @@
-function getWeekDate(date) {
-    var day = date.getDay();
-    var weeks = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
-    var week = weeks[day];
+function cal_getWeekDate(date) {
+    let day = date.getDay();
+    let weeks = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    let week = weeks[day];
     return week;
 }
 
-function formatDate(date) {
+function cal_formatDate(date) {
     if (date.getMonth() + 1 < 10) {
-        month = "0" + String(date.getMonth() + 1)
+        var month = "0" + String(date.getMonth() + 1)
     } else {
-        month = String(date.getMonth() + 1)
+        var month = String(date.getMonth() + 1)
     }
     if (date.getDate() < 10) {
-        day = "0" + String(date.getDate())
+        var day = "0" + String(date.getDate())
     } else {
-        day = String(date.getDate())
+        var day = String(date.getDate())
     }
-    year = date.getFullYear()
-    week = getWeekDate(date);
+    let year = date.getFullYear()
+    let week = cal_getWeekDate(date);
     return {'week': week, 'date': day + '/' + month,'fullDate':year + '-' + month + '-' + day}
 }
 
 
-function getAllDateList() {
-    rlist = [];
+function cal_getAllDateList() {
+    let rlist = [];
     for (i = -14; i <= 14; i++) {
         var date1 = new Date(),
             date2 = new Date(date1);
         date2.setDate(date1.getDate() + i);
-        rlist.push(formatDate(date2))
+        rlist.push(cal_formatDate(date2))
     }
     return rlist
 }
 
 $(function () {
     if ($('#timeSelect').length > 0) {
-        timeList = getAllDateList();
+        timeList = cal_getAllDateList();
         // 添加last按钮
         $('#timeSelect').append('<div class="timeSelect-last">\n' +
             '                <svg t="1583919548963" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3233" width="20" height="20">\n' +
@@ -50,6 +50,7 @@ $(function () {
                 timeStr += '<li data-id="' + i + '" data-date="'+ timeList[i].fullDate +'" class="timeSelect-active timeSelect-now">' + timeList[i].week + ' ' + timeList[i].date + '</li>'
                  $('#main-left-data input[name="choose-date"]').val(timeList[i].fullDate);
                 $('.main-calendar-title-left span:first-child').text(timeList[i].fullDate);
+                $('.calendar-title-left span:first-child' ).text(timeList[i].fullDate)
             } else {
                 timeStr += '<li data-id="' + i + '" data-date="'+ timeList[i].fullDate +'">' + timeList[i].week + ' ' + timeList[i].date + '</li>'
             }

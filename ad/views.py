@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import *
 from datetime import datetime
-
+import random
 from operator import itemgetter
 from itertools import groupby
 
@@ -42,7 +42,7 @@ class GlobalAD(APIView):
             elif ad.site == 3:
                 left.append(ad_dict)
         data = {
-            'top':top,
+            'top': key_sort_group(top, 'sort')[0],
             'bottom':bottom,
             'left':left,
             'right':right
@@ -98,10 +98,9 @@ class CalendarAD(APIView):
             elif ad.site == 1:
                 right.append(ad_dict)
 
-        top = key_sort_group(top,'sort')
-        right = key_sort_group(right,'sort')
+
         data = {
-            'top': top,
+            'top': top[0],
             'right': right
         }
         return Response({'success': True, 'data': data})
@@ -140,11 +139,12 @@ class FastInfoAD(APIView):
     def get(self,request):
         current_date = datetime.now()
         ads = HardAdverts.objects.filter(Q(start_date__lte=current_date) & Q(end_date__gte=current_date), is_pub=True,
-                                         page=3,site__in=(4, 5, 6))
+                                         page=3,site__in=(4, 5, 6,7))
 
-        top = list()
-        middle = list()
-        bottom = list()
+        fast6 = list()
+        fast11 = list()
+        fast16 = list()
+        fast21 = list()
 
         for ad in ads:
             ad_dict = {
@@ -153,16 +153,19 @@ class FastInfoAD(APIView):
                 'url': ad.url
             }
             if ad.site == 4:
-                top.append(ad_dict)
+                fast11.append(ad_dict)
             elif ad.site == 5:
-                middle.append(ad_dict)
+                fast16.append(ad_dict)
             elif ad.site == 6:
-                bottom.append(ad_dict)
+                fast21.append(ad_dict)
+            elif ad.site == 7:
+                fast6.append(ad_dict)
 
         data = {
-            'top':top,
-            'middle':middle,
-            'bottom':bottom
+            'fast6':fast6,
+            'fast11':fast11[0],
+            'fast16':fast16[0],
+            'fast21':fast21[0],
         }
 
         return Response({'success': True, 'data': data})

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-calendar-info
+    calendar-info
 {% endblock %}
 {% block link %}
     <link rel="stylesheet" href="/static/css/bootstrap.css">
@@ -14,44 +14,45 @@ calendar-info
 
 {% block body %}
 
-<div id="main" class="container">
-    <div id="main-left">
-        <div id="main-left-top">
+    <div id="main" class="container">
+        <div id="main-left" class="main-padding">
+            <div id="main-left-top">
 
+            </div>
+            <div class="font-14 color-comment" style="margin-bottom: 1.85rem;">
+                Ủng da đã được bận rộn với tất cả các loại hiệu quả, nhưng tôi không biết cách sử dụng cơ bản nhất mà
+                không được đề cập đến
+            </div>
+            <table style="width: 100%" class="color-comment" id="calendar-detail-table">
+                <thead>
+                <tr>
+                    <th class="w-25">Pre</th>
+                    <th class="w-25">Exp</th>
+                    <th class="w-25">Act</th>
+                    <th class="w-25">Imp</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="w-25">10%</td>
+                    <td class="w-25">12%</td>
+                    <td class="w-25">---</td>
+                    <td class="w-25">
+                        <div style="display: flex;justify-content: center;align-items: center">
+                            <div class="flat">=</div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="chart" STYLE="height: 25rem;margin-top: 1.25rem;"></div>
         </div>
-        <div class="font-14 color-comment" style="margin-bottom: 1.85rem;">
-            Ủng da đã được bận rộn với tất cả các loại hiệu quả, nhưng tôi không biết cách sử dụng cơ bản nhất mà không được đề cập đến
-        </div>
-        <table style="width: 100%" class="color-comment" id="calendar-detail-table">
-            <thead>
-            <tr>
-                <th class="w-25">Pre</th>
-                <th class="w-25">Exp</th>
-                <th class="w-25">Act</th>
-                <th class="w-25">Imp</th>
-            </tr>
-
-            </thead>
-            <tbody>
-            <tr>
-                <td class="w-25">10%</td>
-                <td class="w-25">12%</td>
-                <td class="w-25">---</td>
-                <td class="w-25">
-                    <div style="display: flex;justify-content: center;align-items: center">
-                        <div class="flat">=</div>
-                    </div>
-
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div id="chart" STYLE="height: 25rem;margin-top: 1.25rem;"></div>
+        <div id="main-right"></div>
+        <div class="global-left"><div class="close-ad">&times;</div></div>
+        <div class="global-right"><div class="close-ad">&times;</div></div>
     </div>
-    <div id="main-right">
-
-    </div>
-</div>
 
 
 
@@ -60,118 +61,128 @@ calendar-info
 
 {% block script %}
 
-<script src="/static/js/bin/jquery-2.1.4.js"></script>
-<script src="/static/js/bin/bootstrap.js"></script>
-<script src="/static/js/bin/moment.js"></script>
-<script src="/static/layer/layer.js"></script>
-<script src="/static/js/bin/autosize.js"></script>
-<script src="/static/js/bin/bootstrap-datepicker.js"></script>
-<script src="/static/js/bin/bootstrap-table.js"></script>
-<script src="/static/js/bin/Echart-4.7.min.js"></script>
-<script src="/static/js/index/default.js"></script>
-<script src="/static/js/index/timeSelect.js"></script>
-<script>
-initCalendarAd()
-    $(function () {
-        var date = '',
-            filter = 0;
-        $('.calendar-choose-box .date ').datepicker({
-            format: 'yyyy-mm-dd',
-            orientation: "bottom auto",
-            autoclose: true
-        });
+    <script src="/static/js/bin/jquery-2.1.4.js"></script>
+    <script src="/static/js/bin/bootstrap.js"></script>
+    <script src="/static/js/bin/moment.js"></script>
+    <script src="/static/layer/layer.js"></script>
+    <script src="/static/js/bin/autosize.js"></script>
+    <script src="/static/js/bin/bootstrap-datepicker.js"></script>
+    <script src="/static/js/bin/bootstrap-table.js"></script>
+    <script src="/static/js/bin/Echart-4.7.min.js"></script>
+    <script src="/static/js/index/default.js"></script>
+    <script src="/static/js/index/timeSelect.js"></script>
+    <script>
+        initCalendarAd()
+        $(function () {
+            var date = '',
+                filter = 0;
+            $('.calendar-choose-box .date ').datepicker({
+                format: 'yyyy-mm-dd',
+                orientation: "bottom auto",
+                autoclose: true
+            });
 
-        function mergeCells(data, fieldName, colspan, target) {
-            if (data.length == 0) {
-                alert("不能传入空数据");
-                return;
-            }
-            var numArr = [];
-            var value = data[0]['time'];
-            var value1 = data[0]['area'];
-            var num = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (value != data[i]['time']) {
-                    numArr.push(num);
-                    value = data[i]['time'];
-                    num = 1;
-                    continue;
+            function mergeCells(data, fieldName, colspan, target) {
+                if (data.length == 0) {
+                    alert("不能传入空数据");
+                    return;
                 }
-                if (value1 != data[i]['area']) {
-                    numArr.push(num);
-                    value1 = data[i]['area'];
-                    num = 1;
-                    continue;
+                var numArr = [];
+                var value = data[0]['time'];
+                var value1 = data[0]['area'];
+                var num = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (value != data[i]['time']) {
+                        numArr.push(num);
+                        value = data[i]['time'];
+                        num = 1;
+                        continue;
+                    }
+                    if (value1 != data[i]['area']) {
+                        numArr.push(num);
+                        value1 = data[i]['area'];
+                        num = 1;
+                        continue;
+                    }
+                    num++;
                 }
-                num++;
-            }
-            if (typeof (value) != "undefined" && value != "" && typeof (value1) != "undefined" && value1 != "") {
-                numArr.push(num);
-            }
-            var merIndex = 0;
-            for (var i = 0; i < numArr.length; i++) {
-                console.log(numArr[i]);
-                $(target).bootstrapTable('mergeCells', {index: merIndex, field: 'time', colspan: colspan, rowspan: numArr[i]});
-                $(target).bootstrapTable('mergeCells', {index: merIndex, field: 'area', colspan: colspan, rowspan: numArr[i]});
-                merIndex += numArr[i];
-            }
+                if (typeof (value) != "undefined" && value != "" && typeof (value1) != "undefined" && value1 != "") {
+                    numArr.push(num);
+                }
+                var merIndex = 0;
+                for (var i = 0; i < numArr.length; i++) {
+                    console.log(numArr[i]);
+                    $(target).bootstrapTable('mergeCells', {
+                        index: merIndex,
+                        field: 'time',
+                        colspan: colspan,
+                        rowspan: numArr[i]
+                    });
+                    $(target).bootstrapTable('mergeCells', {
+                        index: merIndex,
+                        field: 'area',
+                        colspan: colspan,
+                        rowspan: numArr[i]
+                    });
+                    merIndex += numArr[i];
+                }
 
-        };
+            };
 
-        $('input[name="choose-date"]').on('change', function () {
-            date = $(this).val();
-            $('.main-calendar-title-left span:first-child').text(date)
-            $('#economicDataTable').bootstrapTable('refresh')
-        });
+            $('input[name="choose-date"]').on('change', function () {
+                date = $(this).val();
+                $('.main-calendar-title-left span:first-child').text(date)
+                $('#economicDataTable').bootstrapTable('refresh')
+            });
 
-        $('.calendar-title-filter-btn').on('click', function () {
-            $('.filter-choose').css('display', 'flex')
-        });
-        $('.filter-choose .filter-choose-btn').on('click', function () {
-            var _self = this;
-            $('.filter-choose .active').removeClass('active')
-            $(_self).addClass('active');
-            filter = $(_self).data('filter');
-            $('.filter-choose').css('display', 'none');
-            $('#economicDataTable').bootstrapTable('refresh')
+            $('.calendar-title-filter-btn').on('click', function () {
+                $('.filter-choose').css('display', 'flex')
+            });
+            $('.filter-choose .filter-choose-btn').on('click', function () {
+                var _self = this;
+                $('.filter-choose .active').removeClass('active')
+                $(_self).addClass('active');
+                filter = $(_self).data('filter');
+                $('.filter-choose').css('display', 'none');
+                $('#economicDataTable').bootstrapTable('refresh')
+            })
+
+
+            $.ajax({
+                url: "/getcalendargraphdata/?id={{ jid }}",
+                type: "GET",
+                success: function (data) {
+                    if (data.status == 200) {
+                        dataArray = [['xx', 'Act', 'Exp']];
+                        for (i = 0; i < data.data.length; i++) {
+                            dataArray.push([data.data[i].xx, data.data[i].actual, data.data[i].consensus])
+                        }
+                        console.log(dataArray)
+                        option = {
+                            tooltip: {
+                                trigger: "axis", axisPointer: {type: "shadow"}
+                            },
+                            legend: {
+                                left: '1%',
+                            },
+                            dataset: {
+                                source: dataArray
+                            },
+                            xAxis: {type: 'category'},
+                            yAxis: {},
+                            series: [
+                                {type: 'bar', itemStyle: {color: "#0394de"}},
+                                {type: 'bar', itemStyle: {color: "#ff6303"}},
+                            ],
+
+                        };
+                        var myChart = echarts.init(document.getElementById('chart'));
+                        myChart.setOption(option);
+                    }
+                }
+            })
+
         })
-
-
-        $.ajax({
-        url: "/getcalendargraphdata/?id={{ jid }}",
-        type: "GET",
-        success: function (data) {
-            if (data.status == 200) {
-                dataArray = [['xx', 'Act', 'Exp']];
-                for (i = 0; i < data.data.length; i++) {
-                    dataArray.push([data.data[i].xx, data.data[i].actual, data.data[i].consensus])
-                }
-                console.log(dataArray)
-                option = {
-                    tooltip: {
-                        trigger: "axis", axisPointer: {type: "shadow"}
-                    },
-                    legend: {
-                        left: '1%',
-                    },
-                    dataset: {
-                        source: dataArray
-                    },
-                    xAxis: {type: 'category'},
-                    yAxis: {},
-                    series: [
-                        {type: 'bar', itemStyle: {color: "#0394de"}},
-                        {type: 'bar', itemStyle: {color: "#ff6303"}},
-                    ],
-
-                };
-                var myChart = echarts.init(document.getElementById('chart'));
-                myChart.setOption(option);
-            }
-        }
-    })
-
-    })
-</script>
+    </script>
 {% endblock %}
 

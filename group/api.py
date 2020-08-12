@@ -78,7 +78,7 @@ class UpdateVote(APIView):
             return Response({"success": False,"msg": "未登录"})
         else:
             baseuser = BaseUser.objects.get(auth_user=request.user)
-            if SelectBlogs.objects.filter(blog_id_id=blog_id,answer_id_id=votechoice_id,user_id_id=baseuser.id).exists():
+            if SelectBlogs.objects.filter(blog_id_id=blog_id,user_id_id=baseuser.id).exists():
                 return Response({'success':False,'msg':'不能重复投票'})
             else:
                 SelectBlogs.objects.create(blog_id_id=blog_id, answer_id_id=votechoice_id, user_id_id=baseuser.id)
@@ -86,6 +86,7 @@ class UpdateVote(APIView):
                 v.num += 1
                 v.save()
                 return Response({"success": True})
+
 
 
 class UpdateCollect(APIView):

@@ -7,7 +7,7 @@
 }
 
 body {
-    /*zoom: 0.85;*/
+    zoom: 0.85;
     color: #fff;
     min-width: 1300px;
     overflow-x: scroll;
@@ -17,6 +17,7 @@ body {
 
 .container {
     min-width: 1000px;
+    position: relative;
 }
 
 #top {
@@ -126,7 +127,7 @@ body {
 
 .user-header img {
     border-radius: 50%;
-    border: 0.1rem solid grey;
+    border: 1px solid grey;
 }
 
 .cursor-pointer {
@@ -147,7 +148,7 @@ body {
 }
 
 #main-index #main-right, #main-group #main-right {
-    width: 33%;
+    width: 34%;
 }
 
 #main #main-left {
@@ -156,7 +157,7 @@ body {
 
 #main-group #main-left > .user-dynamic-box {
     padding: 0.625rem;
-    border-bottom: 5px solid #cccccc;
+    border-bottom: 15px solid #eeeff1;
     color: #FFFFFF;
 }
 
@@ -553,6 +554,7 @@ body {
 
 .group-content-ad {
     position: relative;
+    padding: 10px 20px;
 }
 
 .mask {
@@ -934,6 +936,7 @@ textarea:focus {
     line-height: 1.25;
     padding: 0 1.2rem;
     text-align: center;
+    white-space: nowrap;
 }
 
 .main-calendar-data {
@@ -986,6 +989,8 @@ textarea:focus {
     text-align: center;
     border-radius: 0.9375rem;
     margin-left: 1rem;
+
+
 }
 
 .calendar-title-left {
@@ -1196,12 +1201,17 @@ textarea:focus {
 
 .vote-choose .checked {
     display: block;
-    background-color: #b6c5e1;
+    background-color: #b6c5e2;
 }
 
 .vote-choose .unchecked {
     display: block;
     background-color: #f3f3f3;
+}
+
+.vote-choose .un-checked {
+    display: block;
+    background-color: #ffcdd4;
 }
 
 .allVote {
@@ -1589,7 +1599,7 @@ textarea:focus {
     background-color: white;
 }
 
-.right-user-dynamic-scroll-box > div {
+.right-user-dynamic-scroll-box > .user-dynamic-box {
     padding: 0.9rem 0;
     border-bottom: 5px solid #cccccc;
 }
@@ -1775,6 +1785,7 @@ iframe img {
     margin: 20px 40px 10px;
     background-color: black;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .accept div {
@@ -1802,11 +1813,6 @@ iframe img {
     margin-top: 10px;
 }
 
-#main-left {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 20px 20px 0 20px;
-    background-color: white;
-}
 
 .delete-group {
     text-align: center;
@@ -1856,7 +1862,7 @@ iframe img {
 
 .backgroud-container {
     width: 100%;
-    height: 1000px;
+    height: 100%;
     background: rgba(0, 0, 0, 0.7);
     z-index: 2001;
     position: fixed;
@@ -2152,16 +2158,15 @@ iframe img {
 
 .bg-color {
     text-align: center;
-    height: 200px;
+    min-height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .bg-color > span {
-    /*line-height: 200px;*/
     font-size: 30px;
-    /*height: 200px;*/
+    white-space: pre-line;
 }
 
 .ad-container {
@@ -2178,6 +2183,10 @@ iframe img {
 
 .ad-div > img {
     width: 100%;
+}
+
+#main-right-ad img {
+    max-height: 120px;
 }
 
 .search-text {
@@ -2289,9 +2298,6 @@ iframe img {
     max-width: 190px;
 }
 
-.fast-11 {
-    max-width: 150px;
-}
 
 .back-top {
     position: fixed;
@@ -2327,7 +2333,111 @@ iframe img {
     background-color: #213b54;
     position: relative;
 }
-.bottom-warning-middle{
+
+.bottom-warning-middle {
     font-weight: bold;
-        font-size: initial;
+    font-size: initial;
+}
+
+.commentBox {
+    resize: none;
+    overflow-y: visible
+}
+
+.footer-ad-right {
+    color: #7e7b7b;;
+}
+
+.footer-ad-right img {
+    width: 30px;
+}
+
+.contact-us {
+    font-size: x-large;
+    font-weight: 700;
+}
+
+.footer-ad-right span {
+    font-size: larger;
+}
+
+.main-margin {
+    margin: 20px 20px 0 20px;
+    background-color: white;
+}
+
+.main-padding {
+    padding: 20px 20px 0 20px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: white;
+}
+
+.group-textarea {
+    padding: 20px;
+}
+
+.global-top img, .global-top .mask {
+    border-radius: 10px;
+}
+
+.summary-icon {
+    background-color: red;
+}
+
+.global-left {
+    position: absolute;
+    width: 8rem;
+    height: calc(100vh - 6rem);
+    left: -10rem;
+}
+
+.global-right {
+    position: absolute;
+    width: 8rem;
+    height: calc(100vh - 6rem);
+    right: -10rem;
+}
+
+.close-ad {
+    display: inline-block;
+    font-size: medium;
+    cursor: pointer;
+    color: #666666;
+}
+
+.reply-div {
+    margin-top: 50px;
+}
+
+.fast-6 > img {
+    width: 150px;
+    height: 120px;
+}
+
+.fast-11 > img {
+    width: 640px;
+    height: 130px;
+}
+
+.fast-16 > img {
+    width: 640px;
+    height: 130px;
+}
+
+.fast-21 > img {
+    width: 640px;
+    height: 130px;
+}
+
+.col-ad-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.cal-right-ad > img {
+    width: 380px;
+    height: 120px;
+}
+.summary-info{
+    color: black;
 }

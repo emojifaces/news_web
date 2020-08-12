@@ -46,7 +46,7 @@ $(document).on('click', '.reply', function () {
     } else {
         console.log($(this).parents('.comment-op'))
         let img_url = $('div[id="user-header"]>img').attr("src");
-        $(this).parents('.comment-op').after('<div class="VN-input-group-1">\n' +
+        $(this).parents('.comment-op').after('<div class="VN-input-group-1 reply-div">\n' +
             '                            <div class="VN-input-group-1-user">\n' +
             '                                <div class="user-header">\n' +
             '                                    <img src="' + img_url + '" width="30" height="30" alt="">\n' +
@@ -206,22 +206,19 @@ $(document).on('click', '.alert-img', function () {
 
 // 用户投票
 $(document).on('click', ".vote-choose", function () {
-    console.log('开始')
     let vote_box = $(this).parent('.vote-box')
     let isvote = vote_box.attr('isvote')
     let vote_choose = $(this)
-    console.log('是否投过票：', isvote)
+
     if (isvote == 'True' || isvote == 'true') {
-        console.log('投过票了不能重复投票')
+
         layer.msg('<div style="color: black;text-align: center;">' + '不能重复投票</div>')
     } else if (isvote == 'False' || isvote == 'false') {
-        console.log('没有投票现在可以投票')
-        vote_box.attr('isvote', 'True');
+
         let votechoice_id = $(this).attr('vote');   // 投票选项ID
         let blog_id = $(this).parents('.user-dynamic-box').attr('data');    // blog_id
         let allVote = $(this).siblings('#allVote')  // 投票总数
-        console.log('blog_id:', blog_id)
-        console.log('投票选项ID：', votechoice_id)
+
         $.ajax({
             type: 'post',
             url: '/updatevote/',
@@ -232,6 +229,10 @@ $(document).on('click', ".vote-choose", function () {
             success: function (result) {
                 console.log(result)
                 if (result.success) {
+                    vote_box.attr('isvote','true')
+                    vote_choose.attr('data','true')
+
+
                     // 投票后总票数加1
                     let allVoteNum = parseInt(allVote.text()) + 1
                     allVote.text(allVoteNum + " Person Vote")
@@ -244,6 +245,10 @@ $(document).on('click', ".vote-choose", function () {
                     vote_choose.find('.vote-percent').removeClass('unchecked');
                     vote_choose.find('.vote-percent').addClass('checked', true);
                     vote_choose.parent('.vote-box').find('.vote-choose').each(function () {
+                        if (!$(this).children('.vote-percent').hasClass('checked')){
+                            $(this).children('.vote-percent').removeClass('unchecked')
+                            $(this).children('.vote-percent').addClass('un-checked')
+                        }
                         let num = $(this).children('.vote-choose-num').attr('data-num')
                         num = parseInt(num)     // 选项票数
                         $(this).find('.vote-choose-num').css('display', 'block');
@@ -390,6 +395,7 @@ function submitVote() {
     } else if (voteoption.length < 2) {
         layer.msg('<div style="color: black;text-align: center;">' + '投票选项至少两个</div>');
     } else {
+        // content = content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
         formData.append('content', content)
         formData.append('votetitle', votetitle)
         imageList.forEach(function (value) {
@@ -498,6 +504,7 @@ $(document).on('click', '#delbtn', function () {
 $(document).on('click', '#submitblog', function () {
     let content = $(this).parents('.VN-input-group').find('#content').val();
     if (content) {
+        // content = content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
         formData.append('content', content)
         imageList.forEach(function (value) {
             formData.append('img', value)
@@ -701,7 +708,7 @@ function initGroup() {
                 if (res.success) {
                     let headerUrl = $('#user-header>img').attr('src');
                     let groupList = res.data;    //  动态列表
-                    let dom = $('#main-left')
+                    let dom = $('.group-load-div')
                     for (let data of groupList) {
                         let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '" >')
                         let info = $('<div class="dynamic-info" uid="' + data.userId + '"></div>')
@@ -828,7 +835,7 @@ function initGroup() {
                             '        </div>\n' +
                             '        <div class="VN-input-item">\n' +
                             // '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
-                            '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
+                            '            <textarea class="group-1-input commentBox" rows="1" id="textarea"></textarea>\n' +
                             '            <div class="emojiBtn">\n' +
                             '                <img src="/static/images/emojiButton.png" alt="">\n' +
                             '            </div>\n' +
@@ -836,7 +843,7 @@ function initGroup() {
                             '        <button class="group-1-button" id="discuss"><img src="/static/images/submit.png" alt=""></button>\n' +
                             '    </div>')
                         parentDiv.append(VN_input)
-                        dom.append(parentDiv)
+                        dom.before(parentDiv)
                         let comment_box = $('<div class="dynamic-comment-box"></div>')
                         parentDiv.append(comment_box)
                         for (let fbc of data.commentData.first_comment) {
@@ -921,10 +928,16 @@ function initGroup() {
                         '<div class="main-footer cursor-pointer"  id="groupMoreGroup" ">MORE INFORMATION</div>\n' +
                         '</div>\n' +
                         '</div>')
-                    dom.append(moreBlogBtn)
+                    dom.after(moreBlogBtn)
                 }
+            },
+            beforeSend: function () {
+                $('.group-load-div').show()
+            },
+            complete: function () {
+                $('.group-load-div').hide()
             }
-        }
+        },
     )
 }
 
@@ -933,16 +946,17 @@ $(document).on('click', '#groupMoreGroup', function () {
     let _this = $(this)
     let offset = _this.parents('#main-left').find('.user-dynamic-box').length
     let moreBtn = _this.parents('.main-data-div')
+    moreBtn.remove()
     $.ajax({
         type: 'get',
         url: '/getgrouplist/?page=' + group_page + '&limit=' + group_limit + '&offset=' + offset,
         success: function (res) {
             console.log('加载更多group:', res)
             if (res.success) {
-                moreBtn.remove()
+
                 let headerUrl = $('#user-header>img').attr('src');
                 let groupList = res.data;    //  动态列表
-                let dom = $('#main-left')
+                let dom = $('.group-load-div')
                 for (let data of groupList) {
                     let parentDiv = $('<div class="user-dynamic-box" data="' + data.id + '" >')
                     let info = $('<div class="dynamic-info" uid="' + data.userId + '"></div>')
@@ -1076,7 +1090,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                         '        <button class="group-1-button" id="discuss"><img src="/static/images/submit.png" alt=""></button>\n' +
                         '    </div>')
                     parentDiv.append(VN_input)
-                    dom.append(parentDiv)
+                    dom.before(parentDiv)
                     let comment_box = $('<div class="dynamic-comment-box"></div>')
                     parentDiv.append(comment_box)
                     for (let fbc of data.commentData.first_comment) {
@@ -1154,35 +1168,51 @@ $(document).on('click', '#groupMoreGroup', function () {
                         comment_box.append(moreFBCBtn)
                     }
                 }
-                dom.append(moreBtn)
+                dom.after(moreBtn)
                 group_page += 1
             } else {
                 layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
             }
+        },
+        beforeSend: function () {
+            $('.group-load-div').show()
+        },
+        complete: function () {
+            $('.group-load-div').hide()
         }
     })
 })
 
 // 删除自己的动态
 $(document).on('click', '.delete-group', function () {
-    console.log('开始删除动态');
     let _this = $(this)
     let blogId = _this.parents('.user-dynamic-box').attr('data');
-    $.ajax({
-        type: 'post',
-        url: '/deletegroup/',
-        data: {
-            "blogId": blogId
-        },
-        success: function (result) {
-            if (result.success) {
-                _this.parents('.user-dynamic-box').remove()
-                layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
-            } else {
-                layer.msg('<div style="color: black;text-align: center;">' + '网络忙，删除出错</div>')
-            }
-        }
-    });
+    layer.confirm(
+        'Are you sure you want to delete?',
+        {btn: ['Yes', 'No'], title: ''},
+        function (index) {
+            console.log('开始删除动态');
+
+            $.ajax({
+                type: 'post',
+                url: '/deletegroup/',
+                data: {
+                    "blogId": blogId
+                },
+                success: function (result) {
+                    if (result.success) {
+                        _this.parents('.user-dynamic-box').remove()
+                        layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                    } else {
+                        layer.msg('<div style="color: black;text-align: center;">' + '网络忙，删除出错</div>')
+                    }
+                }
+            });
+            layer.close(index)
+        }, function (index) {
+            layer.close(index)
+        })
+
 })
 
 // 动态 评论 时间格式化
@@ -1219,24 +1249,33 @@ $(document).on('click', '#delete-fbc', function () {
     let all_node = _this.parents('.dynamic-comment-box').siblings('.dynamic-info').find('#all-comments span')
     let all_num = all_node.text()
     let sbc_num = parseInt(_this.siblings('.fbc-num').children('span').text().slice(1, -1))
-    $.ajax({
-        type: 'post',
-        url: '/deletecomment/',
-        data: {
-            'id': fbc_id,
-            'type': '1'
+    layer.confirm(
+        'Are you sure you want to delete?',
+        {btn: ['Yes', 'No'], title: ''},
+        function (index) {
+            $.ajax({
+                type: 'post',
+                url: '/deletecomment/',
+                data: {
+                    'id': fbc_id,
+                    'type': '1'
+                },
+                success: function (res) {
+                    if (res) {
+                        _this.parents('.fbc-box').remove()
+                        all_num = all_num - sbc_num - 1
+                        all_node.text(all_num)
+                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                    } else {
+                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                    }
+                }
+            })
+            layer.close(index)
         },
-        success: function (res) {
-            if (res) {
-                _this.parents('.fbc-box').remove()
-                all_num = all_num - sbc_num - 1
-                all_node.text(all_num)
-                layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
-            } else {
-                layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
-            }
-        }
-    })
+        function (index) {
+            layer.close(index)
+        })
 })
 
 // 删除自己的二级评论
@@ -1247,28 +1286,39 @@ $(document).on('click', '#delete-sbc', function () {
     let all_num = parseInt(all_node.text())
     let sbc_node = _this.parents('.sbc-box').siblings('.comment-op').find('.fbc-num span')
     let sbc_num = parseInt(sbc_node.text().slice(1, -1))
-    console.log(all_num, sbc_num)
-    $.ajax({
-        type: 'post',
-        url: '/deletecomment/',
-        data: {
-            'id': sbc_id,
-            'type': '2'
+
+    layer.confirm(
+        'Are you sure you want to delete?',
+        {btn: ['Yes', 'No'], title: ''},
+        function (index) {
+            $.ajax({
+                type: 'post',
+                url: '/deletecomment/',
+                data: {
+                    'id': sbc_id,
+                    'type': '2'
+                },
+                success: function (res) {
+                    if (res) {
+                        _this.parents('.sbc-box').remove()
+                        all_num -= 1
+                        sbc_num -= 1
+                        let sbc_num_str = '(' + sbc_num + ')'
+                        all_node.text(all_num)
+                        sbc_node.text(sbc_num_str)
+                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                    } else {
+                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                    }
+                }
+            })
+            layer.close(index)
         },
-        success: function (res) {
-            if (res) {
-                _this.parents('.sbc-box').remove()
-                all_num -= 1
-                sbc_num -= 1
-                let sbc_num_str = '(' + sbc_num + ')'
-                all_node.text(all_num)
-                sbc_node.text(sbc_num_str)
-                layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
-            } else {
-                layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
-            }
-        }
-    })
+        function (index) {
+            layer.close(index)
+        })
+
+
 })
 
 // 点击头像 跳转到用户详情页面
@@ -1331,7 +1381,7 @@ $(document).on('click', '.enlarge-input-box', function () {
         resize: false,
         area: '600px',
         content: '<div class="VN-input-group">\n' +
-            '            <textarea name="" rows="8" class="large-input" id="content"></textarea>\n' +
+            '            <textarea name="" rows="8" class="large-input" id="content" wrap="hard"></textarea>\n' +
             '            <div class="VN-input-icon-box icon-box-1">\n' +
             '                <div class="VN-icon-group">\n' +
             '                    <div class="emojiBtn">\n' +
@@ -1436,10 +1486,6 @@ function backToTop() {
 
 backToTop()
 // 点击页面关闭setting
-// $(document).on('click',function () {
-//     $('.check-div').css('display','none')
-// })
-
 $(document).bind('click', function (e) {
     var e = e || window.event; //浏览器兼容性
     var elem = e.target || e.srcElement;
@@ -1452,5 +1498,160 @@ $(document).bind('click', function (e) {
 
     $('#setting-div').css('display', 'none'); //点击的不是div或其子元素
     $('#arrow').attr('src', '/static/images/gengduo.png')
-    isopensetting=true
+    isopensetting = true
 });
+
+// $(document).on('input','#textarea',function (e) {
+//     console.log('gaibian')
+//     let _this = this
+//     console.log(e)
+//     let scroll_height = this.scrollHeight
+//     console.log(scroll_height)
+//
+// })
+
+var autoTextarea = function (elem, extra, maxHeight) {
+
+    extra = extra || 0;
+
+    var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+
+        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+
+        addEvent = function (type, callback) {
+
+            elem.addEventListener ?
+
+                elem.addEventListener(type, callback, false) :
+
+                elem.attachEvent('on' + type, callback);
+
+        },
+
+        getStyle = elem.currentStyle ? function (name) {
+
+            var val = elem.currentStyle[name];
+
+
+            if (name === 'height' && val.search(/px/i) !== 1) {
+
+                var rect = elem.getBoundingClientRect();
+
+                return rect.bottom - rect.top -
+
+                    parseFloat(getStyle('paddingTop')) -
+
+                    parseFloat(getStyle('paddingBottom')) + 'px';
+
+            }
+            ;
+
+
+            return val;
+
+        } : function (name) {
+
+            return getComputedStyle(elem, null)[name];
+
+        },
+
+        minHeight = parseFloat(getStyle('height'));
+
+
+    elem.style.resize = 'none';
+
+
+    var change = function () {
+
+        var scrollTop, height,
+
+            padding = 0,
+
+            style = elem.style;
+
+
+        if (elem._length === elem.value.length) return;
+
+        elem._length = elem.value.length;
+
+
+        if (!isFirefox && !isOpera) {
+
+            padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+
+        }
+        ;
+
+        scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+
+        elem.style.height = minHeight + 'px';
+
+        if (elem.scrollHeight > minHeight) {
+
+            if (maxHeight && elem.scrollHeight > maxHeight) {
+
+                height = maxHeight - padding;
+
+                style.overflowY = 'auto';
+
+            } else {
+
+                height = elem.scrollHeight - padding;
+
+                style.overflowY = 'hidden';
+
+            }
+            ;
+
+            style.height = height + extra + 'px';
+
+            scrollTop += parseInt(style.height) - elem.currHeight;
+
+            document.body.scrollTop = scrollTop;
+
+            document.documentElement.scrollTop = scrollTop;
+
+            elem.currHeight = parseInt(style.height);
+
+        }
+        ;
+
+    };
+
+
+    addEvent('propertychange', change);
+
+    addEvent('input', change);
+
+    addEvent('focus', change);
+
+    change();
+
+};
+
+$(document).on('keyup', '#textarea', function () {
+    console.log('test')
+    autoTextarea(this);// 调用
+})
+
+
+$(document).on('click', '.blog-share', function () {
+    let _this = $(this)
+    let blogId = _this.parents('.blog-box').attr('data')
+    let share_protocol = window.location.protocol
+    let share_host = window.location.hostname
+    let share_url = `${share_protocol}//${share_host}/blog/detail/${blogId}`
+
+    console.log('分享原url', share_url)
+    window.open(`https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&u=${share_url}`)
+})
+
+$(document).on('click', '.accept', function () {
+    $(this).parents('.top-tips').animate({opacity: '0'})
+    $(this).parents('.top-tips').animate({height: '0'})
+})
+
+$(document).on('click', '.close-ad', function () {
+    $(this).parent('.global-side-container').remove()
+})

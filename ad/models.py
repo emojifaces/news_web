@@ -17,6 +17,7 @@ SITE_CHOICE = (
     (4, 'fast-11'),
     (5, 'fast-16'),
     (6, 'fast-21'),
+    (7, 'fast-6'),
 )
 
 PAGE_CHOICE = (

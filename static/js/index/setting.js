@@ -73,8 +73,8 @@ $(document).on('click','#onSound',function () {
 })
 
 function initSound() {
-    if (getCookie('onSound')=='true'){
-        $('#Sound').attr('checked',true)
+    if (getCookie('onSound')=='false'){
+        $('#Sound').removeAttr('checked')
     }
 }
 

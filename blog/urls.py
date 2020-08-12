@@ -7,4 +7,5 @@ urlpatterns = [
     path('',BlogView.as_view(),name='blog'),
     path('like/',LikeBlogView.as_view(),name='like'),
     path('getbloglist/',BlogList.as_view()),
+    path('detail/<pk>',BlogDetail.as_view()),
 ]

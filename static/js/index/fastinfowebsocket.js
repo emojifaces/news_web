@@ -365,7 +365,9 @@ window.onload = function () {
             }
 
             container.after(div)
-            if (getCookie('onSound') == 'true') {
+            if (getCookie('onSound') == 'false') {
+                return null
+            }else{
                 playBGM()
             }
             // initFastInfoAd()

@@ -4,9 +4,7 @@
     <title>{% block title %}
         title
     {% endblock %}</title>
-    {#	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">#}
-    {#	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>#}
-    {#	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+
     {% block link %}
 
     {% endblock %}
@@ -103,7 +101,9 @@
             </nav>
         </div>
     </div>
+
 </div>
+
 
 {% block body %}
 
@@ -143,42 +143,43 @@
             <img src="/static/ad/pic8.png" alt="">
         </div>
         <div class="footer-ad-right">
-
+            <div class="contact-us">Contact Us</div>
+            <div>
+                <img src="/static/images/callus.png" alt="">
+                <span>+84 - 0353025094</span>
+            </div>
+            <div>
+                <img src="/static/images/footer-zalo.png" alt="">
+                <span>+84 - 0356985028</span>
+            </div>
         </div>
     </div>
 
     <div class="footer-ad-bottom container">
         <div class="bottom-line"></div>
-            <div class="bottom-warning">
-                <div class="bottom-warning-top">Warning&Policy</div>
-                <div class="bottom-warning-middle">
-                    Leveraged trading in foreign currency or off-exchange products on margin carries significant risk and may not be
-suitable for all investors. We advise you to carefully consider whether trading is appropriate for you based on your
-personal circumstances. Forex trading involves risk. Losses can exceed deposits. We recommend that you seek
-independent advice and ensure you fully understand the risks involved before trading.
-                </div>
-                <div class="bottom-warning-bottom">
-                    FX Publications Inc (dba DailyFX) is registered with the Commodities Futures Trading Commission as a Guaranteed Introducing Broker
-and is a member of the National Futures Association (ID# 0517400). Registered Address: 32 Old Slip, Suite 803; New York, NY 10005.
-FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered in Delaware under number 4456365)
-                </div>
+        <div class="bottom-warning">
+            <div class="bottom-warning-top">Warning&Policy</div>
+            <div class="bottom-warning-middle">
+                Leveraged trading in foreign currency or off-exchange products on margin carries significant risk and
+                may not be
+                suitable for all investors. We advise you to carefully consider whether trading is appropriate for you
+                based on your
+                personal circumstances. Forex trading involves risk. Losses can exceed deposits. We recommend that you
+                seek
+                independent advice and ensure you fully understand the risks involved before trading.
             </div>
+            <div class="bottom-warning-bottom">
+                FX Publications Inc (dba DailyFX) is registered with the Commodities Futures Trading Commission as a
+                Guaranteed Introducing Broker
+                and is a member of the National Futures Association (ID# 0517400). Registered Address: 32 Old Slip,
+                Suite 803; New York, NY 10005.
+                FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered in Delaware under
+                number 4456365)
+            </div>
+        </div>
     </div>
 </div>
-<div id="fixed-left">
-    {#    <div>#}
-    {#        <img src="/static/ad/ad_left.jpg" alt="">#}
-    {#    </div>#}
-    {#    <div><img src="/static/ad/ad_left.jpg" alt=""></div>#}
-    {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
-</div>
-<div id="fixed-right">
-    {#    <div>#}
-    {#        <img src="/static/ad/ad_right.jpg" alt="">#}
-    {#    </div>#}
-    {#    <div><img src="/static/ad/ad_right.jpg" alt=""></div>#}
-    {#    <div><img src="/static/ad/ad_foot.jpg" alt=""></div>#}
-</div>
+
 <div class="back-top" id="backtop" style="display: none">
     <img src="/static/images/backtop.png" alt="">
 </div>
@@ -191,7 +192,6 @@ FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered
 <script src="/static/js/bin/bootstrap.js"></script>
 <script src="/static/layer/layer.js"></script>
 <script src="/static/js/bin/autosize.js"></script>
-<script src="/static/js/bin/jquery.pagination.js"></script>
 <script src="/static/js/index/default.js"></script>
 <script src="/static/js/index/emoji.js"></script>
 <script src="/static/js/index/index.js"></script>
@@ -201,14 +201,13 @@ FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered
 <script src="/static/js/index/search.js"></script>
 <script src="/static/js/index/setting.js"></script>
 <script src="/static/js/bin/api_client.js"></script>
+<script src="/static/js/index/jquery.flexText.js"></script>
 <script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>
 {% block script %}
 
 {% endblock %}
 
 
-
-{#<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>#}
 <script>
     {% if request.user.is_authenticated %}
         checkRemind()
@@ -267,7 +266,7 @@ FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered
                         'name': data.name,
                         'img': data.picture.data.url,
                         'email': data.email,
-                        'link':data.link,
+                        'link': data.link,
                         'type': 'facebook'
                     },
                     success: function (res) {
@@ -282,9 +281,6 @@ FX Publications Inc is a subsidiary of IG US Holdings, Inc (a company registered
             });
         })
     }
-
-
-
 
 
 
