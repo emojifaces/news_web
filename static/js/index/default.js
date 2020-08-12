@@ -210,7 +210,7 @@ $(document).on('click', '.fastinfo-container img', function (e) {
                 type: 1,
                 title: false,
                 closeBtn: false,
-                scrollbar: true,
+                scrollbar: false,
                 shadeClose: true,
                 id: 'alert-img',
                 // area: [dimensions.w + 'px', dimensions.h + 'px'],
