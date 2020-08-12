@@ -65,6 +65,7 @@ class BlogList(APIView):
                     for img in blog_img:
                         image.append(img.img)
                 blog_dict = {
+                    'style':blog.style,
                     'id': blog.id,      # blog ID
                     'title': blog.title,     # blog 标题
                     'type': {                       # blog 类型

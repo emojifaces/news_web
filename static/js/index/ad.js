@@ -6,11 +6,10 @@ function initGlobalAd() {
         success: function (res) {
             console.log('初始化全局广告：', res)
             // 网站全局 顶部广告
-            for (let ad of res.data.top) {
-                let img = $('<div class="ad-div global-top"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                setWidth(res.data.top.length, img)
-                $('#top').append(img)
-            }
+
+            let top_img = $('<div class="ad-div global-top"><img src="/media/' + res.data.top.img + '" data-url="' + res.data.top.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
+            $('#top').append(top_img)
+
 
 
             // 网站全局 左侧广告

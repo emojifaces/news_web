@@ -105,7 +105,7 @@
                     if (data.translate.indexOf('&lt;iframe') != -1) {
                         data.translate = entityToString(data.translate)
                     }
-                    let fast = $('<div>' + data.translate + '</div>')
+                    let fast = $('<div class="fastinfo-container">' + data.translate + '</div>')
                     info.append(fast)
                     if (data.is_important) {
                         {#div.css('color', 'red')#}

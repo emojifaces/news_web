@@ -42,7 +42,7 @@ class GlobalAD(APIView):
             elif ad.site == 3:
                 left.append(ad_dict)
         data = {
-            'top': key_sort_group(top, 'sort')[0],
+            'top': top[0],
             'bottom':bottom,
             'left':left,
             'right':right

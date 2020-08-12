@@ -79,7 +79,6 @@ body {
     align-items: center;
     flex-wrap: nowrap;
     border-bottom: 1px solid #eac863;
-    margin-left: 2.5rem;
 }
 
 #nav #navbarSupportedContent form input {
@@ -122,7 +121,7 @@ body {
 
 .user-out {
     color: #eac863;
-    padding: 0 1rem;
+
 }
 
 .user-header img {
@@ -2413,7 +2412,7 @@ iframe img {
     width: 150px;
     height: 120px;
 }
-.fast-11,.fast-16,.fast-21 {
+.fast-11,.fast-16,.fast-21,.blog-ground-ad {
     width: 100%;
 }
 
@@ -2443,4 +2442,10 @@ iframe img {
 }
 .summary-info{
     color: black;
+}
+.blog-ground-ad > img{
+    height: 130px;
+}
+.global-top{
+    width: 100%;
 }
