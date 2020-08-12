@@ -2,11 +2,15 @@ fastinfo_page = 2
 fastinfo_limit = 30
 // 加载更多快讯信息
 $(document).on('click', '#moreFastInfoBtn', function () {
+
     let btn = $(this).parents('.main-data-div')
+    let offset = btn.parents('#main-left-data').find('.fastinfo').length
+    console.log('offset',offset)
     btn.remove()
+
     $.ajax({
         type: 'get',
-        url: '/fastinfo/?page=' + fastinfo_page + '&limit=' + fastinfo_limit,
+        url: '/fastinfo/?page=' + fastinfo_page + '&limit=' + fastinfo_limit + '&offset=' + offset,
         success: function (result) {
             console.log('加载更多快讯信息', result)
             let container = $('.fastinfo-load-div')
@@ -27,7 +31,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                     if (data.translate.indexOf('&lt;iframe') != -1) {
                         data.translate = entityToString(data.translate)
                     }
-                    let fast = $('<div>' + data.translate + '</div>')
+                    let fast = $('<div class="fastinfo-container">' + data.translate + '</div>')
                     info.append(fast)
                     if (data.is_important) {
                         div.css('color', 'red')
@@ -409,7 +413,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                     if (data.translate.indexOf('&lt;iframe') != -1) {
                         data.translate = entityToString(data.translate)
                     }
-                    let fast = $('<div>' + data.translate + '</div>')
+                    let fast = $('<div class="fastinfo-container">' + data.translate + '</div>')
                     info.append(fast)
                     if (data.is_important) {
                         // div.css('color', 'red')
