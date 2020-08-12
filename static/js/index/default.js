@@ -204,6 +204,23 @@ $(document).on('click', '.alert-img', function () {
     }
 )
 
+$(document).on('click', '.fastinfo-container img', function (e) {
+        var self = this;
+        layer.open({
+                type: 1,
+                title: false,
+                closeBtn: false,
+                scrollbar: true,
+                shadeClose: true,
+                id: 'alert-img',
+                // area: [dimensions.w + 'px', dimensions.h + 'px'],
+                content: "<div><img src='" + $(self)[0].src + "' style='width: 100%;height: 100%;object-fit: cover'></div>>"
+            })
+        e.stopPropagation()
+
+    }
+)
+
 // 用户投票
 $(document).on('click', ".vote-choose", function () {
     let vote_box = $(this).parent('.vote-box')
@@ -1467,12 +1484,12 @@ $(document).on("mousewheel", "#alert-img", function (ev) {
 });
 
 // 返回页面首页
-$(document).on('click', '#backtop', function () {
+$(document).on('click', '#backtop', function (e) {
     window.scroll(0, 0);
-
+    e.stopPropagation()
 })
 
-// 滚动页面显示回到顶部图标
+//滚动页面显示回到顶部图标
 function backToTop() {
     let checkPageYOffset = setInterval(function () {
         if (window.pageYOffset >= 1600) {

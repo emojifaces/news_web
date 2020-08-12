@@ -284,10 +284,11 @@
                     div.append(icon, time, info)
                     if (data.fast_type == 0) {
                         // 快讯
+
                         if (data.translate.indexOf('&lt;iframe') != -1) {
                             data.translate = entityToString(data.translate)
                         }
-                        let fast = $('<div>' + data.translate + '</div>')
+                        let fast = $('<div class="fastinfo-container">' + data.translate + '</div>')
                         info.append(fast)
                         if (data.is_important) {
                             div.css('color', 'red')
@@ -563,10 +564,10 @@
 
                     } else if (data.fast_type == 3) {
                         // 广告
-                        let ad_container = $('<div class="ad-container"></div>')
+                        let ad_container = $('<div class="ad-container fast-round-container"></div>')
                         for (let ad of data.rounds_ad_group) {
-                            let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                            setWidth(data.rounds_ad_group.length, img)
+                            let img = $('<div class="ad-div fast-round-ad"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
+
                             ad_container.append(img)
                         }
                         info.append(ad_container)
