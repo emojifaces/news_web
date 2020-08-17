@@ -100,12 +100,12 @@ class LikeBlogView(APIView):
             user_id = BaseUser.objects.get(auth_user=request.user).id
             blog = Offical.objects.get(id=blog_id)
             # 查询用户是否已点赞
-            if GoodFingerOfficals.objects.filter(offical_id_id=blog_id,user_id_id=user_id).exists() and islike == 'True':
+            if GoodFingerOfficals.objects.filter(offical_id_id=blog_id,user_id_id=user_id).exists() and islike == 'true':
                 GoodFingerOfficals.objects.filter(offical_id_id=blog_id, user_id_id=user_id).delete()
                 blog.goodfingers -= 1
                 blog.save()
                 return Response({'success':True})
-            elif not GoodFingerOfficals.objects.filter(offical_id_id=blog_id,user_id_id=user_id).exists() and islike == 'False':
+            elif not GoodFingerOfficals.objects.filter(offical_id_id=blog_id,user_id_id=user_id).exists() and islike == 'false':
                 GoodFingerOfficals.objects.create(offical_id_id=blog_id,user_id_id=user_id)
                 blog.goodfingers += 1
                 blog.save()

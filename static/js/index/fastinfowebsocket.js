@@ -202,7 +202,7 @@ window.onload = function () {
                                 let span = $('<span class="color-comment">Collect</span>')
                                 collect.append(img, span)
                             }
-                            let discuss = $('<div class="discuss" id="all-comments">\n' +
+                            let discuss = $('<div class="discuss group-extend-comment" id="all-comments">\n' +
                                 '               <img src="/static/images/comment1.png" alt="">\n' +
                                 '               <span class="color-comment">' + data.commentnum + '</span>\n' +
                                 '            </div>')

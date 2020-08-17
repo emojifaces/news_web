@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import BasePermission, AllowAny, IsAuthenticated
 from rest_framework.views import APIView
+
+from index.models import FastInfo
 from user.models import *
 from group.models import *
 
@@ -427,9 +429,16 @@ class DeleteGroup(APIView):
 
     def post(self,request):
         blog_id = request.POST.get('blogId')
-        blog = Blogs.objects.get(id=blog_id,state=0)
+        try:
+            blog = Blogs.objects.get(id=blog_id,state=0)
+        except:
+            return Response({'success':False,'msg':'该动态不存在'})
         blog.state = 1
         blog.save()
+        if FastInfo.objects.filter(type=2,is_pub=True,other_id=blog_id).exists():
+            fastinfo = FastInfo.objects.filter(type=2,is_pub=True,other_id=blog_id).first()
+            fastinfo.is_pub = False
+            fastinfo.save()
         return Response({'success':True,'msg':'删除成功'})
 
 # 动态详情

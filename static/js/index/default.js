@@ -44,7 +44,7 @@ $(document).on('click', '.reply', function () {
     if ($(this).parents('.comment-op').parent().find('.VN-input-group-1').length) {
         $(this).parents('.comment-op').parent().find('.VN-input-group-1').remove()
     } else {
-        console.log($(this).parents('.comment-op'))
+
         let img_url = $('div[id="user-header"]>img').attr("src");
         $(this).parents('.comment-op').after('<div class="VN-input-group-1 reply-div">\n' +
             '                            <div class="VN-input-group-1-user">\n' +
@@ -53,13 +53,16 @@ $(document).on('click', '.reply', function () {
             '                                </div>\n' +
             '                            </div>\n' +
             '                            <div class="VN-input-item">\n' +
-            '                                <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
+            '                                <textarea class="group-1-input commentBox" rows="1" id="textarea"></textarea>\n' +
             '                                <div class="emojiBtn">\n' +
             '                                    <img src="/static/images/emojiButton.png" alt="">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                            <button class="group-1-button" id="reply"><img src="/static/images/submit.png" alt=""></button>\n' +
             '                        </div>')
+
+        let textarea = $(this).parents('.comment-op').siblings('.reply-div').find('#textarea')
+        textarea.flexText()
     }
 
 });
@@ -118,7 +121,7 @@ $(document).on('click', '.vote', function () {
             '        </div>\n' +
             '</div>' +
             '        <div style="display: flex;justify-content: flex-end">\n' +
-            '            <a class="VN-input-button-3 color-white" id="submitvote" onclick="submitVote()">Submit</a></div>\n' +
+            '            <a class="VN-input-button-3 color-white" id="submitvote" onclick="submitVote()">Đăng</a></div>\n' +
             '    </div>\n' +
             '</div>'
     });
@@ -207,15 +210,15 @@ $(document).on('click', '.alert-img', function () {
 $(document).on('click', '.fastinfo-container img', function (e) {
         var self = this;
         layer.open({
-                type: 1,
-                title: false,
-                closeBtn: false,
-                scrollbar: false,
-                shadeClose: true,
-                id: 'alert-img',
-                // area: [dimensions.w + 'px', dimensions.h + 'px'],
-                content: "<div><img src='" + $(self)[0].src + "' style='width: 100%;height: 100%;object-fit: cover'></div>>"
-            })
+            type: 1,
+            title: false,
+            closeBtn: false,
+            scrollbar: false,
+            shadeClose: true,
+            id: 'alert-img',
+            // area: [dimensions.w + 'px', dimensions.h + 'px'],
+            content: "<div><img src='" + $(self)[0].src + "' style='width: 100%;height: 100%;object-fit: cover'></div>>"
+        })
         e.stopPropagation()
 
     }
@@ -246,13 +249,13 @@ $(document).on('click', ".vote-choose", function () {
             success: function (result) {
                 console.log(result)
                 if (result.success) {
-                    vote_box.attr('isvote','true')
-                    vote_choose.attr('data','true')
+                    vote_box.attr('isvote', 'true')
+                    vote_choose.attr('data', 'true')
 
 
                     // 投票后总票数加1
                     let allVoteNum = parseInt(allVote.text()) + 1
-                    allVote.text(allVoteNum + " Person Vote")
+                    allVote.text(allVoteNum + " Người đã bình chọn")
                     // 投票后选项票数加1
                     let vote_num = parseInt(vote_choose.children('.vote-choose-num').attr('data-num')) + 1
                     vote_choose.children('.vote-choose-num').attr('data-num', vote_num)
@@ -262,7 +265,7 @@ $(document).on('click', ".vote-choose", function () {
                     vote_choose.find('.vote-percent').removeClass('unchecked');
                     vote_choose.find('.vote-percent').addClass('checked', true);
                     vote_choose.parent('.vote-box').find('.vote-choose').each(function () {
-                        if (!$(this).children('.vote-percent').hasClass('checked')){
+                        if (!$(this).children('.vote-percent').hasClass('checked')) {
                             $(this).children('.vote-percent').removeClass('unchecked')
                             $(this).children('.vote-percent').addClass('un-checked')
                         }
@@ -476,7 +479,7 @@ $(document).on('click', '.image', function () {
                     fd.onload = function () {
                         $('#imgList').append("<div class='imgDiv'>" +
                             "<img style='height: 100px;width: 100px;' src='" + this.result + "'>" +
-                            "<div class='cover' id='delbtn'>delete</div>" +
+                            "<div class='cover' id='delbtn'>Xoá</div>" +
                             "</div>")
                     }
 
@@ -502,7 +505,7 @@ $(document).on('change', '#file', function () {
         fd.onload = function () {
             $('#imgList').append("<div class='imgDiv'>" +
                 "<img style='height: 100px;width: 100px;' src='" + this.result + "'>" +
-                "<div class='cover' id='delbtn'>delete</div>" +
+                "<div class='cover' id='delbtn'>Xoá</div>" +
                 "</div>")
         }
 
@@ -557,8 +560,8 @@ $(document).on('click', '#submitblog', function () {
 
 $(document).on('click', '#discuss', function () {
     let btn = $(this)
-    let input = btn.siblings('.VN-input-item').children('textarea')
-    let content = btn.siblings('.VN-input-item').children('textarea').val()   // 评论框的内容
+    let input = btn.siblings('.VN-input-item').find('#textarea')
+    let content = btn.siblings('.VN-input-item').find('#textarea').val()   // 评论框的内容
     let blogId = $(this).parents('.user-dynamic-box').attr('data'); // blogID
     let discuss = btn.parent('.VN-input-group-1').siblings('.dynamic-info').find('.discuss')    // 评论数图标
     let all_discuss_num = parseInt(discuss.children('span').text())    // 评论数
@@ -591,20 +594,21 @@ $(document).on('click', '#discuss', function () {
                         '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                         '                                  <span>(0)</span>\n' +
                         '                            </div>\n' +
-                        '                            <div class="reply fbc-reply">Reply</div>\n' +
-                        '                            <div class="delete-comment" id="delete-fbc"><span>Delete</span></div>\n' +
+                        '                            <div class="reply fbc-reply">Bình luận</div>\n' +
+                        '                            <div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>\n' +
                         '                        </div>\n' +
                         '                    </div>\n' +
                         '                </div>'
                     // 清空评论框
                     input.val('')
+                    btn.siblings('.VN-input-item').find('pre span').text('')
                     // 插入新增一级评论
                     btn.parent('.VN-input-group-1').siblings('.dynamic-comment-box').prepend(html);
                     // 评论数加1
                     all_discuss_num += 1
                     discuss.children('span').text(all_discuss_num)
                     // 成功弹窗
-                    layer.msg('<div style="color: black;text-align: center;">' + '评论成功</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + 'Bình luận thành công</div>')
                 } else {
                     layer.msg('<div style="color: black;text-align: center;">' + '未登录</div>')
                 }
@@ -617,7 +621,7 @@ $(document).on('click', '#discuss', function () {
 //  发布二级评论
 $(document).on('click', '#reply', function () {
     let btn = $(this)
-    let input = $(this).siblings('.VN-input-item').children('textarea')    // 评论框
+    let input = $(this).siblings('.VN-input-item').find('#textarea')    // 评论框
     let content = input.val();  // 评论内容
     let blog_id = $(this).parents('.user-dynamic-box').attr('data');    // blog ID
     let first_id = $(this).parents('.fbc-box').attr('data');  // 一级评论ID
@@ -662,13 +666,13 @@ $(document).on('click', '#reply', function () {
                         '                     <span class="content-user-name">' + user_name + '</span>\n' +
                         '                     <span>to ' + reply_name + ':&nbsp;</span>\n' +
 
-                        '                     <div>' + result.comment + '</div>\n' +
+                        '                     <div class="sbc-content">' + result.comment + '</div>\n' +
                         '                </div>\n' +
                         '                <div class="comment-op">\n' +
                         '                      <div class="content-time">' + timeformat(result.create_date) + '</div>\n' +
-                        '                      <div class="reply">Reply</div>\n' +
+                        '                      <div class="reply">Bình luận</div>\n' +
                         '                     <div class="delete-comment" id="delete-sbc">\n' +
-                        '                           <span>Delete</span>\n' +
+                        '                           <span>Xoá</span>\n' +
                         '                     </div>\n' +
                         '                </div>\n' +
                         '            </div>'
@@ -695,7 +699,7 @@ $(document).on('click', '#reply', function () {
                     fbc_icon.children('span').text(fbc_num_str)
 
                     // 成功弹窗
-                    layer.msg('<div style="color: black;text-align: center;">' + '评论成功</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + 'Bình luận thành công</div>')
                 } else {
                     layer.msg('<div style="color: black;text-align: center;">' + '未登录</div>')
                 }
@@ -746,7 +750,7 @@ function initGroup() {
                         if (data.ismine) {
                             let content_account_status = ('<div class="content-account-status">' +
                                 '<div class="delete-group">\n' +
-                                '<span>Delete</span>\n' +
+                                '<span>Xoá</span>\n' +
                                 '</div>' +
                                 '</div>')
                             content_header.append(content_account_status)
@@ -761,7 +765,7 @@ function initGroup() {
 
                         let content_data = $('<div class="content-data"></div>')
                         let content_text = $('<div class="content-text color-comment">\n' +
-                            '                    <span>' + data.content + '</span>\n' +
+                            '                    <span class="group-content">' + data.content + '</span>\n' +
                             '                </div>')
                         if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                             content_text.addClass('bg-color')
@@ -780,7 +784,7 @@ function initGroup() {
                         if (data.type == 1) {
                             let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
                             let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
-                            let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Person Vote</div>')
+                            let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                             vote_box.append(vote_title)
                             if (data.votedata) {
                                 for (let vote_item of data.votedata) {
@@ -797,7 +801,7 @@ function initGroup() {
                                         if (vote_item.isVote) {
                                             vote_percent.addClass('checked')
                                         } else {
-                                            vote_percent.addClass('unchecked')
+                                            vote_percent.addClass('un-checked')
                                         }
                                         vote_choose.append(vote_choose_num, vote_percent)
                                     } else {
@@ -818,15 +822,15 @@ function initGroup() {
                         if (data.iscollect) {
                             collect.attr('data', 'true')
                             let img = $('<img src="/static/images/collect2.png" alt="">')
-                            let span = $('<span class="color-comment">Collect</span>')
+                            let span = $('<span class="color-comment">Sưu tầm</span>')
                             collect.append(img, span)
                         } else {
                             collect.attr('data', 'false')
                             let img = $('<img src="/static/images/collcet1.png" alt="">')
-                            let span = $('<span class="color-comment">Collect</span>')
+                            let span = $('<span class="color-comment">Sưu tầm</span>')
                             collect.append(img, span)
                         }
-                        let discuss = $('<div class="discuss" id="all-comments">\n' +
+                        let discuss = $('<div class="discuss group-extend-comment" id="all-comments">\n' +
                             '               <img src="/static/images/comment1.png" alt="">\n' +
                             '               <span class="color-comment">' + data.commentnum + '</span>\n' +
                             '            </div>')
@@ -877,7 +881,7 @@ function initGroup() {
                             //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
                             //     fbc_comment_text.append(fbc_delete)
                             // }
-                            let fbc_content = $('<div>' + fbc.content + '</div>')
+                            let fbc_content = $('<div class="fbc-content">' + fbc.content + '</div>')
                             fbc_comment_text.append(fbc_content)
                             let fbc_comment_op = $('<div class="comment-op">\n' +
                                 '                            <div class="content-time">' + timeformat(fbc.pub_date) + '</div>\n' +
@@ -885,10 +889,10 @@ function initGroup() {
                                 '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                                 '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                                 '                            </div>\n' +
-                                '                            <div class="reply fbc-reply">Reply</div>\n' +
+                                '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                 '                       </div>')
                             if (fbc.ismine) {
-                                let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
                                 fbc_comment_op.append(fbc_delete)
                             }
                             fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -910,14 +914,14 @@ function initGroup() {
                                     //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
                                     //     sbc_comment_text.append(sbc_comment_delete)
                                     // }
-                                    let sbc_comment_content = $('<div>' + sbc.content + '</div>')
+                                    let sbc_comment_content = $('<div class="sbc-content">' + sbc.content + '</div>')
                                     sbc_comment_text.append(sbc_comment_content)
                                     let sbc_comment_op = $('<div class="comment-op">\n' +
                                         '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
-                                        '                        <div class="reply">Reply</div>\n' +
+                                        '                        <div class="reply">Bình luận</div>\n' +
                                         '                   </div>')
                                     if (sbc.ismine) {
-                                        let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                        let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
                                         sbc_comment_op.append(sbc_comment_delete)
                                     }
                                     sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -942,7 +946,7 @@ function initGroup() {
 
                     let moreBlogBtn = $('<div class="main-data-div">\n' +
                         '<div class="main-data-info">\n' +
-                        '<div class="main-footer cursor-pointer"  id="groupMoreGroup" ">MORE INFORMATION</div>\n' +
+                        '<div class="main-footer cursor-pointer"  id="groupMoreGroup" ">Xem thêm</div>\n' +
                         '</div>\n' +
                         '</div>')
                     dom.after(moreBlogBtn)
@@ -953,6 +957,9 @@ function initGroup() {
             },
             complete: function () {
                 $('.group-load-div').hide()
+                $('#main-left').find('.user-dynamic-box').each(function () {
+                    $(this).find('#textarea').flexText()
+                })
             }
         },
     )
@@ -994,7 +1001,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                     if (data.ismine) {
                         let content_account_status = ('<div class="content-account-status">' +
                             '<div class="delete-group">\n' +
-                            '<span>Delete</span>\n' +
+                            '<span>Xoá</span>\n' +
                             '</div>' +
                             '</div>')
                         content_header.append(content_account_status)
@@ -1009,7 +1016,7 @@ $(document).on('click', '#groupMoreGroup', function () {
 
                     let content_data = $('<div class="content-data"></div>')
                     let content_text = $('<div class="content-text color-comment">\n' +
-                        '                    <span>' + data.content + '</span>\n' +
+                        '                    <span class="group-content">' + data.content + '</span>\n' +
                         '                </div>')
                     if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                         content_text.addClass('bg-color')
@@ -1028,7 +1035,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                     if (data.type == 1) {
                         let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
                         let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
-                        let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Person Vote</div>')
+                        let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                         vote_box.append(vote_title)
                         if (data.votedata) {
                             for (let vote_item of data.votedata) {
@@ -1045,7 +1052,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                                     if (vote_item.isVote) {
                                         vote_percent.addClass('checked')
                                     } else {
-                                        vote_percent.addClass('unchecked')
+                                        vote_percent.addClass('un-checked')
                                     }
                                     vote_choose.append(vote_choose_num, vote_percent)
                                 } else {
@@ -1066,15 +1073,15 @@ $(document).on('click', '#groupMoreGroup', function () {
                     if (data.iscollect) {
                         collect.attr('data', 'true')
                         let img = $('<img src="/static/images/collect2.png" alt="">')
-                        let span = $('<span class="color-comment">Collect</span>')
+                        let span = $('<span class="color-comment">Sưu tầm</span>')
                         collect.append(img, span)
                     } else {
                         collect.attr('data', 'false')
                         let img = $('<img src="/static/images/collcet1.png" alt="">')
-                        let span = $('<span class="color-comment">Collect</span>')
+                        let span = $('<span class="color-comment">Sưu tầm</span>')
                         collect.append(img, span)
                     }
-                    let discuss = $('<div class="discuss" id="all-comments">\n' +
+                    let discuss = $('<div class="discuss group-extend-comment" id="all-comments">\n' +
                         '               <img src="/static/images/comment1.png" alt="">\n' +
                         '               <span class="color-comment">' + data.commentnum + '</span>\n' +
                         '            </div>')
@@ -1099,7 +1106,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                         '            </div>\n' +
                         '        </div>\n' +
                         '        <div class="VN-input-item">\n' +
-                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
+                        '            <textarea class="group-1-input commentBox" rows="1" id="textarea"></textarea>\n' +
                         '            <div class="emojiBtn">\n' +
                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                         '            </div>\n' +
@@ -1124,7 +1131,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                         //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
                         //     fbc_comment_text.append(fbc_delete)
                         // }
-                        let fbc_content = $('<div>' + fbc.content + '</div>')
+                        let fbc_content = $('<div class="fbc-content">' + fbc.content + '</div>')
                         fbc_comment_text.append(fbc_content)
                         let fbc_comment_op = $('<div class="comment-op">\n' +
                             '                            <div class="content-time">' + timeformat(fbc.pub_date) + '</div>\n' +
@@ -1132,10 +1139,10 @@ $(document).on('click', '#groupMoreGroup', function () {
                             '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                             '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                             '                            </div>\n' +
-                            '                            <div class="reply fbc-reply">Reply</div>\n' +
+                            '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                             '                       </div>')
                         if (fbc.ismine) {
-                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
                             fbc_comment_op.append(fbc_delete)
                         }
                         fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -1157,14 +1164,14 @@ $(document).on('click', '#groupMoreGroup', function () {
                                 //     let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
                                 //     sbc_comment_text.append(sbc_comment_delete)
                                 // }
-                                let sbc_comment_content = $('<div>' + sbc.content + '</div>')
+                                let sbc_comment_content = $('<div class="sbc-content">' + sbc.content + '</div>')
                                 sbc_comment_text.append(sbc_comment_content)
                                 let sbc_comment_op = $('<div class="comment-op">\n' +
                                     '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
-                                    '                        <div class="reply">Reply</div>\n' +
+                                    '                        <div class="reply">Bình luận</div>\n' +
                                     '                   </div>')
                                 if (sbc.ismine) {
-                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
                                     sbc_comment_op.append(sbc_comment_delete)
                                 }
                                 sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -1196,6 +1203,9 @@ $(document).on('click', '#groupMoreGroup', function () {
         },
         complete: function () {
             $('.group-load-div').hide()
+            $('#main-left').find('.user-dynamic-box').each(function () {
+                $(this).find('#textarea').flexText()
+            })
         }
     })
 })
@@ -1219,7 +1229,7 @@ $(document).on('click', '.delete-group', function () {
                 success: function (result) {
                     if (result.success) {
                         _this.parents('.user-dynamic-box').remove()
-                        layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                        layer.msg('<div style="color: black;text-align: center;">Xoá thành công</div>')
                     } else {
                         layer.msg('<div style="color: black;text-align: center;">' + '网络忙，删除出错</div>')
                     }
@@ -1246,13 +1256,13 @@ function timeformat(timestr) {
 
     if (lefttime < (24 * 60 * 60 * 1000)) {
         if (lefttime < 60 * 1000) {
-            return '刚刚'
+            return 'Vừa xong'
         } else if (lefthour < 24 && lefthour > 0) {
-            return `${lefthour}小时之前`
+            return `${lefthour}Giờ trước`
         } else if (leftminute < 60 && leftminute > 0) {
-            return `${leftminute}分钟之前`
+            return `${leftminute}Phút trước`
         } else {
-            return '刚刚'
+            return 'Vừa xong'
         }
     } else {
         return `${oldtime.getFullYear()}/${oldtime.getMonth() + 1}/${oldtime.getDate()} ${checktime(oldtime.getHours())}:${checktime(oldtime.getMinutes())}:${checktime(oldtime.getSeconds())}`
@@ -1267,7 +1277,7 @@ $(document).on('click', '#delete-fbc', function () {
     let all_num = all_node.text()
     let sbc_num = parseInt(_this.siblings('.fbc-num').children('span').text().slice(1, -1))
     layer.confirm(
-        'Are you sure you want to delete?',
+        'Xoá bình luận?',
         {btn: ['Yes', 'No'], title: ''},
         function (index) {
             $.ajax({
@@ -1282,7 +1292,7 @@ $(document).on('click', '#delete-fbc', function () {
                         _this.parents('.fbc-box').remove()
                         all_num = all_num - sbc_num - 1
                         all_node.text(all_num)
-                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                        layer.msg('<div style="color: black;text-align: center;">Xoá thành công</div>')
                     } else {
                         layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
                     }
@@ -1305,7 +1315,7 @@ $(document).on('click', '#delete-sbc', function () {
     let sbc_num = parseInt(sbc_node.text().slice(1, -1))
 
     layer.confirm(
-        'Are you sure you want to delete?',
+        'Xoá bình luận?',
         {btn: ['Yes', 'No'], title: ''},
         function (index) {
             $.ajax({
@@ -1323,7 +1333,7 @@ $(document).on('click', '#delete-sbc', function () {
                         let sbc_num_str = '(' + sbc_num + ')'
                         all_node.text(all_num)
                         sbc_node.text(sbc_num_str)
-                        layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
+                        layer.msg('<div style="color: black;text-align: center;">Xoá thành công</div>')
                     } else {
                         layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
                     }
@@ -1428,7 +1438,7 @@ $(document).on('click', '.enlarge-input-box', function () {
             '                        </svg>\n' +
             '                    </div>\n' +
             '                </div>\n' +
-            '                <button class="VN-input-button-1" id="submitblog">Submit</button>\n' +
+            '                <button class="VN-input-button-1" id="submitblog">Đăng</button>\n' +
             '            </div>\n' +
             '        </div>'
     });
@@ -1518,141 +1528,6 @@ $(document).bind('click', function (e) {
     isopensetting = true
 });
 
-// $(document).on('input','#textarea',function (e) {
-//     console.log('gaibian')
-//     let _this = this
-//     console.log(e)
-//     let scroll_height = this.scrollHeight
-//     console.log(scroll_height)
-//
-// })
-
-var autoTextarea = function (elem, extra, maxHeight) {
-
-    extra = extra || 0;
-
-    var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
-
-        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
-
-        addEvent = function (type, callback) {
-
-            elem.addEventListener ?
-
-                elem.addEventListener(type, callback, false) :
-
-                elem.attachEvent('on' + type, callback);
-
-        },
-
-        getStyle = elem.currentStyle ? function (name) {
-
-            var val = elem.currentStyle[name];
-
-
-            if (name === 'height' && val.search(/px/i) !== 1) {
-
-                var rect = elem.getBoundingClientRect();
-
-                return rect.bottom - rect.top -
-
-                    parseFloat(getStyle('paddingTop')) -
-
-                    parseFloat(getStyle('paddingBottom')) + 'px';
-
-            }
-            ;
-
-
-            return val;
-
-        } : function (name) {
-
-            return getComputedStyle(elem, null)[name];
-
-        },
-
-        minHeight = parseFloat(getStyle('height'));
-
-
-    elem.style.resize = 'none';
-
-
-    var change = function () {
-
-        var scrollTop, height,
-
-            padding = 0,
-
-            style = elem.style;
-
-
-        if (elem._length === elem.value.length) return;
-
-        elem._length = elem.value.length;
-
-
-        if (!isFirefox && !isOpera) {
-
-            padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
-
-        }
-        ;
-
-        scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
-
-        elem.style.height = minHeight + 'px';
-
-        if (elem.scrollHeight > minHeight) {
-
-            if (maxHeight && elem.scrollHeight > maxHeight) {
-
-                height = maxHeight - padding;
-
-                style.overflowY = 'auto';
-
-            } else {
-
-                height = elem.scrollHeight - padding;
-
-                style.overflowY = 'hidden';
-
-            }
-            ;
-
-            style.height = height + extra + 'px';
-
-            scrollTop += parseInt(style.height) - elem.currHeight;
-
-            document.body.scrollTop = scrollTop;
-
-            document.documentElement.scrollTop = scrollTop;
-
-            elem.currHeight = parseInt(style.height);
-
-        }
-        ;
-
-    };
-
-
-    addEvent('propertychange', change);
-
-    addEvent('input', change);
-
-    addEvent('focus', change);
-
-    change();
-
-};
-
-$(document).on('keyup', '#textarea', function () {
-    console.log('test')
-    autoTextarea(this);// 调用
-})
-
-
 $(document).on('click', '.blog-share', function () {
     let _this = $(this)
     let blogId = _this.parents('.blog-box').attr('data')
@@ -1671,4 +1546,18 @@ $(document).on('click', '.accept', function () {
 
 $(document).on('click', '.close-ad', function () {
     $(this).parent('.global-side-container').remove()
+})
+
+
+// group 评论收回展开
+$(document).on('click', '.group-extend-comment', function () {
+    let _this = $(this)
+    let comment_box = _this.parents('.dynamic-info').siblings('.dynamic-comment-box')
+    if (_this.data('extend') == 'false') {
+        comment_box.show()
+        _this.data('extend', 'true')
+    } else {
+        comment_box.hide()
+        _this.data('extend', 'false')
+    }
 })

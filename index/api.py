@@ -20,6 +20,8 @@ from user.models import BaseUser
 
 from ad.models import *
 import datetime
+
+
 async def SendSocket(data):
     channel_layer = get_channel_layer()
     await channel_layer.group_send(
@@ -30,6 +32,7 @@ async def SendSocket(data):
         }
     )
 
+
 class Mypage(PageNumberPagination):
     page_size = 10
     page_query_param = 'page'
@@ -37,6 +40,7 @@ class Mypage(PageNumberPagination):
     page_size_query_param = 'limit'
     # 最大一页的数据
     max_page_size = 10
+
 
 # index 加载快讯列表
 class GetFastInfoList(APIView):
@@ -51,14 +55,16 @@ class GetFastInfoList(APIView):
         is_import = request.GET.get('import', '')
         page = request.GET.get('page', 1)
         limit = request.GET.get('limit', 100)
-        offset = request.GET.get('offset',0)
-        if offset == 0:
-            start = int(offset)
-            end = start + int(limit)
-        else:
+        offset = request.GET.get('offset', 0)
+
+        if int(offset) == 0:
 
             start = (int(page) - 1) * int(limit)
             end = int(page) * int(limit)
+        else:
+            start = int(offset)
+            end = start + int(limit)
+
         data = FastInfo.objects.filter(is_pub=True).order_by('-VN_pub_date').all()
         if is_import:
             data = data.filter(is_important=is_import).all()
@@ -184,7 +190,8 @@ class GetFastInfoList(APIView):
                                             obj_dic = model_to_dict(obj)
                                             obj_dic['content'] = emoji.emojize(obj.content)
                                             obj_dic['pub_date'] = obj.modify_date.strftime("%Y/%m/%d %H:%M:%S")
-                                            if SelectBlogs.objects.filter(blog_id=blog, answer_id=obj, user_id=user).exists():
+                                            if SelectBlogs.objects.filter(blog_id=blog, answer_id=obj,
+                                                                          user_id=user).exists():
                                                 obj_dic['isvote'] = True
                                                 isallvote = True
                                             else:
@@ -213,11 +220,10 @@ class GetFastInfoList(APIView):
                 rounds_ad_group = RoundsAdvertsGroup.objects.get(id=obj.other_id)
                 ads = RoundsAdverts.objects.filter(round_id=rounds_ad_group.id)
                 for ad in ads:
-
                     ad_dict = {
-                        'url':ad.url,
-                        'sort':ad.sort,
-                        'img':ad.img
+                        'url': ad.url,
+                        'sort': ad.sort,
+                        'img': ad.img
                     }
                     ad_list.append(ad_dict)
                 dic['rounds_ad_group'] = ad_list
@@ -262,19 +268,19 @@ class GetFastInfoList(APIView):
                     dic['fast_type'] = 5
                     returnList.append(dic)
 
-
         return Response({'count': data.count(), 'page': page, 'limit': limit, 'data': returnList})
 
 
 class GetCalendarList(APIView):
-
     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
     permission_classes = (AllowAny,)
 
-    def get(self,request):
+    def get(self, request):
         current_time = datetime.datetime.now() + datetime.timedelta(hours=-1)
 
-        calendar_set = Calendar.objects.filter(VN_pub_date__year=current_time.year,VN_pub_date__month=current_time.month,VN_pub_date__day=current_time.day,VN_pub_date__gt=current_time).order_by('VN_pub_date')
+        calendar_set = Calendar.objects.filter(VN_pub_date__year=current_time.year,
+                                               VN_pub_date__month=current_time.month, VN_pub_date__day=current_time.day,
+                                               VN_pub_date__gt=current_time).order_by('VN_pub_date')
         if calendar_set:
             calendar_list = list()
             for calendar in calendar_set:
@@ -287,23 +293,22 @@ class GetCalendarList(APIView):
                     "previous": calendar.previous if calendar.previous else '--',
                     "star": calendar.star,
                     "tran_country": calendar.tran_country,
-                    "pub_date":calendar.VN_pub_date.time(),
+                    "pub_date": calendar.VN_pub_date.time(),
                     'country': calendar.country
                 }
                 calendar_list.append(calendar_dict)
             # print(calendar_list)
-            return Response({"success":True,"data":calendar_list})
+            return Response({"success": True, "data": calendar_list})
         else:
-            return Response({"success":False,"msg":"暂无数据"})
+            return Response({"success": False, "msg": "暂无数据"})
 
 
 # index 加载动态列表
 class IndexGroupList(APIView):
-
     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
     permission_classes = (AllowAny,)
 
-    def get(self,request):
+    def get(self, request):
 
         if request.user.is_authenticated:
             baseuser = BaseUser.objects.get(auth_user=request.user)  # 已登录的用户
@@ -313,11 +318,15 @@ class IndexGroupList(APIView):
         page = request.GET.get('page', 1)
         limit = request.GET.get('limite', 30)
         offset = request.GET.get('offset', 0)
-        start = (int(page) - 1) * int(limit) + int(offset)
-        end = start + int(limit)
-        blog_list = Blogs.objects.filter(is_pub=True,state=0).order_by('-create_date')[start:end]
+        if int(offset) == 0:
+            start = (int(page) - 1) * int(limit)
+            end = int(page) * int(limit)
+        else:
+            start = int(offset)
+            end = start + int(limit)
+        blog_list = Blogs.objects.filter(is_pub=True, state=0).order_by('-create_date')[start:end]
         if not blog_list:
-            return Response({'success':False,'msg':'无数据'})
+            return Response({'success': False, 'msg': '无数据'})
         group_list = list()
 
         for blog in blog_list:
@@ -326,46 +335,48 @@ class IndexGroupList(APIView):
             if vote_list:
                 for vote in vote_list:
                     vote_dict = {
-                        'content':emoji.emojize(vote.content),
-                        'isVote':vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
+                        'content': emoji.emojize(vote.content),
+                        'isVote': vote.selectBlog_answer.filter(user_id_id=user_id).exists(),
                         # 'num':vote.num,
-                        'num':vote.selectBlog_answer.all().count(),
-                        'id':vote.id,
-                        'ismychoose':SelectBlogs.objects.filter(blog_id_id=blog.id,answer_id_id=vote.id,user_id_id=user_id).exists()
+                        'num': vote.selectBlog_answer.all().count(),
+                        'id': vote.id,
+                        'ismychoose': SelectBlogs.objects.filter(blog_id_id=blog.id, answer_id_id=vote.id,
+                                                                 user_id_id=user_id).exists()
                     }
                     voteData.append(vote_dict)
 
             data = {
                 'id': blog.id,
-                'userId':blog.user_id_id,
+                'userId': blog.user_id_id,
                 'type': blog.type,
-                'user_id':blog.user_id.id,
-                'user_name':blog.user_id.name,
-                'header':blog.user_id.img,
-                'pub_date':blog.create_date,
-                'content':emoji.emojize(blog.content) if blog.content else '',
-                'img':[blog_img.img for blog_img in blog.blogImages_blog.all()],
-                'iscollect':blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
-                'collectnum':blog.collectBlog_blog.all().count(),
-                'islike':blog.goodFingerBlog_blog.filter(user_id_id=user_id).exists(),
-                'likenum':blog.goodfingers,
-                'commentnum':blog.first_blogComment_blog.filter(is_pub=True).count()+blog.second_blogComment_blog.filter(is_pub=True).count(),
-                'votenum':blog.selectBlog_blog.all().count(),
-                'votetitle':blog.vote_title,
-                'isallvote':blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
-                'votedata':voteData,
+                'user_id': blog.user_id.id,
+                'user_name': blog.user_id.name,
+                'header': blog.user_id.img,
+                'pub_date': blog.create_date,
+                'content': emoji.emojize(blog.content) if blog.content else '',
+                'img': [blog_img.img for blog_img in blog.blogImages_blog.all()],
+                'iscollect': blog.collectBlog_blog.filter(user_id_id=user_id).exists(),
+                'collectnum': blog.collectBlog_blog.all().count(),
+                'islike': blog.goodFingerBlog_blog.filter(user_id_id=user_id).exists(),
+                'likenum': blog.goodfingers,
+                'commentnum': blog.first_blogComment_blog.filter(
+                    is_pub=True).count() + blog.second_blogComment_blog.filter(is_pub=True).count(),
+                'votenum': blog.selectBlog_blog.all().count(),
+                'votetitle': blog.vote_title,
+                'isallvote': blog.selectBlog_blog.filter(user_id_id=user_id).exists(),
+                'votedata': voteData,
                 'ismine': True if blog.user_id.id == user_id else False,
                 'bgcolor': blog.bgcolor,
                 'facebook_link': blog.user_id.facebook_link if blog.user_id.facebook_link else None
             }
             group_list.append(data)
-        return Response({'success':True,'data':group_list})
+        return Response({'success': True, 'data': group_list})
 
 
 # 加载更多一级评论（包括二级）
 class GetIndexGroupComment(APIView):
 
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             userId = BaseUser.objects.get(auth_user=request.user).id
         else:
@@ -373,10 +384,10 @@ class GetIndexGroupComment(APIView):
         page = request.GET.get('page')
         limit = request.GET.get('limit')
         blog_id = request.GET.get('id')
-        fbc_num = FirstBlogComment.objects.filter(blog_id_id=blog_id,is_pub=True).count()
-        start = (int(page)-1)*int(limit)
+        fbc_num = FirstBlogComment.objects.filter(blog_id_id=blog_id, is_pub=True).count()
+        start = (int(page) - 1) * int(limit)
         end = start + int(limit)
-        fbc_set = FirstBlogComment.objects.filter(blog_id_id=blog_id,is_pub=True).order_by('-create_date')[start:end]
+        fbc_set = FirstBlogComment.objects.filter(blog_id_id=blog_id, is_pub=True).order_by('-create_date')[start:end]
         comment_list = list()
         if fbc_set:
             for fbc in fbc_set:
@@ -385,31 +396,31 @@ class GetIndexGroupComment(APIView):
                     sbc_list = list()
                     for sbc in sbc_set:
                         sbc_dict = {
-                            'id':sbc.id,
-                            'userId':sbc.user_id.id,
-                            'header':sbc.user_id.img,
-                            'username':sbc.user_id.name,
-                            'content':emoji.emojize(sbc.content),
+                            'id': sbc.id,
+                            'userId': sbc.user_id.id,
+                            'header': sbc.user_id.img,
+                            'username': sbc.user_id.name,
+                            'content': emoji.emojize(sbc.content),
                             'pub_date': sbc.create_date,
-                            'reply_id':sbc.reply_id.id,
-                            'reply_name':sbc.reply_id.name,
+                            'reply_id': sbc.reply_id.id,
+                            'reply_name': sbc.reply_id.name,
                             'ismine': True if sbc.user_id.id == userId else False
                         }
                         sbc_list.append(sbc_dict)
                     sbc = {
-                        'num':fbc.firstBlogComment.filter(is_pub=True).count(),
-                        'sbc_list':sbc_list
+                        'num': fbc.firstBlogComment.filter(is_pub=True).count(),
+                        'sbc_list': sbc_list
                     }
                     fbc_dict = {
-                        'id':fbc.id,
-                        'userId':fbc.user_id.id,
-                        'header':fbc.user_id.img,
-                        'username':fbc.user_id.name,
-                        'content':emoji.emojize(fbc.content),
-                        'pub_date':fbc.create_date,
-                        'sbc':sbc,
+                        'id': fbc.id,
+                        'userId': fbc.user_id.id,
+                        'header': fbc.user_id.img,
+                        'username': fbc.user_id.name,
+                        'content': emoji.emojize(fbc.content),
+                        'pub_date': fbc.create_date,
+                        'sbc': sbc,
                         'sbc_num': fbc.firstBlogComment.filter(is_pub=True).count(),
-                        'ismine':True if fbc.user_id.id == userId else False,
+                        'ismine': True if fbc.user_id.id == userId else False,
                     }
                 else:
                     fbc_dict = {
@@ -421,18 +432,18 @@ class GetIndexGroupComment(APIView):
                         'pub_date': fbc.create_date,
                         'sbc': None,
                         'ismine': True if fbc.user_id.id == userId else False,
-                        'sbc_num':0
+                        'sbc_num': 0
                     }
                 comment_list.append(fbc_dict)
-            return Response({'success':True,'fbc_num':fbc_num,'data':comment_list})
+            return Response({'success': True, 'fbc_num': fbc_num, 'data': comment_list})
         else:
-            return Response({'success':False,'msg':'暂无数据'})
+            return Response({'success': False, 'msg': '暂无数据'})
 
 
 # 加载更多二级评论
 class GetMoreSBC(APIView):
 
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             userId = BaseUser.objects.get(auth_user=request.user).id
         else:
@@ -442,7 +453,7 @@ class GetMoreSBC(APIView):
         fbc_id = request.GET.get('id')
         offset = request.GET.get('offset')
         fbc = FirstBlogComment.objects.get(id=fbc_id)
-        start = (int(page)-1)*int(limit)+int(offset)
+        start = (int(page) - 1) * int(limit) + int(offset)
         end = start + int(limit)
         sbc_set = fbc.firstBlogComment.filter(is_pub=True).order_by('-create_date')[start:end]
         if sbc_set:
@@ -462,9 +473,9 @@ class GetMoreSBC(APIView):
                     'ismine': True if sbc.user_id.id == userId else False
                 }
                 sbc_list.append(sbc_dict)
-            return Response({'success':True,'sbc_num':sbc_num,'data':sbc_list})
+            return Response({'success': True, 'sbc_num': sbc_num, 'data': sbc_list})
         else:
-            return Response({'success':False,'msg':'无更多数据'})
+            return Response({'success': False, 'msg': '无更多数据'})
 
 
 # 删除一级 二级评论
@@ -472,7 +483,7 @@ class DeleteComment(APIView):
     authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
     permission_classes = (AllowAny,)
 
-    def post(self,request):
+    def post(self, request):
         type = request.POST.get('type')
         id = request.POST.get('id')
         baseuser = BaseUser.objects.get(auth_user=request.user)
@@ -485,7 +496,7 @@ class DeleteComment(APIView):
                 SecondBlogComment.objects.filter(first_comment=firstcomment, is_pub=True).update(is_pub=False)
                 firstcomment.is_pub = False
                 firstcomment.save()
-                return Response({'success': True,'msg':'成功删除'})
+                return Response({'success': True, 'msg': '成功删除'})
             except Exception as e:
                 return Response({'success': False, 'msg': 'err'})
         else:
@@ -495,32 +506,34 @@ class DeleteComment(APIView):
             try:
                 secondcomment.is_pub = False
                 secondcomment.save()
-                return Response({'success': True,'msg':'成功删除'})
+                return Response({'success': True, 'msg': '成功删除'})
             except Exception as e:
                 return Response({'success': False, 'msg': 'err'})
+
 
 # 消息提醒
 class RemindView(APIView):
 
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             userId = BaseUser.objects.get(auth_user=request.user).id
         else:
             userId = None
-        if Remind.objects.filter(author_id=userId,isread=False).exists():
-            return Response({'msg':True})
+        if Remind.objects.filter(author_id=userId, isread=False).exists():
+            return Response({'msg': True})
         else:
-            return Response({'msg':False})
+            return Response({'msg': False})
+
 
 class UpdateRemindState(APIView):
 
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             userId = BaseUser.objects.get(auth_user=request.user).id
         else:
             userId = None
-        Remind.objects.filter(author_id=userId,isread=False).update(isread=True)
-        return Response({'success':True})
+        Remind.objects.filter(author_id=userId, isread=False).update(isread=True)
+        return Response({'success': True})
 
 
 class SendFastToWebsocket(APIView):

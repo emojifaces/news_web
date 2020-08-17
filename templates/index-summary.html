@@ -138,19 +138,19 @@
                         calendar_star.append(darkStarDiv)
                     }
                     let act = $('<div class="act">Act:' + data.actual + '%</div>')
-                    let tag = $('<div class="bear"></div>')
+                    let tag = $('<div class="cal-impact"></div>')
                     if (data.tag == 0) {
+                        tag.addClass('tag-null')
                         tag.text('---')
-                        tag.css('background-color', '#2e3a54')
                     } else if (data.tag == 1) {
+                        tag.addClass('bear')
                         tag.text('BEAR')
-                        tag.css('background-color', '#eb695e')
                     } else if (data.tag == 2) {
+                        tag.addClass('flat')
                         tag.text('=')
-                        tag.css('background-color', '#ecbe1b')
                     } else if (data.tag == 3) {
+                        tag.addClass('bull')
                         tag.text('BULL')
-                        tag.css('background-color', '#62c227')
                     }
                     let pre_exp = $('<div style="width: 100%;display: flex">\n' +
                         '                 <div class="pre">Pre:' + data.previous + '%</div>\n' +
@@ -189,7 +189,7 @@
                                 if (data.ismine) {
                                     let content_account_status = ('<div class="content-account-status">' +
                                         '<div class="delete-group">\n' +
-                                        '<span>Delete</span>\n' +
+                                        '<span>Xoá</span>\n' +
                                         '</div>' +
                                         '</div>')
                                     content_header.append(content_account_status)
@@ -240,7 +240,7 @@
                                                 if (vote_item.isVote) {
                                                     vote_percent.addClass('checked')
                                                 } else {
-                                                    vote_percent.addClass('unchecked')
+                                                    vote_percent.addClass('un-checked')
                                                 }
                                                 vote_choose.append(vote_choose_num, vote_percent)
                                             } else {
@@ -261,15 +261,15 @@
                                 if (data.iscollect) {
                                     collect.attr('data', 'true')
                                     let img = $('<img src="/static/images/collect2.png" alt="">')
-                                    let span = $('<span class="color-comment">Collect</span>')
+                                    let span = $('<span class="color-comment">Sưu tầm</span>')
                                     collect.append(img, span)
                                 } else {
                                     collect.attr('data', 'false')
                                     let img = $('<img src="/static/images/collcet1.png" alt="">')
-                                    let span = $('<span class="color-comment">Collect</span>')
+                                    let span = $('<span class="color-comment">Sưu tầm</span>')
                                     collect.append(img, span)
                                 }
-                                let discuss = $('<div class="discuss" id="all-comments">\n' +
+                                let discuss = $('<div class="discuss group-extend-comment" id="all-comments">\n' +
                                     '               <img src="/static/images/comment1.png" alt="">\n' +
                                     '               <span class="color-comment">' + data.commentnum + '</span>\n' +
                                     '            </div>')
@@ -324,10 +324,10 @@
                                         '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                                         '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                                         '                            </div>\n' +
-                                        '                            <div class="reply fbc-reply">Reply</div>\n' +
+                                        '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                         '                       </div>')
                                     if (fbc.ismine) {
-                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
                                         fbc_comment_op.append(fbc_delete)
                                     }
                                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -350,10 +350,10 @@
                                             sbc_comment_text.append(sbc_comment_content)
                                             let sbc_comment_op = $('<div class="comment-op">\n' +
                                                 '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
-                                                '                        <div class="reply">Reply</div>\n' +
+                                                '                        <div class="reply">Bình luận</div>\n' +
                                                 '                   </div>')
                                             if (sbc.ismine) {
-                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
                                                 sbc_comment_op.append(sbc_comment_delete)
                                             }
                                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -439,7 +439,7 @@
             }
             let btn = $('<div class="main-data-div">\n' +
                 '             <div class="main-data-info">\n' +
-                '                <div class="main-footer cursor-pointer" id="moreSummaryBtn">MORE SUMMARY</div>\n' +
+                '                <div class="main-footer cursor-pointer" id="moreSummaryBtn">Xem thêm</div>\n' +
                 '             </div>\n' +
                 '        </div>')
             container.after(btn)

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/index.css">
-{#    <link rel="stylesheet" href="/static/css/style.css">#}
+    <link rel="stylesheet" href="/static/css/loading.css">
 {% endblock %}
 {% block body %}
     <div id="main-index" class="container">
@@ -23,7 +23,7 @@
                 </div>
                 <a id="main-setting" class="cursor-pointer">
                     <img src="/static/images/setting.png" alt="">
-                    <span>Setting</span>
+                    <span>Cài đặt</span>
                     <img src="/static/images/gengduo.png" id="arrow" class="arrow1" alt="" style="margin-left: 5px">
                 </a>
                 <div class="check-div" id="setting-div" style="display: none">
@@ -126,7 +126,7 @@
                 <div class="card-header card-calendar-header">
                     <div style="display: flex;flex-direction: column;justify-content: center;">
                         <div>
-                            <span class="font-20 line-height-1" style="color: #1179da">Calendar</span>
+                            <span class="font-20 line-height-1" style="color: #1179da">Lịch kinh tế</span>
                         </div>
                         <div>
                             <span class="font-14 line-height-1" id="calendar-head-fullyear"></span>
@@ -145,17 +145,11 @@
                 </div>
                 <div class="card-body card-calendar-body self-scrollbar" id="card-calendar-body"></div>
             </div>
-            <div class="tofacebook">
-                {#                <img src="/static/images/tofacebook.jpg" style="width: 100%" alt="">#}
-                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FVNwallstreet&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
-                        width="500"  style="border:none;overflow:hidden;" scrolling="no" frameborder="0"
-                        allowTransparency="true" allow="encrypted-media"></iframe>
 
-            </div>
             <div id="main-right-ad"></div>
             <div>
                 <div class="VN-input-group enlarge-input-box">
-                    <div class="index-textarea"><span>Write your thought here!</span></div>
+                    <div class="index-textarea"><span>Viết suy nghĩ của bạn ở đây！</span></div>
                     {#                    <textarea name="" rows="4" class="textarea_1" id="content"></textarea>#}
                     {#                    <div class="VN-input-icon-box icon-box-1">#}
                     {#                        <div class="VN-icon-group">#}
@@ -215,6 +209,14 @@
                     </div>
                 </div>
             </div>
+            <div class="tofacebook"
+                 style="display: flex;flex-direction: row;justify-content: center;padding: 10px 0;background-color: #ffffff">
+                {#                <img src="/static/images/tofacebook.jpg" style="width: 100%" alt="">#}
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FVNwallstreet&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+                        width="400" style="border:none;overflow:hidden;" scrolling="no" frameborder="0"
+                        allowTransparency="true" allow="encrypted-media"></iframe>
+
+            </div>
         </div>
         <div class="global-left">
 
@@ -225,7 +227,7 @@
     </div>
 {% endblock %}
 {% block script %}
-
+    <script src="/static/js/bin/jquery.flexText.js"></script>
     <script>
         initIndexAd()
         autosize(document.querySelectorAll('.textarea_3'));
@@ -321,19 +323,19 @@
                             calendar_star.append(darkStarDiv)
                         }
                         let act = $('<div class="act">Act:' + data.actual + '%</div>')
-                        let tag = $('<div class="bear"></div>')
+                        let tag = $('<div class="cal-impact"></div>')
                         if (data.tag == 0) {
+                            tag.addClass('tag-null')
                             tag.text('---')
-                            tag.css('background-color', '#2e3a54')
                         } else if (data.tag == 1) {
+                            tag.addClass('bear')
                             tag.text('BEAR')
-                            tag.css('background-color', '#eb695e')
                         } else if (data.tag == 2) {
+                            tag.addClass('flat')
                             tag.text('=')
-                            tag.css('background-color', '#ecbe1b')
                         } else if (data.tag == 3) {
+                            tag.addClass('bull')
                             tag.text('BULL')
-                            tag.css('background-color', '#62c227')
                         }
                         let pre_exp = $('<div style="width: 100%;display: flex">\n' +
                             '                 <div class="pre">Pre:' + data.previous + '%</div>\n' +
@@ -372,7 +374,7 @@
                                     if (data.ismine) {
                                         let content_account_status = ('<div class="content-account-status">' +
                                             '<div class="delete-group">\n' +
-                                            '<span>Delete</span>\n' +
+                                            '<span>Xoá</span>\n' +
                                             '</div>' +
                                             '</div>')
                                         content_header.append(content_account_status)
@@ -387,7 +389,7 @@
 
                                     let content_data = $('<div class="content-data"></div>')
                                     let content_text = $('<div class="content-text color-comment">\n' +
-                                        '                    <span>' + data.content + '</span>\n' +
+                                        '                    <span class="group-content">' + data.content + '</span>\n' +
                                         '                </div>')
                                     if (data.bgcolor && (data.type == 0) && (data.img.length == 0)) {
                                         content_text.addClass('bg-color')
@@ -423,7 +425,7 @@
                                                     if (vote_item.isVote) {
                                                         vote_percent.addClass('checked')
                                                     } else {
-                                                        vote_percent.addClass('unchecked')
+                                                        vote_percent.addClass('un-checked')
                                                     }
                                                     vote_choose.append(vote_choose_num, vote_percent)
                                                 } else {
@@ -444,15 +446,15 @@
                                     if (data.iscollect) {
                                         collect.attr('data', 'true')
                                         let img = $('<img src="/static/images/collect2.png" alt="">')
-                                        let span = $('<span class="color-comment">Collect</span>')
+                                        let span = $('<span class="color-comment">Sưu tầm</span>')
                                         collect.append(img, span)
                                     } else {
                                         collect.attr('data', 'false')
                                         let img = $('<img src="/static/images/collcet1.png" alt="">')
-                                        let span = $('<span class="color-comment">Collect</span>')
+                                        let span = $('<span class="color-comment">Sưu tầm</span>')
                                         collect.append(img, span)
                                     }
-                                    let discuss = $('<div class="discuss" id="all-comments">\n' +
+                                    let discuss = $('<div class="discuss group-extend-comment" id="all-comments">\n' +
                                         '               <img src="/static/images/comment1.png" alt="">\n' +
                                         '               <span class="color-comment">' + data.commentnum + '</span>\n' +
                                         '            </div>')
@@ -477,7 +479,7 @@
                                         '            </div>\n' +
                                         '        </div>\n' +
                                         '        <div class="VN-input-item">\n' +
-                                        '            <textarea class="group-1-input commentBox" rows="1"></textarea>\n' +
+                                        '            <textarea class="group-1-input commentBox" rows="1" id="textarea"></textarea>\n' +
                                         '            <div class="emojiBtn">\n' +
                                         '                <img src="/static/images/emojiButton.png" alt="">\n' +
                                         '            </div>\n' +
@@ -499,7 +501,7 @@
                                             '                            <span>:&nbsp;</span>\n' +
                                             '                        </div>')
 
-                                        let fbc_content = $('<div>' + fbc.content + '</div>')
+                                        let fbc_content = $('<div class="fbc-content">' + fbc.content + '</div>')
                                         fbc_comment_text.append(fbc_content)
                                         let fbc_comment_op = $('<div class="comment-op">\n' +
                                             '                            <div class="content-time">' + timeformat(fbc.pub_date) + '</div>\n' +
@@ -507,10 +509,10 @@
                                             '                                  <img src="/static/images/commentnumicon.png" alt="">\n' +
                                             '                                  <span>(' + fbc.sbc_num + ')</span>\n' +
                                             '                            </div>\n' +
-                                            '                            <div class="reply fbc-reply">Reply</div>\n' +
+                                            '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                             '                       </div>')
                                         if (fbc.ismine) {
-                                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
+                                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
                                             fbc_comment_op.append(fbc_delete)
                                         }
                                         fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -529,14 +531,14 @@
                                                     '                          <span>to&nbsp;' + sbc.reply_name + ':&nbsp;</span>\n' +
                                                     '                     </div>')
 
-                                                let sbc_comment_content = $('<div>' + sbc.content + '</div>')
+                                                let sbc_comment_content = $('<div class="sbc-content">' + sbc.content + '</div>')
                                                 sbc_comment_text.append(sbc_comment_content)
                                                 let sbc_comment_op = $('<div class="comment-op">\n' +
                                                     '                        <div class="content-time">' + timeformat(sbc.pub_date) + '</div>\n' +
-                                                    '                        <div class="reply">Reply</div>\n' +
+                                                    '                        <div class="reply">Bình luận</div>\n' +
                                                     '                   </div>')
                                                 if (sbc.ismine) {
-                                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Delete</span></div>')
+                                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
                                                     sbc_comment_op.append(sbc_comment_delete)
                                                 }
                                                 sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -558,6 +560,15 @@
                                     }
 
                                 }
+                            },
+                            beforeSend: function () {
+                                $('.fastinfo-load-div').show()
+                            },
+                            complete: function () {
+                                $('.fastinfo-load-div').hide()
+                                $('#main-left-data').find('.fastinfo').each(function () {
+                                    $(this).children('.main-data-info').children('.user-dynamic-box').find('#textarea').flexText()
+                                })
                             }
                         })
 
@@ -622,20 +633,14 @@
                 }
                 let btn = $('<div class="main-data-div">\n' +
                     '             <div class="main-data-info">\n' +
-                    '                <div class="main-footer cursor-pointer" id="moreFastInfoBtn">MORE INFORMATION</div>\n' +
+                    '                <div class="main-footer cursor-pointer" id="moreFastInfoBtn">Xem thêm</div>\n' +
                     '             </div>\n' +
                     '        </div>')
                 container.after(btn)
                 initFastInfoAd()
             },
-            beforeSend: function () {
-                $('.fastinfo-load-div').show()
-            },
-            complete: function () {
-                $('.fastinfo-load-div').hide()
-            }
-        })
 
+        })
 
 
     </script>

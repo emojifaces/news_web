@@ -12,6 +12,11 @@ SEX_CHOICES = (
     (2, u'女'),
 )
 
+TYPE_CHOICES = (
+    (0, u'注册'),
+    (1, u'忘记密码'),
+)
+
 
 class AbstractModel(models.Model):
     create_date = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
@@ -60,6 +65,7 @@ class BaseUser(AbstractModel):
 class UserToken(AbstractModel):
     email = models.CharField(max_length=150, null=True, blank=True, verbose_name=u'邮箱')
     token = models.CharField(max_length=20, null=True, blank=True, verbose_name=u'验证码')
+    type = models.IntegerField(choices=TYPE_CHOICES, verbose_name=u'类型', default=0)
     pub_date = models.DateTimeField(auto_now=True)
 
     class Meta:

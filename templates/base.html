@@ -12,13 +12,14 @@
 <body>
 <div class="top-tips">
     <div class="tips">
-        <p>风险提示：保证金交易存在极高的风险，未必适合所有的投资者，请不要轻信任何高额投资收益的诱导而贸然投资。在您决定投资保证金交易时，需要提醒您：投资导致的损失可能超过您投入的资金，因此，请您考虑自身的
-            投资经验及风险承担能力理性投资。投资风险不仅来自于杠杆交易本身，同时也有可能来自于券商平台的不确定性，请您仔细甄別、远离风险。所有投资者的交易帐户应仅限本人使用，不应交由第三方操作，对于任何接受第
-            三方喊单、操盘、理财等操作的投资和交易，由此导致的风险和专损由投资者个人自行承担。
+        <p>Cảnh báo rủi ro: Các giao dịch ngoại hối có rủi ro rất cao và có thể không phù hợp với tất cả các nhà đầu tư.
+            Các thông tin và đề xuất được cung cấp trên trang web này chỉ mang tính chất tham khảo và không cấu thành
+            hướng dẫn vận hành trực tiếp. Các rủi ro và tổn thất do chính nhà đầu tư chịu. trang web không chịu bất kỳ
+            trách nhiệm.
         </p>
         <div class="accept">
-            <div style="float: left">Accept</div>
-            <div style="float: right">&radic;</div>
+            <div style="float: left">Chấp nhận</div>
+            <div>&radic;</div>
         </div>
     </div>
 </div>
@@ -48,16 +49,16 @@
                             <a class="nav-link " href="/">7*24</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/calendar/">Calendar</a>
+                            <a class="nav-link" href="/calendar/">Lịch</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/blog/">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/group/">Group</a>
+                            <a class="nav-link" href="/group/">Nhóm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/about-us/">About us</a>
+                            <a class="nav-link" href="/about-us/">Giới thiệu</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" action="/search/" type="get">
@@ -85,7 +86,7 @@
                         <span>{% if request.user.is_authenticated %}
                             {{ request.session.user_name }}
                         {% else %}
-                            LOG IN
+                            Đăng nhập
                         {% endif %}
                         </span>
                     </div>
@@ -93,7 +94,7 @@
                         <div class="user-message cursor-pointer" id="user-message">
                             <img src="/static/images/message.png" alt="">
                         </div>
-                        <div><a class="user-out" href="{% url 'logout' %}">Sign Out</a></div>
+                        <div><a class="user-out" href="{% url 'logout' %}">Đăng xuất</a></div>
                     {% endif %}
 
 
@@ -143,7 +144,7 @@
             <img src="/static/ad/pic8.png" alt="">
         </div>
         <div class="footer-ad-right">
-            <div class="contact-us">Contact Us</div>
+            <div class="contact-us">Liên hệ với chúng tôi</div>
             <div>
                 <img src="/static/images/callus.png" alt="">
                 <span>+84 - 0353025094</span>
@@ -201,7 +202,7 @@
 <script src="/static/js/index/search.js"></script>
 <script src="/static/js/index/setting.js"></script>
 <script src="/static/js/bin/api_client.js"></script>
-<script src="/static/js/index/jquery.flexText.js"></script>
+
 <script async defer crossorigin="anonymous" src="/static/js/bin/facebook-SDK.js"></script>
 {% block script %}
 
@@ -281,7 +282,6 @@
             });
         })
     }
-
 
 
 </script>

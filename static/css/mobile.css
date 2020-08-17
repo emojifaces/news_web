@@ -2198,3 +2198,6 @@ iframe img{
 .mobile-user-center > div{
     margin-top: 1rem;
 }
+.blog-detail-content{
+    white-space: pre-wrap;
+}

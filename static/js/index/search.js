@@ -27,7 +27,7 @@ $('#search-result-blog').click(function () {
                 let moreBtn = $('<div class="main-data-div">\n' +
                     '                <div class="main-data-info">\n' +
                     '                    <div class="main-footer cursor-pointer" id="moreSearchBlog">\n' +
-                    '                        MORE INFORMATION\n' +
+                    '                        Xem thêm\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>')
@@ -101,7 +101,7 @@ $(document).on('click', '#moreSearchBlog', function () {
                 let moreBtn = $('<div class="main-data-div">\n' +
                     '                <div class="main-data-info">\n' +
                     '                    <div class="main-footer cursor-pointer" id="moreSearchBlog">\n' +
-                    '                        MORE INFORMATION\n' +
+                    '                        Xem thêm\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>')
@@ -205,7 +205,7 @@ function initSearchData() {
     let moreBtn = $('<div class="main-data-div">\n' +
         '                <div class="main-data-info">\n' +
         '                    <div class="main-footer cursor-pointer" id="moreSearchFastInfo">\n' +
-        '                        MORE INFORMATION\n' +
+        '                        Xem thêm\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '            </div>')

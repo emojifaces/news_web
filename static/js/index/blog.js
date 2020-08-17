@@ -15,13 +15,13 @@ $(document).on('click', '.blog-like', function () {
         like_num = parseInt(like_num) - 1;
         btn.children('span').text(like_num);
         btn.children('img').attr('src', '/static/images/like1.png');
-        btn.attr('islike', 'False')
+        btn.attr('islike', 'false')
     } else {
         // 点赞
         like_num = parseInt(like_num) + 1;
         btn.children('span').text(like_num);
         btn.children('img').attr('src', '/static/images/like2.png');
-        btn.attr('islike', 'True')
+        btn.attr('islike', 'true')
     }
 
     $.ajax({
@@ -98,6 +98,7 @@ function initBlogDate(page, limit) {
                             let title = $('<span class="blog-content-txt">' + data.title + '</span>')
                             title_div.append(title)
                         }
+                        // let content_div = $('<div class="blog-content">' + data.content + '</div>')
                         let content_div = $('<div class="blog-content">' + data.content + '</div>')
                         blog_box.append(content_div)
                         if (data.image) {
@@ -134,7 +135,7 @@ function initBlogDate(page, limit) {
                 let moreBtn = $('<div class="main-data-div">\n' +
                     '                <div class="main-data-info">\n' +
                     '                    <div class="main-footer cursor-pointer" id="moreOfficalBlog">\n' +
-                    '                        MORE INFORMATION\n' +
+                    '                        Xem thêm\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>')

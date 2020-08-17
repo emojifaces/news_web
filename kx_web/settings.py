@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'cal',
     'ad',
     'third',
-    'channels'
+    # 'channels'
 ]
 
 MIDDLEWARE = [
@@ -143,14 +143,14 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '8c83164b850be7c964c200fff1d9dea3'
 
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
-ASGI_APPLICATION = 'kx_web.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": ['redis://127.0.0.1:6379/6'],
-            "capacity": 1000000,
-            "expiry": 10
-        },
-    },
-}
+# ASGI_APPLICATION = 'kx_web.routing.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": ['redis://127.0.0.1:6379/6'],
+#             "capacity": 1000000,
+#             "expiry": 10
+#         },
+#     },
+# }

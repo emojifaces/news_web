@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/index.css">
-{#    <link rel="stylesheet" href="/static/css/style.css">#}
+    <link rel="stylesheet" href="/static/css/loading.css">
 {% endblock %}
 {% block body %}
     <div id="main-group" class="container">
@@ -52,7 +52,7 @@
                             </svg>
                         </div>
                     </div>
-                    <button class="VN-input-button-1" id="submitblog">Submit</button>
+                    <button class="VN-input-button-1" id="submitblog">Đăng</button>
                 </div>
             </div>
 
@@ -292,12 +292,14 @@
     </div>
 {% endblock %}
 {% block script %}
-
+    <script src="/static/js/bin/jquery.flexText.js"></script>
 
     <script>
         initGroupad()
         autosize(document.querySelectorAll('.textarea_3'));
         initGroup()
+
+
 
     </script>
 {% endblock %}

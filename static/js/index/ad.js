@@ -16,7 +16,7 @@ function initGlobalAd() {
             for (let ad of res.data.left) {
                 let ad_container = $('<div class="global-side-container"></div>')
                 let img = $('<div class="ad-div global-ad-side"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                let close_btn = $('<div class="close-ad">&times; close</div>')
+                let close_btn = $('<div class="close-ad">&times; Đóng</div>')
                 ad_container.append(img, close_btn)
                 $('.global-left').append(ad_container)
             }
@@ -24,7 +24,7 @@ function initGlobalAd() {
             for (let ad of res.data.right) {
                 let ad_container = $('<div class="global-side-container"></div>')
                 let img = $('<div class="ad-div global-ad-side"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
-                let close_btn = $('<div class="close-ad">&times; close</div>')
+                let close_btn = $('<div class="close-ad">&times; Đóng</div>')
                 ad_container.append(img,close_btn)
                 $('.global-right').append(ad_container)
             }

@@ -25,7 +25,7 @@
                 <div class="calendar-detail-title">
                     <div class="calendar-title-left color-comment">
                         <span></span>
-                        <span>Economic Data</span>
+                        <span>Dữ liệu kinh tế</span>
                     </div>
                     <div class="calendar-title-right">
                         <div class="calendar-choose-box">
@@ -36,11 +36,11 @@
                                 <input id="cal-date-choose" type="text" class="form-control" name="choose-date">
                             </div>
                         </div>
-                        <div class="calendar-title-filter-btn color-white cursor-pointer">Filter</div>
+                        <div class="calendar-title-filter-btn color-white cursor-pointer">Bộ lọc</div>
                         <div class="filter-choose">
-                            <div class="filter-choose-btn active cursor-pointer" data-filter="0">ALL</div>
+                            <div class="filter-choose-btn active cursor-pointer" data-filter="0">Tất cả</div>
                             &nbsp;&nbsp;&nbsp;
-                            <div class="filter-choose-btn cursor-pointer" data-filter="1">Importance</div>
+                            <div class="filter-choose-btn cursor-pointer" data-filter="1">Quan trọng</div>
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                 </div>
                 <div class="main-calendar-title-left color-comment" style="margin: 1.875rem 0 1.25rem 0">
                     <span></span>
-                    <span>Economic events</span>
+                    <span>Sự kiện kinh tế</span>
                 </div>
                 <div class="economicevent">
                     <table id="economiceventTable" style="min-width: 750px"></table>
@@ -159,12 +159,12 @@
 
                 columns: [{
                     field: 'time',
-                    title: 'Time',
+                    title: 'Thời gian',
                     align: 'center',
                     width: 50
                 }, {
                     field: 'area',
-                    title: 'Area',
+                    title: 'Khu vực',
                     align: 'center',
                     formatter: function (value, row, index) {
                         return '<img src="/static/images/flag/' + row['area'] + '.png" class="flag" width="30" height="20" alt="">'
@@ -172,7 +172,7 @@
                 }, {
                     field: 'name',
                     align: 'left',
-                    title: 'Name of Data',
+                    title: 'Tên của dữ liệu',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['name'] + '</span>'
@@ -183,7 +183,7 @@
                     }
                 }, {
                     field: 'star',
-                    title: 'Importance',
+                    title: 'Quan trọng',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
@@ -208,7 +208,7 @@
                     }
                 }, {
                     field: 'pre',
-                    title: 'Pre',
+                    title: 'Trước đó',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
@@ -221,7 +221,7 @@
                 }, {
                     field: 'exp',
                     align: 'center',
-                    title: 'Exp',
+                    title: 'Dự đoán',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['exp'] + '</span>'
@@ -233,7 +233,7 @@
                 }, {
                     field: 'act',
                     align: 'center',
-                    title: 'Art',
+                    title: 'Thực tế',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['act'] + '</span>'
@@ -245,7 +245,7 @@
                 }, {
                     field: 'tag',
                     align: 'center',
-                    title: 'Impact',
+                    title: 'Ảnh hưởng',
                     formatter: function (value, row, index) {
                         if (row['tag'] == 1) {
                             return '<div class="bear">BEAR</div>'
@@ -263,7 +263,7 @@
                 }, {
                     field: 'action',
                     align: 'center',
-                    title: 'Graph',
+                    title: 'Biểu đồ',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return "<a href='/calendarInfo/?id=" + row['id'] + "'><img src='/static/images/graph_red.png'></a>"
@@ -289,18 +289,18 @@
                 },
                 columns: [{
                     field: 'time',
-                    title: 'Time',
+                    title: 'Thời gian',
                     align: 'center',
                 }, {
                     field: 'area',
-                    title: 'Area',
+                    title: 'Khu vực',
                     align: 'center',
                     formatter: function (value, row, index) {
                         return '<img src="/static/images/flag/' + row['area'] + '.png" class="flag" width="30" height="20" alt="">'
                     }
                 }, {
                     field: 'city',
-                    title: 'City',
+                    title: 'Thành phố',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
@@ -312,7 +312,7 @@
                     }
                 }, {
                     field: 'star',
-                    title: 'Importance',
+                    title: 'Quan trọng',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
@@ -338,7 +338,7 @@
                 }, {
                     field: 'events',
                     align: 'left',
-                    title: 'Events',
+                    title: 'Sự kiện',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['events'] + '</span>'

@@ -126,7 +126,7 @@ body {
 
 .user-header img {
     border-radius: 50%;
-    border: 1px solid grey;
+    border: 1px solid #e5e5e5;
 }
 
 .cursor-pointer {
@@ -1019,7 +1019,7 @@ textarea:focus {
 .calendar-choose-box input {
     border: unset;
     outline: unset;
-    color: #c9c9c9;
+    color: black;
     font-size: 14px;
 }
 
@@ -1411,6 +1411,12 @@ textarea:focus {
 
 .blog-content {
     margin: .25rem 0 1.25rem;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    /*white-space: -pre-wrap;*/
+    white-space: -o-pre-wrap;
+    *word-wrap: break-word;
+    *white-space: normal;
 }
 
 .blog-image-div {
@@ -1623,6 +1629,7 @@ textarea:focus {
 }
 
 .VN-input-item {
+    display: flex;
     flex: 1;
     position: relative;
     border: 1px solid #a8a8a8;
@@ -2187,10 +2194,12 @@ iframe img {
 #main-right-ad img {
     max-height: 120px;
 }
-#main-right-ad{
+
+#main-right-ad {
     display: flex;
     flex-direction: column;
 }
+
 .search-text {
     background-color: #213b54;
     height: 40px;
@@ -2341,10 +2350,6 @@ iframe img {
     font-size: initial;
 }
 
-.commentBox {
-    resize: none;
-    overflow-y: visible
-}
 
 .footer-ad-right {
     color: #7e7b7b;;
@@ -2355,7 +2360,7 @@ iframe img {
 }
 
 .contact-us {
-    font-size: x-large;
+    font-size: large;
     font-weight: 700;
 }
 
@@ -2415,7 +2420,8 @@ iframe img {
     width: 150px;
     height: 120px;
 }
-.fast-11,.fast-16,.fast-21,.blog-ground-ad {
+
+.fast-11, .fast-16, .fast-21, .blog-ground-ad {
     width: 100%;
 }
 
@@ -2443,18 +2449,63 @@ iframe img {
     width: 380px;
     height: 120px;
 }
-.summary-info{
+
+.summary-info {
     color: black;
 }
-.blog-ground-ad > img{
+
+.blog-ground-ad > img {
     height: 130px;
 }
-.global-top{
+
+.global-top {
     width: 100%;
 }
-#economicDataTable  th, #economicDataTable  td{
+
+#economicDataTable th, #economicDataTable td {
     padding: 0.5rem;
 }
-#economicDataTable .th-inner{
+
+#economicDataTable .th-inner {
     padding: 0.5rem;
+}
+
+.cal-impact {
+    width: 72px;
+}
+
+.flex-text-wrap {
+    position: relative;
+    width: 100%;
+    padding: .25rem 2rem 0.25rem .5rem;
+}
+
+.flex-text-wrap pre {
+    visibility: hidden;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+}
+
+.commentBox {
+    resize: none;
+    /*overflow-y: visible*/
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.fastinfo-container p {
+    margin-bottom: 0;
+}
+
+.fastinfo-container, .group-content, .fbc-content, .sbc-content,.blog-content {
+    white-space: pre-wrap;
+}
+.layui-layer-content{
+    color: black;
+}
+.layui-layer-btn1:hover{
+    color: black;
 }
