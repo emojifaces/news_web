@@ -8,7 +8,7 @@ import emoji
 import json
 
 import asyncio
-from channels.layers import get_channel_layer
+# from channels.layers import get_channel_layer
 
 from blog.models import GoodFingerOfficals, OfficalImages
 from cal.models import Calendar
@@ -209,12 +209,12 @@ class GetFastInfoList(APIView):
             elif obj.type == 0:
                 # 快讯
                 dic = model_to_dict(obj)
-                dic['content'] = emoji.emojize(obj.content)
-                print(obj.translate)
-                dic['translate'] = emoji.emojize(obj.translate)
-                dic['VN_pub_date'] = obj.VN_pub_date.time()
-                dic['fast_type'] = obj.type
-                returnList.append(dic)
+                if obj.translate:
+                    dic['content'] = emoji.emojize(obj.content)
+                    dic['translate'] = emoji.emojize(obj.translate)
+                    dic['VN_pub_date'] = obj.VN_pub_date.time()
+                    dic['fast_type'] = obj.type
+                    returnList.append(dic)
             elif obj.type == 3:
                 dic = model_to_dict(obj)
                 ad_list = list()
