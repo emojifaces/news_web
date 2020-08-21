@@ -8,7 +8,7 @@ import emoji
 import json
 
 import asyncio
-# from channels.layers import get_channel_layer
+from channels.layers import get_channel_layer
 
 from blog.models import GoodFingerOfficals, OfficalImages
 from cal.models import Calendar
