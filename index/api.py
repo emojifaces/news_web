@@ -210,6 +210,7 @@ class GetFastInfoList(APIView):
                 # 快讯
                 dic = model_to_dict(obj)
                 dic['content'] = emoji.emojize(obj.content)
+                print(obj.translate)
                 dic['translate'] = emoji.emojize(obj.translate)
                 dic['VN_pub_date'] = obj.VN_pub_date.time()
                 dic['fast_type'] = obj.type
