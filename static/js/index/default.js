@@ -4,41 +4,6 @@ layer.config({
 });
 
 
-mainWidth = $('#main').width();
-if (!mainWidth) {
-    mainWidth = $('#main-index').width()
-}
-if (!mainWidth) {
-    mainWidth = $('#main-group').width()
-}
-bodyWidth = $('body').width();
-fixedWidth = $('#fixed-left').width();
-titleHeight = $('#title').height();
-pos = (bodyWidth - mainWidth) / 2 - fixedWidth - 80;
-if (pos < 0) {
-    pos = 0
-}
-$('#fixed-left').css('left', pos);
-// $('#fixed-left').css('top', titleHeight + 20);
-$('#fixed-left').css('top', '25%');
-$('#fixed-right').css('right', pos);
-// $('#fixed-right').css('top', titleHeight + 20);
-$('#fixed-right').css('top', '25%')
-
-// 控制blog 小图的宽度
-// function contentImgInit() {
-//     $('.content-img').each(function () {
-//         length = $(this).children('img').length;
-//         if (length == 1) {
-//             $(this).find('img').css('width', '50%')
-//         } else {
-//             $(this).find('img').css('width', '24%')
-//         }
-//     });
-// }
-//
-// contentImgInit()
-
 // 显示二级评论输入框
 $(document).on('click', '.reply', function () {
     if ($(this).parents('.comment-op').parent().find('.VN-input-group-1').length) {
@@ -79,25 +44,6 @@ $(document).on('click', '.vote', function () {
         shade: [0.3, '#000'],
         content: '<div style="padding: 1.5rem">\n' +
             '    <div class="VN-input-group">\n' +
-            '        <textarea name="" rows="5" class="textarea_2" id="votetitle"></textarea>\n' +
-            '        <div class="VN-input-icon-box icon-box-1">\n' +
-            '            <div class="VN-icon-group">\n' +
-            '                <div class="emojiBtn">\n' +
-            '                    <svg t="1583835608479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2284" data-spm-anchor-id="a313x.7781069.0.i1" width="22" height="22">\n' +
-            '                        <path d="M324.8 440c34.4 0 62.4-28 62.4-62.4s-28-62.4-62.4-62.4-62.4 28-62.4 62.4 28 62.4 62.4 62.4z m374.4 0c34.4 0 62.4-28 62.4-62.4s-28-62.4-62.4-62.4-62.4 28-62.4 62.4 28 62.4 62.4 62.4zM340 709.6C384 744 440.8 764.8 512 764.8s128-20.8 172-55.2c26.4-21.6 42.4-42.4 50.4-58.4 6.4-12 0.8-27.2-11.2-33.6s-27.2-0.8-33.6 11.2c-0.8 1.6-3.2 6.4-8 12-7.2 10.4-17.6 20-28.8 29.6-34.4 28-80.8 44.8-140.8 44.8s-105.6-16.8-140.8-44.8c-12-9.6-21.6-20-28.8-29.6-4-5.6-7.2-9.6-8-12-6.4-12-20.8-17.6-33.6-11.2s-17.6 20.8-11.2 33.6c8 16 24 36.8 50.4 58.4z"\n' +
-            '                              fill="#eaad40" p-id="2285" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path>\n' +
-            '                        <path d="M512 1010.4c-276.8 0-502.4-225.6-502.4-502.4S235.2 5.6 512 5.6s502.4 225.6 502.4 502.4-225.6 502.4-502.4 502.4zM512 53.6C261.6 53.6 57.6 257.6 57.6 508s204 454.4 454.4 454.4 454.4-204 454.4-454.4S762.4 53.6 512 53.6z" fill="#eaad40" p-id="2286"\n' +
-            '                              data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>\n' +
-            '                    </svg>\n' +
-            '                </div>\n' +
-            '                <div class="image">\n' +
-            '                    <svg t="1583836028975" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4184" width="22" height="22">\n' +
-            '                        <path d="M853.333333 955.733333H170.666667c-66.030933 0-102.4-36.369067-102.4-102.4V170.666667c0-66.030933 36.369067-102.4 102.4-102.4h682.666666c66.030933 0 102.4 36.369067 102.4 102.4v682.666666c0 66.030933-36.369067 102.4-102.4 102.4zM102.4 775.0656V853.333333c0 47.223467 21.0432 68.266667 68.266667 68.266667h682.666666c47.223467 0 68.266667-21.0432 68.266667-68.266667v-78.267733l-324.266667-324.266667L450.798933 597.333333l73.2672 73.2672a17.0496 17.0496 0 1 1-24.132266 24.132267L341.333333 536.132267l-238.933333 238.933333zM597.333333 409.6c4.369067 0 8.738133 1.672533 12.066134 5.000533L921.6 726.801067V170.666667c0-47.223467-21.0432-68.266667-68.266667-68.266667H170.666667c-47.223467 0-68.266667 21.0432-68.266667 68.266667v556.1344l226.8672-226.8672a17.0496 17.0496 0 0 1 24.132267 0L426.666667 573.201067l158.600533-158.600534A17.015467 17.015467 0 0 1 597.333333 409.6z m-256-51.2c-27.904 0-52.343467-10.2912-72.6528-30.600533C248.9344 308.0704 238.933333 283.921067 238.933333 256c0-27.8016 9.949867-52.1728 29.5424-72.448C289.160533 163.549867 313.531733 153.6 341.333333 153.6c27.921067 0 52.0704 10.001067 71.816534 29.7472C433.442133 203.656533 443.733333 228.096 443.733333 256c0 28.023467-10.359467 52.241067-30.805333 72.004267C393.5744 348.040533 369.3568 358.4 341.333333 358.4z m0-170.666667c-18.8928 0-34.850133 6.519467-48.708266 19.950934C279.586133 221.149867 273.066667 237.1072 273.066667 256c0 18.7904 6.4512 34.389333 19.746133 47.650133C306.688 317.525333 322.542933 324.266667 341.333333 324.266667c18.670933 0 34.184533-6.673067 47.4624-20.394667C402.926933 290.184533 409.6 274.670933 409.6 256c0-18.7904-6.741333-34.645333-20.599467-48.520533C375.722667 194.184533 360.123733 187.733333 341.333333 187.733333z"\n' +
-            '                              p-id="4185" fill="#eaad40"></path>\n' +
-            '                    </svg>\n' +
-            '                </div>\n' +
-            '            </div>\n' +
-            '        </div>\n' +
             '<div style="display: flex;flex-direction: column">' +
             '        <div class="vote-item color-comment">\n' +
             '            <label class="vote-label">Tùy 1 : </label>\n' +
@@ -121,7 +67,7 @@ $(document).on('click', '.vote', function () {
             '        </div>\n' +
             '</div>' +
             '        <div style="display: flex;justify-content: flex-end">\n' +
-            '            <a class="VN-input-button-3 color-white" id="submitvote" onclick="submitVote()">Đăng</a></div>\n' +
+            '            <a class="VN-input-button-3 color-white" id="submitvote">Đăng</a></div>\n' +
             '    </div>\n' +
             '</div>'
     });
@@ -187,26 +133,26 @@ function getImgNaturalDimensions(oImg, callback) {
     }
 }
 
-
+// 图片弹窗
 $(document).on('click', '.alert-img', function () {
         var self = this;
         getImgNaturalDimensions($(self).get(0), function (dimensions) {
             console.log(dimensions)
-            layer.open({
+            let bigImg = layer.open({
                 type: 1,
                 title: false,
                 closeBtn: false,
                 scrollbar: false,
                 shadeClose: true,
                 id: 'alert-img',
-                // area: [dimensions.w + 'px', dimensions.h + 'px'],
+                area: [dimensions.w + 'px', dimensions.h + 'px'],
                 content: "<img src='" + $(self)[0].src + "' style='width: 100%;height: 100%;object-fit: cover'>"
             })
         });
 
     }
 )
-
+// 快讯图片弹窗
 $(document).on('click', '.fastinfo-container img', function (e) {
         var self = this;
         layer.open({
@@ -227,81 +173,69 @@ $(document).on('click', '.fastinfo-container img', function (e) {
 // 用户投票
 $(document).on('click', ".vote-choose", function () {
     let vote_box = $(this).parent('.vote-box')
-    let isvote = vote_box.attr('isvote')
     let vote_choose = $(this)
 
-    if (isvote == 'True' || isvote == 'true') {
+    let votechoice_id = $(this).attr('vote');   // 投票选项ID
+    let blog_id = $(this).parents('.user-dynamic-box').attr('data');    // blog_id
+    let allVote = $(this).siblings('#allVote')  // 投票总数
 
-        layer.msg('<div style="color: black;text-align: center;">' + '不能重复投票</div>')
-    } else if (isvote == 'False' || isvote == 'false') {
+    $.ajax({
+        type: 'post',
+        url: '/updatevote/',
+        data: {
+            'votechoice_id': votechoice_id,
+            'blog_id': blog_id
+        },
+        success: function (result) {
+            if (result.success) {
+                vote_box.attr('isvote', 'true')
+                vote_choose.attr('data', 'true')
 
-        let votechoice_id = $(this).attr('vote');   // 投票选项ID
-        let blog_id = $(this).parents('.user-dynamic-box').attr('data');    // blog_id
-        let allVote = $(this).siblings('#allVote')  // 投票总数
-
-        $.ajax({
-            type: 'post',
-            url: '/updatevote/',
-            data: {
-                'votechoice_id': votechoice_id,
-                'blog_id': blog_id
-            },
-            success: function (result) {
-                console.log(result)
-                if (result.success) {
-                    vote_box.attr('isvote', 'true')
-                    vote_choose.attr('data', 'true')
-
-
-                    // 投票后总票数加1
-                    let allVoteNum = parseInt(allVote.text()) + 1
-                    allVote.text(allVoteNum + " Người đã bình chọn")
-                    // 投票后选项票数加1
-                    let vote_num = parseInt(vote_choose.children('.vote-choose-num').attr('data-num')) + 1
-                    vote_choose.children('.vote-choose-num').attr('data-num', vote_num)
+                // 投票后总票数加1
+                let allVoteNum = parseInt(allVote.text()) + 1
+                allVote.text(allVoteNum + " Người đã bình chọn")
+                // 投票后选项票数加1
+                let vote_num = parseInt(vote_choose.children('.vote-choose-num').attr('data-num')) + 1
+                vote_choose.children('.vote-choose-num').attr('data-num', vote_num)
 
 
-                    // 投票后动画效果
-                    vote_choose.find('.vote-percent').removeClass('unchecked');
-                    vote_choose.find('.vote-percent').addClass('checked', true);
-                    vote_choose.parent('.vote-box').find('.vote-choose').each(function () {
-                        if (!$(this).children('.vote-percent').hasClass('checked')) {
-                            $(this).children('.vote-percent').removeClass('unchecked')
-                            $(this).children('.vote-percent').addClass('un-checked')
-                        }
-                        let num = $(this).children('.vote-choose-num').attr('data-num')
-                        num = parseInt(num)     // 选项票数
-                        $(this).find('.vote-choose-num').css('display', 'block');
-                        $(this).find('.vote-percent').css({
-                            width: (num / allVoteNum) * 100 + "%",
-                            transition: 'width 2s'
-                        })
+                // 投票后动画效果
+                vote_choose.find('.vote-percent').removeClass('unchecked');
+                vote_choose.find('.vote-percent').addClass('checked', true);
+                vote_choose.parent('.vote-box').find('.vote-choose').each(function () {
+                    if (!$(this).children('.vote-percent').hasClass('checked')) {
+                        $(this).children('.vote-percent').removeClass('unchecked')
+                        $(this).children('.vote-percent').addClass('un-checked')
+                    }
+                    let num = $(this).children('.vote-choose-num').attr('data-num')
+                    num = parseInt(num)     // 选项票数
+                    $(this).find('.vote-choose-num').css('display', 'block');
+                    $(this).find('.vote-percent').css({
+                        width: (num / allVoteNum) * 100 + "%",
+                        transition: 'width 2s'
                     })
-                    // 显示百分比
-                    vote_choose.parent('.vote-box').find('.vote-choose-num').each(function () {
-                        let num = $(this).attr('data-num')
-                        num = parseInt(num)
-                        let percentage = Math.round(num / allVoteNum * 100)
-                        $(this).text(percentage + '%')
-                    })
-                } else {
-                    layer.msg('<div style="color: black;text-align: center;">' + '不能重复投票</div>')
-                }
+                })
+                // 显示百分比
+                vote_choose.parent('.vote-box').find('.vote-choose-num').each(function () {
+                    let num = $(this).attr('data-num')
+                    num = parseInt(num)
+                    let percentage = Math.round(num / allVoteNum * 100)
+                    $(this).text(percentage + '%')
+                })
+            } else {
+                layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
             }
-        })
+        }
+    })
 
-    }
 })
 
 // 用户点赞
 $(document).on('click', '.like', function () {
     let blogId = $(this).parents('.user-dynamic-box').attr('data');
     let data = $(this).attr('data')
+    let _this = $(this)
     if (data == 'true') {
-        $(this).find('img').attr('src', "/static/images/like1.png")
-        $(this).attr('data', 'false')
-        let numLike = parseInt($(this).find('span').text());
-        $(this).find('span').text(numLike - 1)
         let islike = 0;
         $.ajax({
             type: 'post',
@@ -312,15 +246,17 @@ $(document).on('click', '.like', function () {
             },
             success: function (result) {
                 if (result.success == false) {
-                    layer.msg('<div style="color: black;text-align: center;">' + '请登录</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                } else {
+                    _this.find('img').attr('src', "/static/images/like1.png")
+                    _this.attr('data', 'false')
+                    let numLike = parseInt(_this.find('span').text());
+                    _this.find('span').text(numLike - 1)
                 }
             }
         })
     } else {
-        $(this).find('img').attr('src', "/static/images/like2.png");
-        $(this).attr('data', 'true')
-        let numLike = parseInt($(this).find('span').text());
-        $(this).find('span').text(numLike + 1)
+
         let islike = 1;
         $.ajax({
             type: 'post',
@@ -331,7 +267,12 @@ $(document).on('click', '.like', function () {
             },
             success: function (result) {
                 if (result.success == false) {
-                    layer.msg('<div style="color: black;text-align: center;">' + '请登录</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                } else {
+                    _this.find('img').attr('src', "/static/images/like2.png");
+                    _this.attr('data', 'true')
+                    let numLike = parseInt(_this.find('span').text());
+                    _this.find('span').text(numLike + 1)
                 }
             }
         })
@@ -343,9 +284,8 @@ $(document).on('click', '.like', function () {
 $(document).on('click', '.collect', function () {
     let blogId = $(this).parents('.user-dynamic-box').attr('data');
     let data = $(this).attr('data')
+    let _this = $(this)
     if (data == 'true') {
-        $(this).find('img').attr('src', "/static/images/collcet1.png")
-        $(this).attr('data', 'false')
         let iscollect = 0;
         $.ajax({
             type: 'post',
@@ -356,13 +296,14 @@ $(document).on('click', '.collect', function () {
             },
             success: function (result) {
                 if (result.success == false) {
-                    layer.msg('<div style="color: black;text-align: center;">' + '请登录</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                } else {
+                    _this.find('img').attr('src', "/static/images/collcet1.png")
+                    _this.attr('data', 'false')
                 }
             }
         })
     } else if (data == 'false') {
-        $(this).find('img').attr('src', "/static/images/collect2.png");
-        $(this).attr('data', 'true')
         let iscollect = 1;
         $.ajax({
             type: 'post',
@@ -373,18 +314,16 @@ $(document).on('click', '.collect', function () {
             },
             success: function (result) {
                 if (result.success == false) {
-                    layer.msg('<div style="color: black;text-align: center;">' + '请登录</div>')
+                    layer.msg('<div style="color: black;text-align: center;">' + result.msg + '</div>')
+                } else {
+                    _this.find('img').attr('src', "/static/images/collect2.png");
+                    _this.attr('data', 'true')
                 }
             }
         })
     }
 
 })
-
-// 上传图片弹框
-function showModal() {
-    $('#myModal').modal('show')
-}
 
 // 导航栏状态
 $(".navibar-top").find("li").each(function () {
@@ -401,23 +340,23 @@ function toUser() {
     location.href = '/user/';
 }
 
-// 发布投票按钮
-function submitVote() {
+
+// 发布投票
+$(document).on('click', '#submitvote', function () {
     let content = $('#content').val()
-    let votetitle = $('#votetitle').val()
     let voteoption = new Array();
-    $(".vote-input").each(function () {
-        voteoption.push($(this).val());
+    $(this).parents('.VN-input-group').find('.vote-input').each(function () {
+        if ($(this).val().trim()) {
+            voteoption.push($(this).val().trim());
+        }
     })
 
-    if (!votetitle) {
-        layer.msg('<div style="color: black;text-align: center;">' + '投票标题不能为空</div>');
+    if (!content) {
+        layer.msg('<div style="color: black;text-align: center;">' + 'blog内容不能为空</div>');
     } else if (voteoption.length < 2) {
         layer.msg('<div style="color: black;text-align: center;">' + '投票选项至少两个</div>');
     } else {
-        // content = content.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
         formData.append('content', content)
-        formData.append('votetitle', votetitle)
         imageList.forEach(function (value) {
             formData.append('img', value)
         })
@@ -433,18 +372,12 @@ function submitVote() {
             success: function (result) {
                 console.log('发布投票成功', result);
                 layer.closeAll();
-                // if ($('.right-user-dynamic-scroll-box').length) {
-                //     location.href = '/'
-                // } else {
-                //     location.href = '/group/'
-                // }
                 location.reload()
             }
         })
     }
+})
 
-
-}
 
 // 上传图片弹窗
 var tipsIndex = null;   //  上传图片弹出层的索引
@@ -453,7 +386,7 @@ $(document).on('click', '.image', function () {
     var content = '<form action="" method="post" enctype="multipart/form-data">' +
         '<div id="imgBox">' +
         '<div class="addImg">' +
-        '<input type="file" id="file" accept="image/*" class="file">' +
+        '<input type="file" id="file" accept="image/jpeg,image/jpg,image/png" class="file">' +
         '<div class="addIcon">' +
         '<span>+</span>' +
         '</div>' +
@@ -462,6 +395,7 @@ $(document).on('click', '.image', function () {
         '</div>' +
         '</form>'
     tipsIndex = layer.tips(content, that, {
+        fixed: false,
         id: 'loadimage',
         shadeClose: true,
         shade: [0.000001, '#ffffff'],
@@ -587,7 +521,7 @@ $(document).on('click', '#discuss', function () {
                         '                            <span class="content-user-name">' + e.userName + '</span>\n' +
                         '                            <span>:&nbsp;</span>\n' +
 
-                        '                            <div>' + e.comment + '</div></div>\n' +
+                        '                            <div class="fbc-content">' + e.comment + '</div></div>\n' +
                         '                        <div class="comment-op">\n' +
                         '                            <div class="content-time">' + timeformat(e.createDate) + '</div>\n' +
                         '                            <div class="fbc-num">\n' +
@@ -595,7 +529,7 @@ $(document).on('click', '#discuss', function () {
                         '                                  <span>(0)</span>\n' +
                         '                            </div>\n' +
                         '                            <div class="reply fbc-reply">Bình luận</div>\n' +
-                        '                            <div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>\n' +
+                        '                            <div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>\n' +
                         '                        </div>\n' +
                         '                    </div>\n' +
                         '                </div>'
@@ -672,7 +606,7 @@ $(document).on('click', '#reply', function () {
                         '                      <div class="content-time">' + timeformat(result.create_date) + '</div>\n' +
                         '                      <div class="reply">Bình luận</div>\n' +
                         '                     <div class="delete-comment" id="delete-sbc">\n' +
-                        '                           <span>Xoá</span>\n' +
+                        '                           <img src="/static/images/delete_icon.png" alt="">\n' +
                         '                     </div>\n' +
                         '                </div>\n' +
                         '            </div>'
@@ -750,7 +684,7 @@ function initGroup() {
                         if (data.ismine) {
                             let content_account_status = ('<div class="content-account-status">' +
                                 '<div class="delete-group">\n' +
-                                '<span>Xoá</span>\n' +
+                                '<img src="/static/images/delete_icon.png" alt="">\n' +
                                 '</div>' +
                                 '</div>')
                             content_header.append(content_account_status)
@@ -783,7 +717,7 @@ function initGroup() {
                         }
                         if (data.type == 1) {
                             let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                            let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                            let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                             let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                             vote_box.append(vote_title)
                             if (data.votedata) {
@@ -877,10 +811,7 @@ function initGroup() {
                                 '                            <span class="content-user-name">' + fbc.username + '</span>\n' +
                                 '                            <span>:&nbsp;</span>\n' +
                                 '                        </div>')
-                            // if (fbc.ismine) {
-                            //     let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Delete</span></div>')
-                            //     fbc_comment_text.append(fbc_delete)
-                            // }
+
                             let fbc_content = $('<div class="fbc-content">' + fbc.content + '</div>')
                             fbc_comment_text.append(fbc_content)
                             let fbc_comment_op = $('<div class="comment-op">\n' +
@@ -892,7 +823,7 @@ function initGroup() {
                                 '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                 '                       </div>')
                             if (fbc.ismine) {
-                                let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                                let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                 fbc_comment_op.append(fbc_delete)
                             }
                             fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -921,7 +852,7 @@ function initGroup() {
                                         '                        <div class="reply">Bình luận</div>\n' +
                                         '                   </div>')
                                     if (sbc.ismine) {
-                                        let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                        let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                         sbc_comment_op.append(sbc_comment_delete)
                                     }
                                     sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -1001,7 +932,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                     if (data.ismine) {
                         let content_account_status = ('<div class="content-account-status">' +
                             '<div class="delete-group">\n' +
-                            '<span>Xoá</span>\n' +
+                            '<img src="/static/images/delete_icon.png" alt="">\n' +
                             '</div>' +
                             '</div>')
                         content_header.append(content_account_status)
@@ -1034,7 +965,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                     }
                     if (data.type == 1) {
                         let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                        let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                        let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                         let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                         vote_box.append(vote_title)
                         if (data.votedata) {
@@ -1142,7 +1073,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                             '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                             '                       </div>')
                         if (fbc.ismine) {
-                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                             fbc_comment_op.append(fbc_delete)
                         }
                         fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -1171,7 +1102,7 @@ $(document).on('click', '#groupMoreGroup', function () {
                                     '                        <div class="reply">Bình luận</div>\n' +
                                     '                   </div>')
                                 if (sbc.ismine) {
-                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                     sbc_comment_op.append(sbc_comment_delete)
                                 }
                                 sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -1400,16 +1331,19 @@ $(document).on('click', '.enlarge-input-box', function () {
     layer.open({
         type: 1,
         title: [
-            'Write your post',
-            'text-align: center;'
+            'Viết suy nghĩ',
+            'text-align: center;padding:0;'
         ],
         id: 'lager_input',
         shadeClose: true,
         resize: false,
+        closeBtn: 1,
         area: '600px',
+        fixed: true,
+        scrollbar: false,
         content: '<div class="VN-input-group">\n' +
             '            <textarea name="" rows="8" class="large-input" id="content" wrap="hard"></textarea>\n' +
-            '            <div class="VN-input-icon-box icon-box-1">\n' +
+            '            <div class="VN-input-icon-box">\n' +
             '                <div class="VN-icon-group">\n' +
             '                    <div class="emojiBtn">\n' +
             '                        <svg t="1583835608479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2284" data-spm-anchor-id="a313x.7781069.0.i1" width="22" height="22">\n' +
@@ -1419,54 +1353,27 @@ $(document).on('click', '.enlarge-input-box', function () {
             '                                  data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>\n' +
             '                        </svg>\n' +
             '                    </div>\n' +
-            '                    <div class="image">\n' +
-            '                        <svg t="1583836028975" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4184" width="22" height="22">\n' +
-            '                            <path d="M853.333333 955.733333H170.666667c-66.030933 0-102.4-36.369067-102.4-102.4V170.666667c0-66.030933 36.369067-102.4 102.4-102.4h682.666666c66.030933 0 102.4 36.369067 102.4 102.4v682.666666c0 66.030933-36.369067 102.4-102.4 102.4zM102.4 775.0656V853.333333c0 47.223467 21.0432 68.266667 68.266667 68.266667h682.666666c47.223467 0 68.266667-21.0432 68.266667-68.266667v-78.267733l-324.266667-324.266667L450.798933 597.333333l73.2672 73.2672a17.0496 17.0496 0 1 1-24.132266 24.132267L341.333333 536.132267l-238.933333 238.933333zM597.333333 409.6c4.369067 0 8.738133 1.672533 12.066134 5.000533L921.6 726.801067V170.666667c0-47.223467-21.0432-68.266667-68.266667-68.266667H170.666667c-47.223467 0-68.266667 21.0432-68.266667 68.266667v556.1344l226.8672-226.8672a17.0496 17.0496 0 0 1 24.132267 0L426.666667 573.201067l158.600533-158.600534A17.015467 17.015467 0 0 1 597.333333 409.6z m-256-51.2c-27.904 0-52.343467-10.2912-72.6528-30.600533C248.9344 308.0704 238.933333 283.921067 238.933333 256c0-27.8016 9.949867-52.1728 29.5424-72.448C289.160533 163.549867 313.531733 153.6 341.333333 153.6c27.921067 0 52.0704 10.001067 71.816534 29.7472C433.442133 203.656533 443.733333 228.096 443.733333 256c0 28.023467-10.359467 52.241067-30.805333 72.004267C393.5744 348.040533 369.3568 358.4 341.333333 358.4z m0-170.666667c-18.8928 0-34.850133 6.519467-48.708266 19.950934C279.586133 221.149867 273.066667 237.1072 273.066667 256c0 18.7904 6.4512 34.389333 19.746133 47.650133C306.688 317.525333 322.542933 324.266667 341.333333 324.266667c18.670933 0 34.184533-6.673067 47.4624-20.394667C402.926933 290.184533 409.6 274.670933 409.6 256c0-18.7904-6.741333-34.645333-20.599467-48.520533C375.722667 194.184533 360.123733 187.733333 341.333333 187.733333z"\n' +
-            '                                  p-id="4185" fill="#eaad40">\n' +
-            '                                </path>\n' +
-            '                        </svg>\n' +
+            '                    <div class="large-input-image image">\n' +
+            '                        <img src="/static/images/img_icon.png" alt="">' +
+            '                        <span>Thư viện</span>' +
             '                    </div>\n' +
-            '                    <div class="vote">\n' +
-            '                        <svg t="1583836119960" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2150" data-spm-anchor-id="a313x.7781069.0.i1" width="22" height="22">\n' +
-            '                            <path d="M942.592 1011.2H86.528c-37.888 0-68.608-30.72-68.608-68.608v-297.984c0-37.888 30.72-68.608 68.608-68.608H317.44v51.2H86.528c-9.216 0-17.408 8.192-17.408 17.408v297.984c0 9.216 8.192 17.408 17.408 17.408h856.064c9.216 0 17.408-8.192 17.408-17.408v-297.984c0-9.216-8.192-17.408-17.408-17.408H645.12v-51.2h297.472c37.888 0 68.608 30.72 68.608 68.608v297.984c0 37.888-30.72 68.608-68.608 68.608z"\n' +
-            '                                  p-id="2151" data-spm-anchor-id="a313x.7781069.0.i0" class="" fill="#eaad40"></path>\n' +
-            '                            <path d="M480.256 788.48c-7.68 0-15.872-3.072-21.504-8.704L155.648 476.16c-11.776-11.776-11.776-31.232 0-43.52L547.328 40.96c5.632-5.632 13.312-9.216 21.504-9.216s15.872 3.072 21.504 9.216l303.104 303.104c11.776 11.776 11.776 31.232 0 43.52L501.76 779.264c-5.632 6.144-13.824 9.216-21.504 9.216zM206.336 454.656l273.92 273.92 362.496-362.496L568.832 92.16 206.336 454.656z"\n' +
-            '                                  p-id="2152" fill="#eaad40"></path>\n' +
-            '                            <path d="M494.08 536.576c-13.312 0-26.624-5.12-36.864-14.848l-0.512-0.512L373.76 437.248c-9.728-10.24-9.728-26.112 0-36.352 10.24-9.728 26.112-9.728 36.352 0l82.944 83.456c1.024 0.512 1.536 0.512 2.048 0.512l122.88-122.88c10.24-10.24 26.112-10.24 36.352 0s10.24 26.112 0 36.352l-122.88 122.88c-10.24 10.24-23.552 15.36-37.376 15.36z"\n' +
-            '                                  p-id="2153" fill="#eaad40"></path>\n' +
-            '                            <path d="M770.56 801.28h-512c-14.336 0-25.6-11.264-25.6-25.6s11.264-25.6 25.6-25.6h512c14.336 0 25.6 11.264 25.6 25.6s-11.264 25.6-25.6 25.6z" p-id="2154" fill="#eaad40"></path>\n' +
-            '                        </svg>\n' +
+            '                    <div class="large-input-vote vote">\n' +
+            '                        <img src="/static/images/vote_icon.png" alt="">' +
+            '                        <span>Bình chọn</span>' +
             '                    </div>\n' +
             '                </div>\n' +
-            '                <button class="VN-input-button-1" id="submitblog">Đăng</button>\n' +
+            '                <div id="submitblog" class="index-group-submit-btn"><img src="/static/images/submit.png" alt=""></div>' +
             '            </div>\n' +
             '        </div>'
     });
 })
 
 
-// 封装缩放图片函数
-// $(document).on("mousewheel DOMMouseScroll", '#alert-img', function (e) {
-//
-//
-//     var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
-//
-//         (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
-//
-//     let _this = $(this)
-//     let img = _this.parent('div')
-//     let zoom = parseFloat(img.css('zoom'))
-//     console.log(zoom,'-----------------------------')
-//     zoom += delta/10
-//     img.css('zoom',zoom)
-//
-//
-// })
-
 //以鼠标位置为中心的图片滚动放大缩小
 $(document).on("mousewheel", "#alert-img", function (ev) {
     var oImg = $(this).parent('div')[0];
     var img = $(this).children('img')[0]
+    var _this = $(this)[0]
     var delta = (ev.originalEvent.wheelDelta && (ev.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
 
         (ev.originalEvent.detail && (ev.originalEvent.detail > 0 ? -1 : 1));              // firefox
@@ -1489,6 +1396,12 @@ $(document).on("mousewheel", "#alert-img", function (ev) {
         height = h + 'px';
         left = l + 'px';
         top = t + 'px';
+    }
+    with (_this.style) {
+        width = w + 'px';
+        height = h + 'px';
+        // left = l + 'px';
+        // top = t + 'px';
     }
     // oImg.css({'width':w +'px','height':h +'px','left':l +'px','top':t +'px'})
 });
@@ -1547,7 +1460,6 @@ $(document).on('click', '.accept', function () {
 $(document).on('click', '.close-ad', function () {
     $(this).parent('.global-side-container').remove()
 })
-
 
 // group 评论收回展开
 $(document).on('click', '.group-extend-comment', function () {

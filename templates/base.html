@@ -74,9 +74,9 @@
                     {% endif %} >
 
                         {% if request.user.is_authenticated %}
-                            <img src="/media/{{ request.session.user_img }}" alt="" width="40" height="40">
+                            <img src="/media/{{ request.session.user_img }}" alt="" width="34" height="34">
                         {% else %}
-                            <img src="/static/images/head.png" alt="" width="40" height="40">
+                            <img src="/static/images/head.png" alt="" width="34" height="34">
                         {% endif %}
                     </div>
                     <div class="user-name" id="user-name" {% if request.user.is_authenticated %}

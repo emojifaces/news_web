@@ -21,4 +21,5 @@ urlpatterns = [
     path('modifypersonalinfo/',ModifyPersonalInformation.as_view()),
     path('removeblacklist/',RemoveBlackList.as_view()),
     path('thirdlogin/',ThirdLogin.as_view()),
+    path('moduserhead/',ModifyUserHeadImg.as_view()),
 ]

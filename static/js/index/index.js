@@ -88,11 +88,11 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                     // 微博
 
                     let blogId = data.id
+                    let textinput = null
                     $.ajax({
                         type: 'get',
                         url: '/group/detail/' + blogId,
                         success: function (res) {
-                            console.log(res)
                             if (res.success) {
                                 let data = res.data
                                 let headerUrl = $('#user-header>img').attr('src');
@@ -115,7 +115,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 if (data.ismine) {
                                     let content_account_status = ('<div class="content-account-status">' +
                                         '<div class="delete-group">\n' +
-                                        '<span>Xoá</span>\n' +
+                                        '<img src="/static/images/delete_icon.png" alt="">\n' +
                                         '</div>' +
                                         '</div>')
                                     content_header.append(content_account_status)
@@ -148,7 +148,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 }
                                 if (data.type == 1) {
                                     let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                                    let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                                    let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                                     let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                                     vote_box.append(vote_title)
                                     if (data.votedata) {
@@ -227,6 +227,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                     '        </div>\n' +
                                     '        <button class="group-1-button" id="discuss"><img src="/static/images/submit.png" alt=""></button>\n' +
                                     '    </div>')
+                                textinput = VN_input.find('#textarea')
                                 parentDiv.append(VN_input)
                                 info.append(parentDiv)
                                 let comment_box = $('<div class="dynamic-comment-box"></div>')
@@ -256,7 +257,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                         '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                         '                       </div>')
                                     if (fbc.ismine) {
-                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                         fbc_comment_op.append(fbc_delete)
                                     }
                                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -285,7 +286,7 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                                 '                        <div class="reply">Bình luận</div>\n' +
                                                 '                   </div>')
                                             if (sbc.ismine) {
-                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                                 sbc_comment_op.append(sbc_comment_delete)
                                             }
                                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -307,6 +308,9 @@ $(document).on('click', '#moreFastInfoBtn', function () {
                                 }
 
                             }
+                        },
+                        complete:function () {
+                            textinput.flexText()
                         }
                     })
 
@@ -389,10 +393,11 @@ summary_page = 2
 summary_limit = 30
 $(document).on('click', '#moreSummaryBtn', function () {
     let btn = $(this).parents('.main-data-div')
+    let offset = btn.parents('#main-left-data').find('.summary-info').length
     btn.remove()
     $.ajax({
         type: 'get',
-        url: '/fastinfo/?import=True&page=' + summary_page + '&limit=' + summary_limit,
+        url: '/fastinfo/?import=True&page=' + summary_page + '&limit=' + summary_limit + '&offset=' + offset,
         success: function (result) {
             console.log('加载更多summary', result)
             let container = $('.summary-load-div')
@@ -469,11 +474,11 @@ $(document).on('click', '#moreSummaryBtn', function () {
                 } else if (data.fast_type == 2) {
                     // 微博
                     let blogId = data.id
+                    let textinput = null
                     $.ajax({
                         type: 'get',
                         url: '/group/detail/' + blogId,
                         success: function (res) {
-                            console.log(res)
                             if (res.success) {
                                 let data = res.data
                                 let headerUrl = $('#user-header>img').attr('src');
@@ -496,7 +501,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                 if (data.ismine) {
                                     let content_account_status = ('<div class="content-account-status">' +
                                         '<div class="delete-group">\n' +
-                                        '<span>Xoá</span>\n' +
+                                        '<img src="/static/images/delete_icon.png" alt="">\n' +
                                         '</div>' +
                                         '</div>')
                                     content_header.append(content_account_status)
@@ -529,7 +534,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                 }
                                 if (data.type == 1) {
                                     let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                                    let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                                    let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                                     let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                                     vote_box.append(vote_title)
                                     if (data.votedata) {
@@ -608,6 +613,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                     '        </div>\n' +
                                     '        <button class="group-1-button" id="discuss"><img src="/static/images/submit.png" alt=""></button>\n' +
                                     '    </div>')
+                                textinput = VN_input.find('#textarea')
                                 parentDiv.append(VN_input)
                                 info.append(parentDiv)
                                 let comment_box = $('<div class="dynamic-comment-box"></div>')
@@ -634,7 +640,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                         '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                         '                       </div>')
                                     if (fbc.ismine) {
-                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                         fbc_comment_op.append(fbc_delete)
                                     }
                                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -660,7 +666,7 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                                 '                        <div class="reply">Bình luận</div>\n' +
                                                 '                   </div>')
                                             if (sbc.ismine) {
-                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                                 sbc_comment_op.append(sbc_comment_delete)
                                             }
                                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -682,6 +688,9 @@ $(document).on('click', '#moreSummaryBtn', function () {
                                 }
 
                             }
+                        },
+                        complete:function () {
+                            textinput.flexText()
                         }
                     })
 
@@ -915,7 +924,7 @@ function getBlogList() {
                     if (data.ismine) {
                         let content_account_status = ('<div class="content-account-status">' +
                             '<div class="delete-group">\n' +
-                            '<span>Xoá</span>\n' +
+                            '<img src="/static/images/delete_icon.png" alt="">\n' +
                             '</div>' +
                             '</div>')
                         content_header.append(content_account_status)
@@ -948,7 +957,7 @@ function getBlogList() {
                     }
                     if (data.type == 1) {
                         let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                        let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                        let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                         let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                         vote_box.append(vote_title)
                         if (data.votedata) {
@@ -1090,7 +1099,7 @@ $(document).on('click', '#indexMoreGroup', function () {
                     if (data.ismine) {
                         let content_account_status = ('<div class="content-account-status">' +
                             '<div class="delete-group">\n' +
-                            '<span>Xoá</span>\n' +
+                            '<img src="/static/images/delete_icon.png" alt="">\n' +
                             '</div>' +
                             '</div>')
                         content_header.append(content_account_status)
@@ -1122,7 +1131,7 @@ $(document).on('click', '#indexMoreGroup', function () {
                     }
                     if (data.type == 1) {
                         let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                        let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                        let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                         let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Người đã bình chọn</div>')
                         vote_box.append(vote_title)
                         if (data.votedata) {
@@ -1262,7 +1271,7 @@ $(document).on('click', '.expand-comment', function () {
                             '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                             '                       </div>')
                         if (fbc.ismine) {
-                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                             fbc_comment_op.append(fbc_delete)
                         }
                         fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -1291,7 +1300,7 @@ $(document).on('click', '.expand-comment', function () {
                                     '                        <div class="reply">Bình luận</div>\n' +
                                     '                   </div>')
                                 if (sbc.ismine) {
-                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                     sbc_comment_op.append(sbc_comment_delete)
                                 }
                                 sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -1365,7 +1374,7 @@ $(document).on('click', 'div[class="dynamic-comment-footer"]', function () {
                         '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                         '                       </div>')
                     if (fbc.ismine) {
-                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                        let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                         fbc_comment_op.append(fbc_delete)
                     }
                     fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -1394,7 +1403,7 @@ $(document).on('click', 'div[class="dynamic-comment-footer"]', function () {
                                 '                        <div class="reply">Bình luận</div>\n' +
                                 '                   </div>')
                             if (sbc.ismine) {
-                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                 sbc_comment_op.append(sbc_comment_delete)
                             }
                             sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -1456,7 +1465,7 @@ $(document).on('click', '.more-sbc', function () {
                         '             <div class="reply">Bình luận</div>\n' +
                         '       </div>\n')
                     if (sbc.ismine) {
-                        let sbc_comment_delete = $('<div class="delete-comment"><span>Xoá</span></div>\n')
+                        let sbc_comment_delete = $('<div class="delete-comment"><img src="/static/images/delete_icon.png" alt=""></div>\n')
                         sbc_comment_op.append(sbc_comment_delete)
                     }
                     let sbc_comment_content = $('<div class="sbc-content">' + sbc.content + '</div>')

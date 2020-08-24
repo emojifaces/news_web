@@ -25,8 +25,9 @@ user
                     {% endif %}
                 </div>
 
-                <div style="display: flex;flex-direction: column;align-items: center">
-                    <img src="/media/{{ data.img }}" alt="" class="blog-logo">
+                <div style="display: flex;flex-direction: column;align-items: center;position: relative">
+                    <img  src="/media/{{ data.img }}" alt="" class="cursor-pointer blog-logo" id="user-head-img">
+                    <input type="file" id="user-head-img-input" accept="image/jpeg,image/jpg,image/png">
                     <div>
                         {% if data.gender == 1 %}
                         <img class="gender" src="/static/images/male.png" alt="">
@@ -34,10 +35,10 @@ user
                         <img class="gender" src="/static/images/famale.png" alt="">
                         {% endif %}
 
-                        <span class="user-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
+                        <span style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                     </div>
                     <div class="user-profile">
-                        {{ data.slogan | default_if_none:'' }}
+{#                        {{ data.slogan | default_if_none:'' }}#}
                     </div>
 
 
@@ -81,30 +82,30 @@ user
                             </div>
 
                         </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/TP.png" alt="">
-                                <span class="personal-phone">{% if data.phone %}
-                                    {{ data.phone }}
-                                    {% else %}
-                                     <span class="blank-info">INPUT PHONE</span>
-                                {% endif %}
-                                    </span>
-                            </div>
-
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/MA.png" alt="">
-                                <span class="personal-email">{% if data.email %}
-                                {{ data.email }}
-                                {% else %}
-                                    <span class="blank-info">INPUT EMAIL</span>
-                                {% endif %}
-                                    </span>
-                            </div>
-
-                        </div>
+{#                        <div class="personal-info-col">#}
+{#                            <div>#}
+{#                                <img src="/static/images/TP.png" alt="">#}
+{#                                <span class="personal-phone">{% if data.phone %}#}
+{#                                    {{ data.phone }}#}
+{#                                    {% else %}#}
+{#                                     <span class="blank-info">INPUT PHONE</span>#}
+{#                                {% endif %}#}
+{#                                    </span>#}
+{#                            </div>#}
+{##}
+{#                        </div>#}
+{#                        <div class="personal-info-col">#}
+{#                            <div>#}
+{#                                <img src="/static/images/MA.png" alt="">#}
+{#                                <span class="personal-email">{% if data.email %}#}
+{#                                {{ data.email }}#}
+{#                                {% else %}#}
+{#                                    <span class="blank-info">INPUT EMAIL</span>#}
+{#                                {% endif %}#}
+{#                                    </span>#}
+{#                            </div>#}
+{##}
+{#                        </div>#}
 {#                        <div class="personal-info-col">#}
 {#                            <div>#}
 {#                                <img src="/static/images/FB1.png" alt="">#}
@@ -131,18 +132,18 @@ user
                             </div>
 
                         </div>
-                        <div class="color-comment" style="min-height: 40px">
-                            <div style="width: 100%;display: flex;align-items: self-start">
-                                <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">
-                                <span class="personal-slogan" style="margin: .6rem 0">
-                                    {% if data.slogan %}
-                                    {{ data.slogan }}
-                                        {% else %}
-                                        <span class="blank-info">INPUT SLOGAN</span>
-                                    {% endif %}
-                                    </span>
-                            </div>
-                        </div>
+{#                        <div class="color-comment" style="min-height: 40px">#}
+{#                            <div style="width: 100%;display: flex;align-items: self-start">#}
+{#                                <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">#}
+{#                                <span class="personal-slogan" style="margin: .6rem 0">#}
+{#                                    {% if data.slogan %}#}
+{#                                    {{ data.slogan }}#}
+{#                                        {% else %}#}
+{#                                        <span class="blank-info">INPUT SLOGAN</span>#}
+{#                                    {% endif %}#}
+{#                                    </span>#}
+{#                            </div>#}
+{#                        </div>#}
 
                     </div>
                 </div>
@@ -167,21 +168,21 @@ user
                         <div class="tab-pane fade {% if data.num == '3' %}in show active{% endif %}" id="collect" role="tabpanel" aria-labelledby="collect-tab"></div>
                         <div class="tab-pane fade {% if data.num == '4' %}in show active{% endif %}" id="blacklist" role="tabpanel" aria-labelledby="blacklist-tab"></div>
                     </div>
-                <div class="user-load-div" style="display: none">
-                <div class="ibox ">
-                    <div class="ibox-content">
-                        <div class="spiner-example">
-                            <div class="sk-spinner sk-spinner-wave">
-                                <div class="sk-rect1"></div>
-                                <div class="sk-rect2"></div>
-                                <div class="sk-rect3"></div>
-                                <div class="sk-rect4"></div>
-                                <div class="sk-rect5"></div>
+                    <div class="user-load-div" style="display: none">
+                        <div class="ibox ">
+                            <div class="ibox-content">
+                                <div class="spiner-example">
+                                    <div class="sk-spinner sk-spinner-wave">
+                                        <div class="sk-rect1"></div>
+                                        <div class="sk-rect2"></div>
+                                        <div class="sk-rect3"></div>
+                                        <div class="sk-rect4"></div>
+                                        <div class="sk-rect5"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </div>

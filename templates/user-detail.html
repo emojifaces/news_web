@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-user-detail
+    user-detail
 {% endblock %}
 {% block link %}
     <link rel="stylesheet" href="/static/css/bootstrap.css">
@@ -9,149 +9,162 @@ user-detail
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="/static/css/loading.css">
 {% endblock %}
 {% block body %}
-<div id="main-index" class="container" style="justify-content: center">
-    <div id="main-left" class="main-padding" style="width: 70.5%">
-        <div id="main-left-data">
-            <div class="user-head">
-                <div class="blog-left-top" data-url="{{ data.facebook_link }}">
-                    {% if data.facebook_link %}
-                    <img src="/static/images/user-facebook.png" alt="">
-                    <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
-                    {% endif %}
-                </div>
-            {% if not data.ismine and not data.isblack %}
-                <div class="add-black-btn" data="{{ data.userId }}">
-                    <span>Add to blacklist</span>
-                </div>
-            {% endif %}
-
-                <div style="display: flex;flex-direction: column;align-items: center">
-                    <img src="/media/{{ data.img }}" alt="" class="blog-logo">
-                    <div>
-                        {% if data.gender == 1 %}
-                        <img class="gender" src="/static/images/male.png" alt="">
-                        {% else %}
-                        <img class="gender" src="/static/images/famale.png" alt="">
+    <div id="main-index" class="container" style="justify-content: center">
+        <div id="main-left" class="main-padding" style="width: 70.5%">
+            <div id="main-left-data">
+                <div class="user-head">
+                    <div class="blog-left-top" data-url="{{ data.facebook_link }}">
+                        {% if data.facebook_link %}
+                            <img src="/static/images/user-facebook.png" alt="">
+                            <span style="margin-left: 0.8rem">{{ data.facebook }}</span>
                         {% endif %}
-
-                        <span class="user-name" style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                     </div>
-                    <div class="user-profile">
-                        {{ data.slogan | default_if_none:'' }}
-                    </div>
+                    {% if not data.ismine and not data.isblack %}
+                        <div class="add-black-btn" data="{{ data.userId }}">
+                            <span>Add to blacklist</span>
+                        </div>
+                    {% endif %}
 
-
-                </div>
-            </div>
-            <div style="display: flex;margin: 1.875rem 0 5rem;justify-content: space-between">
-                <div class="user-div-left">
-                    <div class="personal-info">
-                        <div class="personal-info-header">
-                            <div>Thông tin cá nhân</div>
-                            {% if data.ismine %}
-                            <button id="modify-personal-information">
-                                <img src="/static/images/edit.png" alt="">
-                            </button>
+                    <div style="display: flex;flex-direction: column;align-items: center">
+                        <img src="/media/{{ data.img }}" alt="" class="blog-logo">
+                        <div>
+                            {% if data.gender == 1 %}
+                                <img class="gender" src="/static/images/male.png" alt="">
+                            {% else %}
+                                <img class="gender" src="/static/images/famale.png" alt="">
                             {% endif %}
 
+                            <span class="user-name"
+                                  style="font-size: 1.25rem;padding: 1rem 0 2rem ">{{ data.name }}</span>
                         </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/NA.png" alt="">
-                                <span class="personal-name">{{ data.name }}</span>
-                            </div>
+                        <div class="user-profile">
+                            {#                        {{ data.slogan | default_if_none:'' }}#}
+                        </div>
 
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/SX.png" alt="">
-                                <span class="personal-gender">{% if data.gender == 1 %}
-                                Man
-                                    {% else %}
-                                    Woman
-                                {% endif %}</span>
-                            </div>
-
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/BD.png" alt="">
-                                <span class="personal-birthday">{{ data.birthday|date:'Y-m-d' }}</span>
-                            </div>
-
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/TP.png" alt="">
-                                <span class="personal-phone">{{ data.phone }}</span>
-                            </div>
-
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/MA.png" alt="">
-                                <span class="personal-email">{{ data.email }}</span>
-                            </div>
-
-                        </div>
-                        <div class="personal-info-col">
-                            <div>
-                                <img src="/static/images/FB1.png" alt="">
-                                <span class="personal-facebook">{{ data.facebook_link | default_if_none:'' }}</span>
-                            </div>
-
-                        </div>
-                        <div class="color-comment" style="min-height: 40px">
-                            <div style="width: 100%;display: flex;align-items: self-start">
-                                <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">
-                                <span class="personal-slogan" style="margin: .6rem 0">{{ data.slogan }}</span>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
-                <div class="user-div-right">
-                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="my-group-tab" data-toggle="pill" href="#user-detail-group" role="tab" aria-controls="pills-my-group" aria-selected="true">Nhóm của tôi</a>
-                        </li>
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" id="comment-tab" data-toggle="pill" href="#comment" role="tab" aria-controls="pills-comment" aria-selected="false">Comment</a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" id="collect-tab" data-toggle="pill" href="#collect" role="tab" aria-controls="pills-collect" aria-selected="false">Collect</a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" id="blacklist-tab" data-toggle="pill" href="#blacklist" role="tab" aria-controls="pills-blacklist" aria-selected="false">Blacklist</a>#}
-{#                        </li>#}
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="user-detail-group" role="tabpanel" aria-labelledby="my-group-tab"></div>
-{#                        <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab"></div>#}
-{#                        <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab"></div>#}
-{#                        <div class="tab-pane fade" id="blacklist" role="tabpanel" aria-labelledby="blacklist-tab"></div>#}
+                <div style="display: flex;margin: 1.875rem 0 5rem;justify-content: space-between">
+                    <div class="user-div-left">
+                        <div class="personal-info">
+                            <div class="personal-info-header">
+                                <div>Thông tin cá nhân</div>
+                                {% if data.ismine %}
+                                    <button id="modify-personal-information">
+                                        <img src="/static/images/edit.png" alt="">
+                                    </button>
+                                {% endif %}
+
+                            </div>
+                            <div class="personal-info-col">
+                                <div>
+                                    <img src="/static/images/NA.png" alt="">
+                                    <span class="personal-name">{{ data.name }}</span>
+                                </div>
+
+                            </div>
+                            <div class="personal-info-col">
+                                <div>
+                                    <img src="/static/images/SX.png" alt="">
+                                    <span class="personal-gender">{% if data.gender == 1 %}
+                                        Man
+                                    {% else %}
+                                        Woman
+                                    {% endif %}</span>
+                                </div>
+
+                            </div>
+                            <div class="personal-info-col">
+                                <div>
+                                    <img src="/static/images/BD.png" alt="">
+                                    <span class="personal-birthday">{{ data.birthday|date:'Y-m-d' }}</span>
+                                </div>
+
+                            </div>
+                            {#                        <div class="personal-info-col">#}
+                            {#                            <div>#}
+                            {#                                <img src="/static/images/TP.png" alt="">#}
+                            {#                                <span class="personal-phone">{{ data.phone }}</span>#}
+                            {#                            </div>#}
+                            {##}
+                            {#                        </div>#}
+                            {#                        <div class="personal-info-col">#}
+                            {#                            <div>#}
+                            {#                                <img src="/static/images/MA.png" alt="">#}
+                            {#                                <span class="personal-email">{{ data.email }}</span>#}
+                            {#                            </div>#}
+                            {##}
+                            {#                        </div>#}
+                            <div class="personal-info-col">
+                                <div>
+                                    <img src="/static/images/FB1.png" alt="">
+                                    <span class="personal-facebook">{{ data.facebook_link | default_if_none:'' }}</span>
+                                </div>
+
+                            </div>
+                            {#                        <div class="color-comment" style="min-height: 40px">#}
+                            {#                            <div style="width: 100%;display: flex;align-items: self-start">#}
+                            {#                                <img src="/static/images/AP.png" alt="" style="margin:1rem 1.25rem 0 0">#}
+                            {#                                <span class="personal-slogan" style="margin: .6rem 0">{{ data.slogan }}</span>#}
+                            {#                            </div>#}
+                            {#                        </div>#}
+
+                        </div>
+                    </div>
+                    <div class="user-div-right">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="my-group-tab" data-toggle="pill"
+                                   href="#user-detail-group" role="tab" aria-controls="pills-my-group"
+                                   aria-selected="true">Nhóm của tôi</a>
+                            </li>
+                            {#                        <li class="nav-item">#}
+                            {#                            <a class="nav-link" id="comment-tab" data-toggle="pill" href="#comment" role="tab" aria-controls="pills-comment" aria-selected="false">Comment</a>#}
+                            {#                        </li>#}
+                            {#                        <li class="nav-item">#}
+                            {#                            <a class="nav-link" id="collect-tab" data-toggle="pill" href="#collect" role="tab" aria-controls="pills-collect" aria-selected="false">Collect</a>#}
+                            {#                        </li>#}
+                            {#                        <li class="nav-item">#}
+                            {#                            <a class="nav-link" id="blacklist-tab" data-toggle="pill" href="#blacklist" role="tab" aria-controls="pills-blacklist" aria-selected="false">Blacklist</a>#}
+                            {#                        </li>#}
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="user-detail-group" role="tabpanel"
+                                 aria-labelledby="my-group-tab"></div>
+                            {#                        <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab"></div>#}
+                            {#                        <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab"></div>#}
+                            {#                        <div class="tab-pane fade" id="blacklist" role="tabpanel" aria-labelledby="blacklist-tab"></div>#}
+                        </div>
+                        <div class="user-load-div" style="display: none">
+                            <div class="ibox ">
+                                <div class="ibox-content">
+                                    <div class="spiner-example">
+                                        <div class="sk-spinner sk-spinner-wave">
+                                            <div class="sk-rect1"></div>
+                                            <div class="sk-rect2"></div>
+                                            <div class="sk-rect3"></div>
+                                            <div class="sk-rect4"></div>
+                                            <div class="sk-rect5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 {% block script %}
-<script src="/static/js/bin/jquery-2.1.4.js"></script>
-<script src="/static/js/bin/bootstrap.js"></script>
-<script src="/static/layer/layer.js"></script>
-<script src="/static/js/bin/jquery.pagination.js"></script>
-<script src="/static/js/index/default.js"></script>
-<script src="/static/js/index/emoji.js"></script>
-<script src="/static/js/index/user.js"></script>
-<script src="/static/js/index/index.js"></script>
-<script src="/static/js/bin/bootstrap-datepicker.js"></script>
-<script>
-initUserDetail()
+    <script src="/static/js/index/user.js"></script>
+    <script src="/static/js/bin/jquery.flexText.js"></script>
+    <script>
+        initUserDetail()
 
 
-</script>
+    </script>
 {% endblock %}

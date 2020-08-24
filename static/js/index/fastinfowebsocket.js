@@ -155,7 +155,7 @@ window.onload = function () {
                             }
                             if (data.type == 1) {
                                 let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                                let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                                let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                                 let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Person Vote</div>')
                                 vote_box.append(vote_title)
                                 if (data.votedata) {

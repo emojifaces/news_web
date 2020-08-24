@@ -347,6 +347,7 @@
                     } else if (data.fast_type == 2) {
                         // 微博
                         let blogId = data.id
+                        let textinput = null
                         $.ajax({
                             type: 'get',
                             url: '/group/detail/' + blogId,
@@ -374,7 +375,7 @@
                                     if (data.ismine) {
                                         let content_account_status = ('<div class="content-account-status">' +
                                             '<div class="delete-group">\n' +
-                                            '<span>Xoá</span>\n' +
+                                            '<img src="/static/images/delete_icon.png" alt="">\n' +
                                             '</div>' +
                                             '</div>')
                                         content_header.append(content_account_status)
@@ -407,7 +408,7 @@
                                     }
                                     if (data.type == 1) {
                                         let vote_box = $('<div class="vote-box" isvote="' + data.isallvote + '"></div>')
-                                        let vote_title = $('<div class="vote-title color-comment">' + data.votetitle + '</div>')
+                                        let vote_title = $('<img class="vote_icon" src="/static/images/vote_icon.png">')
                                         let all_vote = $('<div class="allVote color-comment" id="allVote">' + data.votenum + ' Person Vote</div>')
                                         vote_box.append(vote_title)
                                         if (data.votedata) {
@@ -486,6 +487,7 @@
                                         '        </div>\n' +
                                         '        <button class="group-1-button" id="discuss"><img src="/static/images/submit.png" alt=""></button>\n' +
                                         '    </div>')
+                                    textinput = VN_input.find('#textarea')
                                     parentDiv.append(VN_input)
                                     info.append(parentDiv)
                                     let comment_box = $('<div class="dynamic-comment-box"></div>')
@@ -512,7 +514,7 @@
                                             '                            <div class="reply fbc-reply">Bình luận</div>\n' +
                                             '                       </div>')
                                         if (fbc.ismine) {
-                                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><span>Xoá</span></div>')
+                                            let fbc_delete = $('<div class="delete-comment" id="delete-fbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                             fbc_comment_op.append(fbc_delete)
                                         }
                                         fbc_commentDate.append(fbc_comment_text, fbc_comment_op)
@@ -538,7 +540,7 @@
                                                     '                        <div class="reply">Bình luận</div>\n' +
                                                     '                   </div>')
                                                 if (sbc.ismine) {
-                                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><span>Xoá</span></div>')
+                                                    let sbc_comment_delete = $('<div class="delete-comment" id="delete-sbc"><img src="/static/images/delete_icon.png" alt=""></div>')
                                                     sbc_comment_op.append(sbc_comment_delete)
                                                 }
                                                 sbc_comment_data.append(sbc_comment_text, sbc_comment_op)
@@ -561,14 +563,8 @@
 
                                 }
                             },
-                            beforeSend: function () {
-                                $('.fastinfo-load-div').show()
-                            },
                             complete: function () {
-                                $('.fastinfo-load-div').hide()
-                                $('#main-left-data').find('.fastinfo').each(function () {
-                                    $(this).children('.main-data-info').children('.user-dynamic-box').find('#textarea').flexText()
-                                })
+                                textinput.flexText()
                             }
                         })
 

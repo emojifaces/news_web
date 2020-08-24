@@ -1,8 +1,12 @@
+import base64
+import os
+import time
 from datetime import datetime
 
 import emoji
 from django.db.models import Q
 from django.shortcuts import render
+from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -446,3 +450,31 @@ class ThirdLogin(APIView):
     def get(self, request, format=None):
 
         return render(request,'test.html')
+
+# 修改用户头像
+class ModifyUserHeadImg(APIView):
+    authentication_classes = (UnsafeSessionAuthentication, BasicAuthentication)
+    permission_classes = (AllowAny,)
+    def post(self,request):
+
+        user_img = request.FILES.get('img',None)
+        print(type(user_img))
+        if request.user.is_authenticated:
+            if user_img:
+                baseuser = BaseUser.objects.get(auth_user=request.user)
+                img_suffix = user_img.name.split('.')[-1]
+                t = time.time()
+                path = str(int(round(t * 1000))) + str(baseuser.id) + 'header.'+img_suffix
+                file = open(os.path.join(settings.MEDIA_ROOT, path), "wb")
+                for chunk in user_img.chunks():
+                    file.write(chunk)
+                file.close()
+                baseuser.img = path
+                baseuser.save()
+                request.session['user_img'] = baseuser.img
+                request.session['user_name'] = baseuser.name
+                return Response({'success':True})
+            else:
+                return Response({'success':False,'msg':'file error'})
+        else:
+            return Response({'success':False,'msg':'Vui lòng đăng nhậpVui lòng đăng nhập'})

@@ -55,7 +55,7 @@ function initIndexAd() {
             // 顶部
             for (let ad of res.data.top){
                 let ad_div = $('<div class="ad-container maxw190"></div>')
-                let img = $('<div class="ad-div"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
+                let img = $('<div class="ad-div index-top-ad"><img src="/media/' + ad.img + '" data-url="' + ad.url + '" id="ad-img" ><div class="mask">Show Me More</div></div>')
                 ad_div.append(img)
                 top_container.append(ad_div)
             }

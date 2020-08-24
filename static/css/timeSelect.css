@@ -56,7 +56,7 @@
     width: 5rem;
     cursor: pointer;
     position: relative;
-
+    text-align: center;
 }
 #timeSelect .timeSelect-active{
     color: #2e3b54;

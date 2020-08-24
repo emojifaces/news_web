@@ -20,6 +20,7 @@ $('#search-result-blog').click(function () {
         url: '/searchoffical/?q=' + query,
         mothod: 'GET',
         success: function (res) {
+            console.log('搜索blog',res)
             $('#main-data').empty();
             if (!res.success) {
                 layer.msg('<div style="color: black;text-align: center;">' + res.msg + '</div>')
@@ -68,11 +69,15 @@ $('#search-result-blog').click(function () {
                         let like_btn = $('<button class="blog-like" islike="' + data.islike + '">' +
                             '<img src="/static/images/like2.png" alt="">' +
                             '</button>')
+                        let like_num = $('<span>' + data.like_num + '</span>')
+                        like_btn.append(like_num)
                         footer_div.append(like_btn)
                     } else {
                         let like_btn = $('<button class="blog-like" islike="' + data.islike + '">' +
                             '<img src="/static/images/like1.png" alt="">' +
                             '</button>')
+                        let like_num = $('<span>' + data.like_num + '</span>')
+                        like_btn.append(like_num)
                         footer_div.append(like_btn)
                     }
                     container.append(footer_div)

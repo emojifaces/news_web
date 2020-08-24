@@ -25,23 +25,12 @@ class SearchView(APIView):
     def get(self,request):
 
         query = request.GET.get('q',None)
-        # page = request.GET.get('page', 1)
-        # limit = request.GET.get('limit', 20)
-        # start = (int(page) - 1) * int(limit)
-        # end = int(page) * int(limit)
+
         if not query:
             return Response({'success':False,'msg':'暂无结果'})
         else:
             query_set = FastInfo.objects.filter(type=0,is_pub=True,translate__icontains=query).order_by('-VN_pub_date')
-            # fastinfo_result = query_set[start:end]
-            # return_list = list()
-            # for item in fastinfo_result:
-            #     result_dict = {
-            #         'pub_date':item.VN_pub_date,
-            #         'content':item.translate,
-            #         'is_important':item.is_important
-            #     }
-            #     return_list.append(result_dict)
+
             return render(request,'search.html',{'success':True,'num':len(query_set),'query':query})
 
 class SearchOffical(APIView):

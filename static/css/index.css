@@ -7,11 +7,11 @@
 }
 
 body {
-    zoom: 0.85;
+
     color: #fff;
     min-width: 1300px;
     overflow-x: scroll;
-    font-size: 14px;
+    font-size: 12px;
     background-color: #eeeff1;
 }
 
@@ -30,7 +30,7 @@ body {
 
 
 #nav {
-    height: 60px;
+    height: 50px;
 }
 
 .navbar {
@@ -51,7 +51,12 @@ body {
 
 #nav #navbarSupportedContent .nav-item {
     padding: 0 10px;
-    margin-left: 40px;
+    margin-left: 20px;
+    width: 50px;
+}
+
+#nav #navbarSupportedContent .nav-item:last-child {
+    width: 100px;
 }
 
 #nav .navbar-nav .active {
@@ -62,6 +67,7 @@ body {
     display: flex;
     align-items: center;
     border-bottom: 4px solid transparent;
+    justify-content: center;
 }
 
 #nav .nav-item a {
@@ -70,7 +76,6 @@ body {
 
 #nav .navbar-nav {
     height: 100%;
-    min-width: 540px;
 }
 
 #nav #navbarSupportedContent form {
@@ -79,6 +84,7 @@ body {
     align-items: center;
     flex-wrap: nowrap;
     border-bottom: 1px solid #eac863;
+    margin-left: 10px;
 }
 
 #nav #navbarSupportedContent form input {
@@ -112,8 +118,8 @@ body {
 
 .user-data .user-name {
     color: #eac863;
-    width: 100px;
-    padding: 0 1rem;
+    max-width: 100px;
+    padding: 0 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -365,12 +371,12 @@ body {
 }
 
 .icon-div {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1rem;
+    height: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0.625rem;
+    border-radius: 0.6rem;
     background-color: #2e3a4b;
 }
 
@@ -417,7 +423,7 @@ body {
 }
 
 .card-calendar-header {
-    height: 60px;
+    height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -451,9 +457,10 @@ body {
 .calendar-box {
     display: flex;
     flex-direction: column;
-    margin-top: 12px;
-    padding-bottom: 14px;
+    margin-top: 10px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #efefef;
+    font-size: 12px;
 }
 
 .exp {
@@ -793,14 +800,15 @@ textarea:focus {
 }
 
 .VN-input-icon-box {
-    height: 30px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
+    background-color: #ffffff;
 }
 
 .icon-box-1 {
-    background-color: #2e3b54;
+    background-color: #ffffff;
 }
 
 .icon-box-2 {
@@ -905,7 +913,7 @@ textarea:focus {
     background-color: #eb695e;
     color: white;
     height: 1.25rem;
-    line-height: 1.25;
+    /*line-height: 1.25;*/
     padding: 0 1.2rem;
     text-align: center;
 }
@@ -914,7 +922,7 @@ textarea:focus {
     background-color: #23c227;
     color: white;
     height: 1.25rem;
-    line-height: 1.25;
+    /*line-height: 1.25;*/
     padding: 0 1.2rem;
     text-align: center;
 }
@@ -923,7 +931,7 @@ textarea:focus {
     background-color: #ecbe1d;
     color: white;
     height: 1.25rem;
-    line-height: 1.25;
+    /*line-height: 1.25;*/
     padding: 0 1.2rem;
     text-align: center;
 }
@@ -932,7 +940,7 @@ textarea:focus {
     border: 1px solid #000000;
     color: #2e3b54;
     height: 1.25rem;
-    line-height: 1.25;
+    /*line-height: 1.25;*/
     padding: 0 1.2rem;
     text-align: center;
     white-space: nowrap;
@@ -1105,7 +1113,7 @@ textarea:focus {
 .footer-ad-right {
     color: #eac863;
     width: 20%;
-    padding: 1rem 0 1rem 2.5rem;
+    padding: 1rem 0 1rem 1.5rem;
 }
 
 .footer-ad-right h1 {
@@ -1164,8 +1172,8 @@ textarea:focus {
 .vote-choose {
     border: 1px solid #d7d7d7;
     font-size: 14px;
-    height: 2.5rem;
-    text-align: center;
+    min-height: 2.5rem;
+    text-align: left;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1185,6 +1193,7 @@ textarea:focus {
 
 .vote-choose-num {
     z-index: 2;
+    word-break: normal;
 }
 
 .vote-percent {
@@ -1494,7 +1503,7 @@ textarea:focus {
     border: 1px solid #2e3b54;
     display: flex;
     flex-direction: column;
-
+    padding-bottom: 10px;
 }
 
 .personal-info-header {
@@ -1786,7 +1795,7 @@ iframe img {
 
 .accept {
     text-align: center;
-    width: 300px;
+    width: 200px;
     height: 30px;
     margin: 20px 40px 10px;
     background-color: black;
@@ -1821,12 +1830,11 @@ iframe img {
 
 
 .delete-group {
-    text-align: center;
-    border: 1px solid black;
-    color: black;
-    border-radius: 8px;
-    width: 50px;
     cursor: pointer;
+}
+
+.delete-group img {
+    width: 30px;
 }
 
 .comment-text {
@@ -1834,17 +1842,11 @@ iframe img {
 }
 
 .delete-comment {
-    position: absolute;
-    right: 0;
-    /*top: 2.5px;*/
-    display: inline-block;
-    text-align: center;
-    border: 1px solid black;
-    color: black;
-    border-radius: 8px;
-    width: 50px;
     cursor: pointer;
-    font-size: smaller;
+}
+
+.delete-comment img {
+    width: 20px;
 }
 
 .black-box {
@@ -2115,17 +2117,14 @@ iframe img {
 }
 
 .delete-mycomment {
-    border-radius: 8px;
-    border: 1px solid black;
+
     cursor: pointer;
     margin-right: 10px;
-    text-align: center;
-    width: 50px;
-    height: 25px;
+
 }
 
-.delete-mycomment span {
-    line-height: 20px;
+.delete-mycomment img {
+    width: 30px;
 }
 
 .add-black-btn {
@@ -2227,7 +2226,7 @@ iframe img {
     padding: 0.5rem;
     border: 1px solid #2e3b5430;
     resize: none;
-    background-color: #f3f3f3;
+    background-color: #ffffff;
     height: 400px;
 }
 
@@ -2256,7 +2255,7 @@ iframe img {
 
 .index-textarea {
     background-color: white;
-    padding: 2rem;
+    padding: 2rem 1rem;
     border: 1px solid #2e3b5440;
     border-top: 5px solid #2e3b54;;
     text-align: center;
@@ -2380,7 +2379,8 @@ iframe img {
 }
 
 .group-textarea {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
+    border-bottom: 15px solid #eeeff1;
 }
 
 .global-top img, .global-top .mask {
@@ -2417,8 +2417,8 @@ iframe img {
 }
 
 .fast-6 > img {
-    width: 150px;
-    height: 120px;
+    width: 130px;
+    height: 100px;
 }
 
 .fast-11, .fast-16, .fast-21, .blog-ground-ad {
@@ -2446,7 +2446,7 @@ iframe img {
 }
 
 .cal-right-ad > img {
-    width: 380px;
+    width: 330px;
     height: 120px;
 }
 
@@ -2462,12 +2462,13 @@ iframe img {
     width: 100%;
 }
 
-#economicDataTable th, #economicDataTable td {
-    padding: 0.5rem;
-}
+/*#economicDataTable th, #economicDataTable td {*/
+/*    padding: 0.5rem;*/
+/*}*/
 
 #economicDataTable .th-inner {
-    padding: 0.5rem;
+    padding: 0.3rem;
+    white-space: pre-wrap;
 }
 
 .cal-impact {
@@ -2500,12 +2501,82 @@ iframe img {
     margin-bottom: 0;
 }
 
-.fastinfo-container, .group-content, .fbc-content, .sbc-content,.blog-content {
+.fastinfo-container, .group-content, .fbc-content, .sbc-content, .blog-content {
     white-space: pre-wrap;
 }
-.layui-layer-content{
+
+.layui-layer-content {
     color: black;
 }
-.layui-layer-btn1:hover{
+
+.layui-layer-btn1:hover {
     color: black;
+}
+
+.vote_icon {
+    width: 30px;
+}
+
+.table th, .table td {
+    padding: 0.7rem 0.3rem;
+}
+
+.index-group-submit-btn {
+    cursor: pointer;
+    margin-right: 1.5rem;
+}
+
+.large-input-image, .large-input-vote {
+    cursor: pointer;
+    background-color: #f8f8f8;
+    padding: 0.5rem;
+    border-radius: 20px;
+}
+
+.large-input-image img, .large-input-vote img, .group-input-image img, .group-input-vote img {
+    width: 30px;
+}
+
+.group-input-image, .group-input-vote {
+    cursor: pointer;
+    color: black;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    padding: 0.5rem;
+}
+
+#user-head-img-input {
+    visibility: hidden;
+    position: absolute;
+
+}
+
+.index-top-ad img {
+    width: 155px;
+    height: 120px;
+}
+
+
+/*             85%布局               */
+
+#main-index #main-left, #main-group #main-left {
+    width: 66%;
+}
+
+#main-left-data {
+    font-size: 12px;
+}
+
+#main-index #main-right, #main-group #main-right {
+    width: 33%;
+}
+
+.main-padding {
+    padding: 15px 15px 0 15px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: white;
+}
+
+.card-header {
+    padding: 0.75rem 0.5rem;
 }

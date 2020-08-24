@@ -14,11 +14,7 @@
 {% block body %}
     <div id="main" class="container">
         <div id="main-left" class="main-padding">
-            <div id="main-left-top">
-                {#            <div class="ad-1">#}
-                {#                <a href=""><img src="/static/ad/ad1.jpg" class="w-100"></a>#}
-                {#            </div>#}
-            </div>
+            <div id="main-left-top"></div>
             <div id="timeSelect">
             </div>
             <div id="main-left-data">
@@ -46,53 +42,18 @@
 
                 </div>
                 <div class="economicData">
-                    <table id="economicDataTable" style="min-width: 750px;"></table>
+                    <table id="economicDataTable" style="min-width: 680px;"></table>
                 </div>
                 <div class="main-calendar-title-left color-comment" style="margin: 1.875rem 0 1.25rem 0">
                     <span></span>
                     <span>Sự kiện kinh tế</span>
                 </div>
                 <div class="economicevent">
-                    <table id="economiceventTable" style="min-width: 750px"></table>
+                    <table id="economiceventTable" style="min-width: 680px"></table>
                 </div>
             </div>
         </div>
-        <div id="main-right">
-            {#        <div class="ad-1">#}
-            {#            <div>#}
-            {#                <img src="/static/ad/ad1.jpg" alt="">#}
-            {#            </div>#}
-            {##}
-            {#        </div>#}
-            {#        <div class="ad-1">#}
-            {#            <div>#}
-            {#                <img src="/static/ad/ad_group.jpg" alt="">#}
-            {#            </div>#}
-            {##}
-            {#        </div>#}
-            {#        <div class="ad-1">#}
-            {#            <div>#}
-            {#                <img src="/static/ad/ad_group.jpg" alt="">#}
-            {#            </div>#}
-            {##}
-            {#        </div>#}
-            {#        <div class="ad-2">#}
-            {#            <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad2.jpg" alt=""></div>#}
-            {#        </div>#}
-            {#        <div class="ad-3">#}
-            {#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad3.jpg" alt=""></div>#}
-            {#        </div>#}
-            {#        <div class="ad-4">#}
-            {#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
-            {#            <div><img src="/static/ad/ad4.jpg" alt=""></div>#}
-            {#        </div>#}
-
-        </div>
+        <div id="main-right"></div>
         <div class="global-left"></div>
         <div class="global-right"></div>
     </div>
@@ -117,12 +78,12 @@
             laydate.render({
                 elem: '#cal-date-choose',
                 trigger: 'click',
-                lang:'en',
+                lang: 'en',
 
                 done: function (value, date, endDate) {
                     search_date = value;
                     $('.main-calendar-title-left span:first-child').text(value)
-                    $('.calendar-title-left span:first-child' ).text(value)
+                    $('.calendar-title-left span:first-child').text(value)
                     $('#economicDataTable').bootstrapTable('refresh')
                 }
 
@@ -137,6 +98,11 @@
                     return {
                         'date': search_date,
                         'filter': filter,
+                    }
+                },
+                headerStyle:function(column){
+                    return {
+                        css:{'height':'60px'}
                     }
                 },
 
@@ -161,18 +127,22 @@
                     field: 'time',
                     title: 'Thời gian',
                     align: 'center',
-                    width: 50
+                    valign: 'middle',
+
                 }, {
                     field: 'area',
                     title: 'Khu vực',
                     align: 'center',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         return '<img src="/static/images/flag/' + row['area'] + '.png" class="flag" width="30" height="20" alt="">'
                     }
                 }, {
                     field: 'name',
-                    align: 'left',
                     title: 'Tên của dữ liệu',
+                    halign: 'center',
+                    align: 'left',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['name'] + '</span>'
@@ -185,6 +155,7 @@
                     field: 'star',
                     title: 'Quan trọng',
                     align: 'center',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             color = '#eb695e'
@@ -210,6 +181,7 @@
                     field: 'pre',
                     title: 'Trước đó',
                     align: 'center',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['pre'] + '</span>'
@@ -222,6 +194,7 @@
                     field: 'exp',
                     align: 'center',
                     title: 'Dự đoán',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['exp'] + '</span>'
@@ -234,6 +207,7 @@
                     field: 'act',
                     align: 'center',
                     title: 'Thực tế',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return '<span class="color-red">' + row['act'] + '</span>'
@@ -246,6 +220,7 @@
                     field: 'tag',
                     align: 'center',
                     title: 'Ảnh hưởng',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['tag'] == 1) {
                             return '<div class="bear">BEAR</div>'
@@ -264,6 +239,7 @@
                     field: 'action',
                     align: 'center',
                     title: 'Biểu đồ',
+                    valign: 'middle',
                     formatter: function (value, row, index) {
                         if (row['star'] >= 3) {
                             return "<a href='/calendarInfo/?id=" + row['id'] + "'><img src='/static/images/graph_red.png'></a>"
@@ -409,7 +385,7 @@
                 console.log('调用change')
                 search_date = $(this).val();
                 $('.main-calendar-title-left span:first-child').text(search_date)
-                $('.calendar-title-left span:first-child' ).text(search_date)
+                $('.calendar-title-left span:first-child').text(search_date)
                 $('#economicDataTable').bootstrapTable('refresh')
             })
 
