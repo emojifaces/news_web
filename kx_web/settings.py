@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': 'kuaixun',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '121.40.211.134',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
