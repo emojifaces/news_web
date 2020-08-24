@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'cal',
     'ad',
     'third',
-    # 'channels'
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -73,8 +73,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'kuaixun',
-        'USER': 'gazrey',
-        'PASSWORD': '123456',
+        'USER': 'root',
+        'PASSWORD': 'root',
         'HOST': '121.40.211.134',
         'PORT': '3306',
     }
@@ -138,19 +138,19 @@ REST_FRAMEWORK = {
 SOCIAL_AUTH_FACEBOOK_KEY = '394220287958534'
 SOCIAL_AUTH_FACEBOOK_SECRET = '8c83164b850be7c964c200fff1d9dea3'
 
-# SOCIAL_AUTH_GOOGLE_KEY = '1094797449963-8h30k5v064h5idmpsn96e34hrhfsa181.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_SECRET = '5GR_JCOCaLezKJdOJjxQS6UM'
+SOCIAL_AUTH_GOOGLE_KEY = '1094797449963-8h30k5v064h5idmpsn96e34hrhfsa181.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_SECRET = '5GR_JCOCaLezKJdOJjxQS6UM'
 
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
-# ASGI_APPLICATION = 'kx_web.routing.application'
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": ['redis://127.0.0.1:6379/6'],
-#             "capacity": 1000000,
-#             "expiry": 10
-#         },
-#     },
-# }
+ASGI_APPLICATION = 'kx_web.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ['redis://127.0.0.1:6379/6'],
+            "capacity": 1000000,
+            "expiry": 10
+        },
+    },
+}
