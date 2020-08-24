@@ -42,7 +42,7 @@ window.onload = function () {
 
             console.log('websocket数据：', message)
             // message = JSON.parse(message);
-            let container = $('.timeLine')
+            let container = $('#main-left-data')
 
 
             let div = $('<div class="main-data-div color-comment"></div>')
@@ -377,7 +377,7 @@ window.onload = function () {
                 info.append(blog_container)
             }
 
-            container.after(div)
+            container.append(div)
             if (getCookie('onSound') == 'false') {
                 return null
             } else {
