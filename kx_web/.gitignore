@@ -108,5 +108,5 @@ venv.bak/
 # Pycharm Solution
 .idea/
 media/
-!/gazrey_enroll/settings.py
+!/kx_web/settings.py
 /log/
