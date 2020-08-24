@@ -377,7 +377,7 @@ window.onload = function () {
                 info.append(blog_container)
             }
 
-            container.append(div)
+            container.prepend(div)
             if (getCookie('onSound') == 'false') {
                 return null
             } else {
